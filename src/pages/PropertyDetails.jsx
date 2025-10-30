@@ -29,8 +29,8 @@ const PropertyDetails = () => {
   const property = {
     id: 1,
     title: '3BHK Luxury Apartment',
-    location: 'Bandra West, Mumbai',
-    price: 2500000,
+    location: 'Koramangala, Bangalore',
+    price: 1800000,
     type: 'sale',
     bedrooms: 3,
     bathrooms: 2,
@@ -43,29 +43,29 @@ const PropertyDetails = () => {
       'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800',
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800'
     ],
-    description: 'Stunning 3BHK luxury apartment in the heart of Bandra West. This premium property offers modern amenities, excellent connectivity, and breathtaking views. Perfect for families looking for comfort and convenience.',
+    description: 'Stunning 3BHK luxury apartment in the heart of Koramangala. This premium property offers modern amenities, excellent connectivity to IT hubs, and beautiful city views. Perfect for IT professionals and families looking for comfort and convenience.',
     amenities: [
       'Swimming Pool', 'Gym', 'Parking', 'Security', 'Garden', 
       'Elevator', 'Power Backup', 'Water Supply', 'Internet', 'AC'
     ],
     features: {
-      floor: '12th Floor',
-      facing: 'North-East',
+      floor: '8th Floor',
+      facing: 'East',
       furnished: 'Semi-Furnished',
-      age: '2 years',
+      age: '3 years',
       parking: '2 Covered'
     },
     owner: {
-      name: 'Rajesh Sharma',
+      name: 'Priya Krishnan',
       phone: '+91 98765 43210',
-      email: 'rajesh@email.com',
+      email: 'priya@email.com',
       verified: true
     },
     nearbyPlaces: [
-      { name: 'Bandra Station', distance: '0.5 km', type: 'Transport' },
-      { name: 'Linking Road', distance: '0.8 km', type: 'Shopping' },
-      { name: 'Lilavati Hospital', distance: '1.2 km', type: 'Healthcare' },
-      { name: 'St. Andrews School', distance: '0.7 km', type: 'Education' }
+      { name: 'Koramangala Metro', distance: '0.3 km', type: 'Transport' },
+      { name: 'Forum Mall', distance: '0.5 km', type: 'Shopping' },
+      { name: 'Manipal Hospital', distance: '0.8 km', type: 'Healthcare' },
+      { name: 'National Public School', distance: '0.6 km', type: 'Education' }
     ]
   }
 

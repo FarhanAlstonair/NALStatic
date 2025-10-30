@@ -1,17 +1,19 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin, Bed, Bath, Square, Heart, Share2, Filter } from 'lucide-react'
+import { useFavorites } from '../context/FavoritesContext'
 
 const PropertyListing = () => {
   const [activeTab, setActiveTab] = useState('all')
   const [showFilters, setShowFilters] = useState(false)
+  const { toggleFavorite, isFavorite } = useFavorites()
 
   const properties = [
     {
       id: 1,
       title: '3BHK Luxury Apartment',
-      location: 'Bandra West, Mumbai',
-      price: '₹2.5 Cr',
+      location: 'Koramangala, Bangalore',
+      price: '₹1.8 Cr',
       type: 'sale',
       bedrooms: 3,
       bathrooms: 2,
@@ -23,8 +25,8 @@ const PropertyListing = () => {
     {
       id: 2,
       title: '2BHK Modern Flat',
-      location: 'Koramangala, Bangalore',
-      price: '₹45,000/month',
+      location: 'Indiranagar, Bangalore',
+      price: '₹35,000/month',
       type: 'rent',
       bedrooms: 2,
       bathrooms: 2,
@@ -36,8 +38,8 @@ const PropertyListing = () => {
     {
       id: 3,
       title: 'Commercial Office Space',
-      location: 'Cyber City, Gurgaon',
-      price: '₹1.2 Cr',
+      location: 'Whitefield, Bangalore',
+      price: '₹85,000/month',
       type: 'lease',
       bedrooms: 0,
       bathrooms: 2,
@@ -49,8 +51,8 @@ const PropertyListing = () => {
     {
       id: 4,
       title: '4BHK Villa',
-      location: 'Whitefield, Bangalore',
-      price: '₹3.8 Cr',
+      location: 'HSR Layout, Bangalore',
+      price: '₹2.8 Cr',
       type: 'sale',
       bedrooms: 4,
       bathrooms: 3,
@@ -62,8 +64,8 @@ const PropertyListing = () => {
     {
       id: 5,
       title: '1BHK Studio Apartment',
-      location: 'Andheri East, Mumbai',
-      price: '₹28,000/month',
+      location: 'Koramangala, Bangalore',
+      price: '₹22,000/month',
       type: 'rent',
       bedrooms: 1,
       bathrooms: 1,
@@ -75,8 +77,8 @@ const PropertyListing = () => {
     {
       id: 6,
       title: 'Retail Shop Space',
-      location: 'Connaught Place, Delhi',
-      price: '₹80,000/month',
+      location: 'Indiranagar, Bangalore',
+      price: '₹65,000/month',
       type: 'lease',
       bedrooms: 0,
       bathrooms: 1,
@@ -84,6 +86,32 @@ const PropertyListing = () => {
       image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400',
       verified: false,
       riblScore: 65
+    },
+    {
+      id: 7,
+      title: '3BHK Premium Flat',
+      location: 'Whitefield, Bangalore',
+      price: '₹2.2 Cr',
+      type: 'sale',
+      bedrooms: 3,
+      bathrooms: 3,
+      area: 1400,
+      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400',
+      verified: true,
+      riblScore: 88
+    },
+    {
+      id: 8,
+      title: '2BHK Garden View',
+      location: 'HSR Layout, Bangalore',
+      price: '₹28,000/month',
+      type: 'rent',
+      bedrooms: 2,
+      bathrooms: 2,
+      area: 1100,
+      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400',
+      verified: true,
+      riblScore: 82
     }
   ]
 
@@ -117,8 +145,11 @@ const PropertyListing = () => {
           </span>
         </div>
         <div className="absolute top-3 right-3 flex space-x-2">
-          <button className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50">
-            <Heart className="w-4 h-4 text-gray-600" />
+          <button 
+            onClick={() => toggleFavorite(property)}
+            className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50"
+          >
+            <Heart className={`w-4 h-4 ${isFavorite(property.id) ? 'text-red-500 fill-red-500' : 'text-gray-600'}`} />
           </button>
           <button className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50">
             <Share2 className="w-4 h-4 text-gray-600" />
@@ -245,11 +276,11 @@ const PropertyListing = () => {
                 Location
               </label>
               <select className="input-field">
-                <option>All Locations</option>
-                <option>Mumbai</option>
-                <option>Bangalore</option>
-                <option>Delhi</option>
-                <option>Gurgaon</option>
+                <option>All Areas</option>
+                <option>Koramangala</option>
+                <option>Indiranagar</option>
+                <option>Whitefield</option>
+                <option>HSR Layout</option>
               </select>
             </div>
             <div>

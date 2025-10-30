@@ -8,9 +8,10 @@ const PropertySearch = () => {
   const [map, setMap] = useState(null)
 
   const propertyLocations = [
-    { lat: 19.0596, lng: 72.8295, title: 'Bandra West Property', price: '₹4.5Cr' },
-    { lat: 12.9716, lng: 77.5946, title: 'Koramangala Property', price: '₹3.8Cr' },
-    { lat: 28.4595, lng: 77.0266, title: 'Gurgaon Property', price: '₹2.2Cr' }
+    { lat: 12.9352, lng: 77.6245, title: 'Koramangala Property', price: '₹1.8Cr' },
+    { lat: 12.9784, lng: 77.6408, title: 'Indiranagar Property', price: '₹2.2Cr' },
+    { lat: 12.9698, lng: 77.7500, title: 'Whitefield Property', price: '₹2.8Cr' },
+    { lat: 12.9116, lng: 77.6473, title: 'HSR Layout Property', price: '₹2.5Cr' }
   ]
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const PropertySearch = () => {
     if (window.google) {
       const mapInstance = new window.google.maps.Map(document.getElementById('google-map'), {
         zoom: 6,
-        center: { lat: 20.5937, lng: 78.9629 }, // Center of India
+        center: { lat: 12.9716, lng: 77.5946 }, // Center of Bangalore
         styles: [
           {
             featureType: 'poi',
@@ -102,24 +103,26 @@ const PropertySearch = () => {
   ]
 
   const popularSearches = [
-    '3BHK in Mumbai',
-    '2BHK for rent in Bangalore',
-    'Office space in Gurgaon',
-    'Villa in Pune',
-    'Commercial space in Delhi'
+    '3BHK in Koramangala',
+    '2BHK for rent in Indiranagar',
+    'Office space in Whitefield',
+    'Villa in HSR Layout',
+    'Commercial space in Koramangala'
   ]
 
   const recentSearches = [
-    'Apartment in Bandra',
-    'Office in Cyber City',
-    '2BHK in Koramangala'
+    'Apartment in Koramangala',
+    'Office in Whitefield',
+    '2BHK in Indiranagar'
   ]
 
   const searchSuggestions = [
-    { type: 'location', text: 'Bandra West, Mumbai', count: '1,234 properties' },
     { type: 'location', text: 'Koramangala, Bangalore', count: '856 properties' },
-    { type: 'property', text: '3BHK Apartment', count: '2,145 properties' },
-    { type: 'property', text: 'Commercial Office', count: '567 properties' }
+    { type: 'location', text: 'Indiranagar, Bangalore', count: '742 properties' },
+    { type: 'location', text: 'Whitefield, Bangalore', count: '623 properties' },
+    { type: 'location', text: 'HSR Layout, Bangalore', count: '489 properties' },
+    { type: 'property', text: '3BHK Apartment', count: '1,245 properties' },
+    { type: 'property', text: 'Commercial Office', count: '367 properties' }
   ]
 
   return (

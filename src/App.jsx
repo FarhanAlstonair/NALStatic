@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
+import { FavoritesProvider } from './context/FavoritesContext'
 import Home from './pages/Home'
 import PropertyListing from './pages/PropertyListing'
 import DocumentVerification from './pages/DocumentVerification'
@@ -20,27 +21,29 @@ import PostProperty from './pages/PostProperty'
 
 function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/properties" element={<PropertyListing />} />
-        <Route path="/verify" element={<DocumentVerification />} />
-        <Route path="/search" element={<PropertySearch />} />
-        <Route path="/profile" element={<UserProfile />} />
-        <Route path="/bidding" element={<Bidding />} />
-        <Route path="/compare" element={<PropertyComparison />} />
-        <Route path="/loan-calculator" element={<LoanCalculator />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/ai-recommendations" element={<AIRecommendations />} />
-        <Route path="/competitor-analytics" element={<CompetitorAnalytics />} />
-        <Route path="/price-prediction" element={<PricePrediction />} />
-        <Route path="/geo-analysis" element={<GeoDemographicAnalysis />} />
-        <Route path="/ar-tours" element={<ARPropertyTours />} />
-        <Route path="/property/:id" element={<PropertyDetails />} />
-        <Route path="/post-property" element={<PostProperty />} />
-      </Routes>
-    </Layout>
+    <FavoritesProvider>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/properties" element={<PropertyListing />} />
+          <Route path="/verify" element={<DocumentVerification />} />
+          <Route path="/search" element={<PropertySearch />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/bidding" element={<Bidding />} />
+          <Route path="/compare" element={<PropertyComparison />} />
+          <Route path="/loan-calculator" element={<LoanCalculator />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/ai-recommendations" element={<AIRecommendations />} />
+          <Route path="/competitor-analytics" element={<CompetitorAnalytics />} />
+          <Route path="/price-prediction" element={<PricePrediction />} />
+          <Route path="/geo-analysis" element={<GeoDemographicAnalysis />} />
+          <Route path="/ar-tours" element={<ARPropertyTours />} />
+          <Route path="/property/:id" element={<PropertyDetails />} />
+          <Route path="/post-property" element={<PostProperty />} />
+        </Routes>
+      </Layout>
+    </FavoritesProvider>
   )
 }
 

@@ -15,10 +15,13 @@ import {
   Save,
   X
 } from 'lucide-react'
+import { useFavorites } from '../context/FavoritesContext'
+import { Link } from 'react-router-dom'
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState('profile')
   const [isEditing, setIsEditing] = useState(false)
+  const { favorites, removeFromFavorites } = useFavorites()
   const [profileData, setProfileData] = useState({
     name: 'Rajesh Kumar',
     email: 'rajesh.kumar@email.com',
@@ -58,22 +61,7 @@ const UserProfile = () => {
     }
   ]
 
-  const favoriteProperties = [
-    {
-      id: 1,
-      title: '3BHK Villa in Pune',
-      location: 'Koregaon Park, Pune',
-      price: '₹2.8 Cr',
-      image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=300'
-    },
-    {
-      id: 2,
-      title: 'Luxury Apartment',
-      location: 'Worli, Mumbai',
-      price: '₹3.5 Cr',
-      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=300'
-    }
-  ]
+
 
   const recentActivity = [
     { action: 'Viewed property', item: '3BHK Apartment in Andheri', time: '2 hours ago' },
@@ -288,26 +276,47 @@ const UserProfile = () => {
     <div className="space-y-6">
       <h3 className="text-lg font-semibold text-gray-900">Favorite Properties</h3>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {favoriteProperties.map(property => (
-          <div key={property.id} className="card">
-            <img
-              src={property.image}
-              alt={property.title}
-              className="w-full h-48 object-cover rounded-lg mb-4"
-            />
-            <h4 className="font-medium text-gray-900 mb-1">{property.title}</h4>
-            <div className="flex items-center text-gray-600 text-sm mb-2">
-              <MapPin className="w-4 h-4 mr-1" />
-              {property.location}
+      {favorites.length === 0 ? (
+        <div className="card text-center py-12">
+          <Heart className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+          <h4 className="text-lg font-medium text-gray-900 mb-2">No favorites yet</h4>
+          <p className="text-gray-600 mb-4">Start adding properties to your favorites to see them here</p>
+          <Link to="/properties" className="btn-primary">
+            Browse Properties
+          </Link>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {favorites.map(property => (
+            <div key={property.id} className="card">
+              <div className="relative">
+                <img
+                  src={property.image}
+                  alt={property.title}
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+                <button
+                  onClick={() => removeFromFavorites(property.id)}
+                  className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50"
+                >
+                  <Heart className="w-4 h-4 text-red-500 fill-red-500" />
+                </button>
+              </div>
+              <h4 className="font-medium text-gray-900 mb-1">{property.title}</h4>
+              <div className="flex items-center text-gray-600 text-sm mb-2">
+                <MapPin className="w-4 h-4 mr-1" />
+                {property.location}
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-lg font-bold text-primary-600">{property.price}</span>
+                <Link to={`/property/${property.id}`} className="btn-secondary text-sm">
+                  View Details
+                </Link>
+              </div>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-lg font-bold text-primary-600">{property.price}</span>
-              <button className="btn-secondary text-sm">View Details</button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 
