@@ -164,45 +164,60 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link to="/verify" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <Link to="/verify" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary-500 group">
               <div className="text-center">
                 <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <FileCheck className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary-600">
                   Verify Documents
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 group-hover:text-gray-700">
                   Upload and verify property documents instantly
                 </p>
+                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="inline-block bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium">
+                    Click to Verify →
+                  </span>
+                </div>
               </div>
             </Link>
 
-            <Link to="/search" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <Link to="/search" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary-500 group">
               <div className="text-center">
                 <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Search className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary-600">
                   Search Properties
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 group-hover:text-gray-700">
                   Find your perfect property with smart filters
                 </p>
+                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="inline-block bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium">
+                    Click to Search →
+                  </span>
+                </div>
               </div>
             </Link>
 
-            <Link to="/properties" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <Link to="/post-property" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary-500 group">
               <div className="text-center">
                 <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Building className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary-600">
                   List Property
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 group-hover:text-gray-700">
                   Post your property for sale, rent, or lease
                 </p>
+                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="inline-block bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium">
+                    Click to List →
+                  </span>
+                </div>
               </div>
             </Link>
           </div>
@@ -221,45 +236,60 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Link to="/bidding" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+          <Link to="/bidding" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary-500 group relative">
             <div className="text-center">
               <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Gavel className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary-600">
                 Property Bidding
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 group-hover:text-gray-700">
                 Participate in live property auctions and get the best deals
               </p>
+              <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="inline-block bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium">
+                  Click to Explore →
+                </span>
+              </div>
             </div>
           </Link>
 
-          <Link to="/compare" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+          <Link to="/compare" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary-500 group relative">
             <div className="text-center">
               <div className="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <GitCompare className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary-600">
                 Compare Properties
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 group-hover:text-gray-700">
                 Compare multiple properties side by side to make informed decisions
               </p>
+              <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="inline-block bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium">
+                  Click to Compare →
+                </span>
+              </div>
             </div>
           </Link>
 
-          <Link to="/loan-calculator" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+          <Link to="/loan-calculator" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary-500 group relative">
             <div className="text-center">
               <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Calculator className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary-600">
                 Loan Calculator
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 group-hover:text-gray-700">
                 Calculate EMI, eligibility, and plan your home loan effectively
               </p>
+              <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="inline-block bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium">
+                  Click to Calculate →
+                </span>
+              </div>
             </div>
           </Link>
         </div>

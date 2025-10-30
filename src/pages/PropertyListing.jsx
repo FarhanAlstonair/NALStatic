@@ -193,36 +193,46 @@ const PropertyListing = () => {
             Discover verified properties for sale, rent, and lease
           </p>
         </div>
-        <button className="btn-primary mt-4 sm:mt-0">
+        <Link to="/post-property" className="btn-primary mt-4 sm:mt-0">
           Post Property
-        </button>
+        </Link>
       </div>
 
-      {/* Tabs */}
-      <div className="flex flex-wrap items-center justify-between mb-6">
-        <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                activeTab === tab.id
-                  ? 'bg-white text-primary-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              {tab.label} ({tab.count})
-            </button>
-          ))}
-        </div>
+      {/* Tabs and Controls */}
+      <div className="card mb-6">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeTab === tab.id
+                    ? 'bg-white text-primary-600 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                {tab.label} ({tab.count})
+              </button>
+            ))}
+          </div>
 
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          className="btn-secondary"
-        >
-          <Filter className="w-4 h-4 mr-2" />
-          Filters
-        </button>
+          <div className="flex items-center space-x-3">
+            <select className="input-field w-auto">
+              <option>Sort by: Newest</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>RIBL Score</option>
+            </select>
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="btn-secondary"
+            >
+              <Filter className="w-4 h-4 mr-2" />
+              Filters
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Filters */}
@@ -282,16 +292,10 @@ const PropertyListing = () => {
       )}
 
       {/* Results Count */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6">
         <p className="text-gray-600">
           Showing {filteredProperties.length} properties
         </p>
-        <select className="input-field w-auto">
-          <option>Sort by: Newest</option>
-          <option>Price: Low to High</option>
-          <option>Price: High to Low</option>
-          <option>RIBL Score</option>
-        </select>
       </div>
 
       {/* Property Grid */}

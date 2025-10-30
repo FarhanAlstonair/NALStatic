@@ -16,6 +16,7 @@ import PricePrediction from './pages/PricePrediction'
 import GeoDemographicAnalysis from './pages/GeoDemographicAnalysis'
 import ARPropertyTours from './pages/ARPropertyTours'
 import PropertyDetails from './pages/PropertyDetails'
+import PostProperty from './pages/PostProperty'
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/geo-analysis" element={<GeoDemographicAnalysis />} />
         <Route path="/ar-tours" element={<ARPropertyTours />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
+        <Route path="/post-property" element={<PostProperty />} />
       </Routes>
     </Layout>
   )

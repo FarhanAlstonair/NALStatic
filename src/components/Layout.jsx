@@ -18,6 +18,11 @@ const Layout = ({ children }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
+
   const navigation = [
     {
       name: 'Properties',
