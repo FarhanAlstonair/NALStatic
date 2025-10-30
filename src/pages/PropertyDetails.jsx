@@ -272,20 +272,23 @@ const PropertyDetails = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-2">
-                <button className="btn-primary text-sm py-2">
-                  <Phone className="w-4 h-4 mr-1" />
-                  Call
-                </button>
-                <button className="btn-secondary text-sm py-2">
-                  <Mail className="w-4 h-4 mr-1" />
-                  Message
-                </button>
-                <button className="btn-secondary text-sm py-2">
-                  <Calendar className="w-4 h-4 mr-1" />
-                  Visit
-                </button>
-              </div>
+             
+
+
+<div className="grid grid-cols-1 gap-2">
+  <button className="btn-primary text-sm py-3 w-full flex justify-center items-center rounded-md">
+    {/* <Phone className="w-5 h-5 mr-2" />  */}
+    Call
+  </button>
+  <button className="btn-secondary text-sm py-3 w-full flex justify-center items-center rounded-md">
+    {/* <Mail className="w-5 h-5 mr-2" /> */}
+     Message
+  </button>
+  <button className="btn-secondary text-sm py-3 w-full flex justify-center items-center rounded-md">
+    {/* <Calendar className="w-5 h-5 mr-2" /> */}
+    Schedule a Visit
+  </button>
+</div>
             </div>
 
             {/* Quick Actions */}
