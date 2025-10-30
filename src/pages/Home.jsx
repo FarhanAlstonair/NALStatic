@@ -308,7 +308,7 @@ const Home = () => {
             <p className="text-lg mb-8 text-blue-200">
               Built on Alstonair's enterprise-grade technology platform
             </p>
-            <Link to="/profile" className="btn-primary bg-white text-primary-600 hover:bg-gray-100">
+            <Link to="/signup" className="btn-primary bg-white text-primary-600 hover:bg-gray-100">
               Create Account
             </Link>
           </div>

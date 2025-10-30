@@ -18,6 +18,8 @@ import GeoDemographicAnalysis from './pages/GeoDemographicAnalysis'
 import ARPropertyTours from './pages/ARPropertyTours'
 import PropertyDetails from './pages/PropertyDetails'
 import PostProperty from './pages/PostProperty'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
           <Route path="/ar-tours" element={<ARPropertyTours />} />
           <Route path="/property/:id" element={<PropertyDetails />} />
           <Route path="/post-property" element={<PostProperty />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </Layout>
     </FavoritesProvider>

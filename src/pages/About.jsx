@@ -152,7 +152,7 @@ const About = () => {
           Join thousands of users who trust NAL India for their property needs.
         </p>
         <div className="space-x-4">
-          <a href="/contact" className="btn-primary">
+          <a href="/signup" className="btn-primary">
             Get Started
           </a>
           <a href="/properties" className="btn-secondary">

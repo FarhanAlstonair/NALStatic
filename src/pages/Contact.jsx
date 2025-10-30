@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, Send, FileCheck, Building, Calculator } from 'lucide-react'
 import { useState } from 'react'
 
 const Contact = () => {
@@ -26,95 +26,65 @@ const Contact = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
       <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Contact Us
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Get in Touch
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Get in touch with our team. We're here to help you with all your property verification and real estate needs.
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Have questions about our platform? Need help with property verification? 
+          We're here to assist you every step of the way.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* Contact Information */}
-        <div className="lg:col-span-1 space-y-8">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h2>
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-primary-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Email</h3>
-                  <p className="text-gray-600">info@alstonair.com</p>
-                  <p className="text-gray-600">support@nalindia.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                  <Phone className="w-6 h-6 text-primary-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Phone</h3>
-                  <p className="text-gray-600">+91 80684 47416</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-primary-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Address</h3>
-                  <p className="text-gray-600">
-                    Alstonair Technologies<br />
-                    #28 Third floor MCHS Layout<br />
-                    KV Jayaram Road, Jakkur<br />
-                    Bangalore 560064<br />
-                    India
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                  <Clock className="w-6 h-6 text-primary-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Business Hours</h3>
-                  <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
-                  <p className="text-gray-600">Saturday: 10:00 AM - 4:00 PM</p>
-                  <p className="text-gray-600">Sunday: Closed</p>
-                </div>
-              </div>
-            </div>
+      {/* Contact Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="card text-center hover:shadow-lg transition-shadow">
+          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Mail className="w-8 h-8 text-blue-600" />
           </div>
-
-          {/* Alston Air Link */}
-          <div className="card bg-primary-50 border-primary-200">
-            <h3 className="font-semibold text-gray-900 mb-3">About Alstonair</h3>
-            <p className="text-gray-600 mb-4">
-              NAL India is powered by Alstonair Technologies, empowering businesses with intelligent software solutions that drive innovation, efficiency, and growth across multiple industries.
-            </p>
-            <a 
-              href="https://alstonair.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="btn-primary text-sm"
-            >
-              Visit Alstonair
-            </a>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Email Us</h3>
+          <p className="text-gray-600 mb-3">Send us an email anytime</p>
+          <div className="space-y-1">
+            <p className="text-sm text-gray-700 font-medium">info@alstonair.com</p>
+            <p className="text-sm text-gray-700 font-medium">support@nalindia.com</p>
           </div>
         </div>
 
+        <div className="card text-center hover:shadow-lg transition-shadow">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Phone className="w-8 h-8 text-green-600" />
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Call Us</h3>
+          <p className="text-gray-600 mb-3">Mon-Fri 9AM-6PM IST</p>
+          <p className="text-lg font-semibold text-gray-900">+91 80684 47416</p>
+        </div>
+
+        <div className="card text-center hover:shadow-lg transition-shadow">
+          <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <MapPin className="w-8 h-8 text-purple-600" />
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Visit Us</h3>
+          <p className="text-gray-600 mb-3">Our office in Bangalore</p>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            #28 Third floor MCHS Layout<br />
+            KV Jayaram Road, Jakkur<br />
+            Bangalore 560064
+          </p>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Contact Form */}
-        <div className="lg:col-span-2">
+        <div className="order-2 lg:order-1">
           <div className="card">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">Send us a Message</h2>
+              <p className="text-gray-600">Fill out the form below and we'll get back to you within 24 hours.</p>
+            </div>
+            
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -199,7 +169,7 @@ const Contact = () => {
               </div>
 
               <div>
-                <button type="submit" className="btn-primary">
+                <button type="submit" className="btn-primary w-full md:w-auto">
                   <Send className="w-4 h-4 mr-2" />
                   Send Message
                 </button>
@@ -207,40 +177,111 @@ const Contact = () => {
             </form>
           </div>
         </div>
+
+        {/* Additional Info */}
+        <div className="order-1 lg:order-2 space-y-8">
+          {/* Business Hours */}
+          <div className="card">
+            <div className="flex items-center mb-4">
+              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                <Clock className="w-6 h-6 text-orange-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">Business Hours</h3>
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Monday - Friday</span>
+                <span className="font-medium text-gray-900">9:00 AM - 6:00 PM</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Saturday</span>
+                <span className="font-medium text-gray-900">10:00 AM - 4:00 PM</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Sunday</span>
+                <span className="font-medium text-gray-900">Closed</span>
+              </div>
+            </div>
+          </div>
+
+          {/* About Alstonair */}
+          <div className="card bg-gradient-to-br from-primary-50 to-blue-50 border-primary-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">About Alstonair</h3>
+            <p className="text-gray-700 mb-4 leading-relaxed">
+              NAL India is powered by Alstonair Technologies, empowering businesses with intelligent software solutions that drive innovation, efficiency, and growth across multiple industries.
+            </p>
+            <a 
+              href="https://alstonair.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="btn-primary text-sm inline-flex items-center"
+            >
+              Visit Alstonair
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+
+          {/* Quick Links */}
+          <div className="card">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
+            <div className="space-y-3">
+              <a href="/verify" className="flex items-center text-gray-600 hover:text-primary-600 transition-colors">
+                <FileCheck className="w-4 h-4 mr-3" />
+                Document Verification
+              </a>
+              <a href="/properties" className="flex items-center text-gray-600 hover:text-primary-600 transition-colors">
+                <Building className="w-4 h-4 mr-3" />
+                Browse Properties
+              </a>
+              <a href="/loan-calculator" className="flex items-center text-gray-600 hover:text-primary-600 transition-colors">
+                <Calculator className="w-4 h-4 mr-3" />
+                Loan Calculator
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* FAQ Section */}
-      <div className="mt-16">
-        <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-          Frequently Asked Questions
-        </h2>
+      <div className="mt-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Find answers to common questions about our platform and services
+          </p>
+        </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="card">
-            <h3 className="font-semibold text-gray-900 mb-3">How does document verification work?</h3>
-            <p className="text-gray-600">
+          <div className="card hover:shadow-lg transition-shadow">
+            <h3 className="font-semibold text-gray-900 mb-3 text-lg">How does document verification work?</h3>
+            <p className="text-gray-600 leading-relaxed">
               Our AI-powered system analyzes your property documents using advanced algorithms to verify authenticity, 
               completeness, and legal compliance within minutes.
             </p>
           </div>
-          <div className="card">
-            <h3 className="font-semibold text-gray-900 mb-3">Is my data secure?</h3>
-            <p className="text-gray-600">
-              Yes, we use enterprise-grade security measures. All documents are processed securely and deleted after 
-              verification. We never store your sensitive information.
+          <div className="card hover:shadow-lg transition-shadow">
+            <h3 className="font-semibold text-gray-900 mb-3 text-lg">Is my data secure?</h3>
+            <p className="text-gray-600 leading-relaxed">
+              Yes, we use enterprise-grade security measures. All documents are processed securely and deleted after verification. 
+              Your privacy is our top priority.
             </p>
           </div>
-          <div className="card">
-            <h3 className="font-semibold text-gray-900 mb-3">What types of properties do you support?</h3>
-            <p className="text-gray-600">
-              We support residential, commercial, and industrial properties across India, including apartments, 
-              villas, offices, retail spaces, and land parcels.
+          <div className="card hover:shadow-lg transition-shadow">
+            <h3 className="font-semibold text-gray-900 mb-3 text-lg">What types of properties can I list?</h3>
+            <p className="text-gray-600 leading-relaxed">
+              You can list residential, commercial, and industrial properties for sale, rent, or lease. 
+              Our platform supports all property types across Bangalore.
             </p>
           </div>
-          <div className="card">
-            <h3 className="font-semibold text-gray-900 mb-3">How can I list my property?</h3>
-            <p className="text-gray-600">
-              Simply create an account, verify your documents, and use our property listing tool. Our team will 
-              review and publish your listing within 24 hours.
+          <div className="card hover:shadow-lg transition-shadow">
+            <h3 className="font-semibold text-gray-900 mb-3 text-lg">How accurate are the RIBL scores?</h3>
+            <p className="text-gray-600 leading-relaxed">
+              Our RIBL scoring system uses multiple data points and AI analysis to provide highly accurate property 
+              quality assessments with over 95% reliability.
             </p>
           </div>
         </div>
