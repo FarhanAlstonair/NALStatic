@@ -357,7 +357,7 @@ const Home = () => {
               {isAuthenticated ? 'Explore Properties' : 'Get Started Today'}
             </Link>
           </div>
-        </div>
+        </div>  
       </section>
     </div>
   )
