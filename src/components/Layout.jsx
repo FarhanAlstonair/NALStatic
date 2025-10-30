@@ -119,14 +119,13 @@ const Layout = ({ children }) => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+      <header className="bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-3 group">
-                <img src="/src/assets/logo.jpg" alt="NAL India" className="w-9 h-9 rounded-lg shadow-sm" />
-                <span className="text-xl font-semibold text-gray-900 tracking-tight">NAL India</span>
+              <Link to="/" className="flex items-center group">
+                <img src="/src/assets/logo.jpg" alt="NAL" className="w-12 h-12 rounded-xl shadow-md" />
               </Link>
             </div>
 
@@ -384,40 +383,60 @@ const Layout = ({ children }) => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-100 mt-auto">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <footer className="bg-slate-900 text-white mt-auto">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="md:col-span-2">
-              <div className="flex items-center space-x-3 mb-4">
-                <img src="/src/assets/logo.jpg" alt="NAL India" className="w-8 h-8 rounded-lg" />
-                <span className="text-lg font-semibold text-gray-900">NAL India</span>
+              <div className="flex items-center space-x-3 mb-6">
+                <img src="/src/assets/logo.jpg" alt="NAL" className="w-12 h-12 rounded-xl shadow-lg" />
+                <span className="text-3xl font-bold text-white">NAL</span>
               </div>
-              <p className="text-gray-600 mb-4">
-                Powered by Alstonair - Your trusted partner in property verification and real estate solutions.
+              <p className="text-gray-300 mb-6 text-lg leading-relaxed">
+                Powered by Alstonair - Your trusted partner in property verification and real estate solutions across India.
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-gray-400">
                 A product of Alstonair Technologies
               </p>
+              <div className="flex space-x-4 mt-6">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors cursor-pointer">
+                  <span className="text-white font-bold">f</span>
+                </div>
+                <div className="w-10 h-10 bg-blue-400 rounded-lg flex items-center justify-center hover:bg-blue-500 transition-colors cursor-pointer">
+                  <span className="text-white font-bold">t</span>
+                </div>
+                <a href="https://www.linkedin.com/company/alstonair-technologies-private-limited/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-blue-700 rounded-lg flex items-center justify-center hover:bg-blue-800 transition-colors">
+                  <span className="text-white font-bold">in</span>
+                </a>
+              </div>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900 mb-3">Company</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li><Link to="/about" className="hover:text-primary-600">About Us</Link></li>
-                <li><Link to="/contact" className="hover:text-primary-600">Contact</Link></li>
-                <li><a href="https://alstonair.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary-600">Alstonair</a></li>
+              <h3 className="font-bold text-white mb-6 text-lg">Company</h3>
+              <ul className="space-y-4">
+                <li><Link to="/about" className="text-gray-300 hover:text-white transition-colors text-base">About Us</Link></li>
+                <li><Link to="/contact" className="text-gray-300 hover:text-white transition-colors text-base">Contact</Link></li>
+                <li><a href="https://alstonair.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-base">Alstonair</a></li>
+                <li><a href="https://alstonair.com/job/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-base">Careers</a></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900 mb-3">Services</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li><Link to="/verify" className="hover:text-primary-600">Document Verification</Link></li>
-                <li><Link to="/properties" className="hover:text-primary-600">Property Listings</Link></li>
-                <li><Link to="/ai-recommendations" className="hover:text-primary-600">AI Analytics</Link></li>
+              <h3 className="font-bold text-white mb-6 text-lg">Services</h3>
+              <ul className="space-y-4">
+                <li><Link to="/verify" className="text-gray-300 hover:text-white transition-colors text-base">Document Verification</Link></li>
+                <li><Link to="/properties" className="text-gray-300 hover:text-white transition-colors text-base">Property Listings</Link></li>
+                <li><Link to="/ai-recommendations" className="text-gray-300 hover:text-white transition-colors text-base">AI Analytics</Link></li>
+                <li><Link to="/loan-calculator" className="text-gray-300 hover:text-white transition-colors text-base">Loan Calculator</Link></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-200 mt-8 pt-8 text-center">
-            <p className="text-gray-600">&copy; 2024 Alstonair Technologies. All rights reserved.</p>
+          <div className="border-t border-gray-700 mt-12 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <p className="text-gray-400 text-base">&copy; 2024 Alstonair Technologies. All rights reserved.</p>
+              <div className="flex space-x-6 mt-4 md:mt-0">
+                <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</Link>
+                <Link to="/terms" className="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</Link>
+                <Link to="/cookies" className="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</Link>
+              </div>
+            </div>
           </div>
         </div>
       </footer>

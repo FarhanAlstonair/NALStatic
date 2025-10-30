@@ -89,8 +89,8 @@ const Signup = () => {
         {/* Header */}
         <div className="text-center">
           <Link to="/" className="inline-flex items-center space-x-2 mb-6">
-            <img src="/src/assets/logo.jpg" alt="NAL India" className="w-10 h-10 rounded-lg" />
-            <span className="text-2xl font-bold text-gray-900">NAL India</span>
+            <img src="/src/assets/logo.jpg" alt="NAL" className="w-10 h-10 rounded-xl" />
+            <span className="text-2xl font-bold text-[#1E3A8A]">NAL</span>
           </Link>
           <h2 className="text-3xl font-bold text-gray-900 mb-2">Create your account</h2>
           <p className="text-gray-600">Join thousands of users finding their perfect property</p>

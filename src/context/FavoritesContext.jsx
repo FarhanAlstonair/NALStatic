@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react'
+import { useAuth } from './AuthContext'
 
 const FavoritesContext = createContext()
 
@@ -12,6 +13,7 @@ export const useFavorites = () => {
 
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([])
+  const { isAuthenticated } = useAuth()
 
   const addToFavorites = (property) => {
     setFavorites(prev => [...prev, property])
@@ -26,6 +28,10 @@ export const FavoritesProvider = ({ children }) => {
   }
 
   const toggleFavorite = (property) => {
+    if (!isAuthenticated) {
+      alert('Please login to add properties to favorites')
+      return
+    }
     if (isFavorite(property.id)) {
       removeFromFavorites(property.id)
     } else {
