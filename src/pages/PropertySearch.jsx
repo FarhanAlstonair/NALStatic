@@ -1,10 +1,73 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Search, MapPin, Filter, SlidersHorizontal, Map, List, Star } from 'lucide-react'
 
 const PropertySearch = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [viewMode, setViewMode] = useState('list')
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
+  const [map, setMap] = useState(null)
+
+  const propertyLocations = [
+    { lat: 19.0596, lng: 72.8295, title: 'Bandra West Property', price: '₹4.5Cr' },
+    { lat: 12.9716, lng: 77.5946, title: 'Koramangala Property', price: '₹3.8Cr' },
+    { lat: 28.4595, lng: 77.0266, title: 'Gurgaon Property', price: '₹2.2Cr' }
+  ]
+
+  useEffect(() => {
+    if (viewMode === 'map' && !map) {
+      initializeMap()
+    }
+  }, [viewMode])
+
+  const initializeMap = () => {
+    if (window.google) {
+      const mapInstance = new window.google.maps.Map(document.getElementById('google-map'), {
+        zoom: 6,
+        center: { lat: 20.5937, lng: 78.9629 }, // Center of India
+        styles: [
+          {
+            featureType: 'poi',
+            elementType: 'labels',
+            stylers: [{ visibility: 'off' }]
+          }
+        ]
+      })
+
+      // Add property markers
+      propertyLocations.forEach(location => {
+        const marker = new window.google.maps.Marker({
+          position: { lat: location.lat, lng: location.lng },
+          map: mapInstance,
+          title: location.title,
+          icon: {
+            url: 'data:image/svg+xml;base64,' + btoa(`
+              <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="18" fill="#3b82f6" stroke="white" stroke-width="3"/>
+                <text x="20" y="25" text-anchor="middle" fill="white" font-size="12" font-weight="bold">₹</text>
+              </svg>
+            `),
+            scaledSize: new window.google.maps.Size(40, 40)
+          }
+        })
+
+        const infoWindow = new window.google.maps.InfoWindow({
+          content: `
+            <div style="padding: 8px; font-family: Inter, sans-serif;">
+              <h3 style="margin: 0 0 4px 0; font-size: 14px; font-weight: 600;">${location.title}</h3>
+              <p style="margin: 0; color: #3b82f6; font-weight: 600;">${location.price}</p>
+              <button style="margin-top: 8px; padding: 4px 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; font-size: 12px; cursor: pointer;">View Details</button>
+            </div>
+          `
+        })
+
+        marker.addListener('click', () => {
+          infoWindow.open(mapInstance, marker)
+        })
+      })
+
+      setMap(mapInstance)
+    }
+  }
 
   const [filters, setFilters] = useState({
     propertyType: 'all',
@@ -60,7 +123,9 @@ const PropertySearch = () => {
   ]
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -348,25 +413,16 @@ const PropertySearch = () => {
             ))}
           </div>
 
-          {/* Map View Placeholder */}
+          {/* Google Maps View */}
           {viewMode === 'map' && (
             <div className="card mt-6">
-              <div className="h-96 bg-gray-100 rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <Map className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    Map View
-                  </h3>
-                  <p className="text-gray-600">
-                    Interactive map will be displayed here
-                  </p>
-                </div>
-              </div>
+              <div id="google-map" className="h-96 rounded-lg"></div>
             </div>
           )}
         </div>
       </div>
-    </div>
+      </div>
+    </>
   )
 }
 

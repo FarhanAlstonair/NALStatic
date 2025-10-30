@@ -10,6 +10,12 @@ import PropertyComparison from './pages/PropertyComparison'
 import LoanCalculator from './pages/LoanCalculator'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import AIRecommendations from './pages/AIRecommendations'
+import CompetitorAnalytics from './pages/CompetitorAnalytics'
+import PricePrediction from './pages/PricePrediction'
+import GeoDemographicAnalysis from './pages/GeoDemographicAnalysis'
+import ARPropertyTours from './pages/ARPropertyTours'
+import PropertyDetails from './pages/PropertyDetails'
 
 function App() {
   return (
@@ -25,6 +31,12 @@ function App() {
         <Route path="/loan-calculator" element={<LoanCalculator />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/ai-recommendations" element={<AIRecommendations />} />
+        <Route path="/competitor-analytics" element={<CompetitorAnalytics />} />
+        <Route path="/price-prediction" element={<PricePrediction />} />
+        <Route path="/geo-analysis" element={<GeoDemographicAnalysis />} />
+        <Route path="/ar-tours" element={<ARPropertyTours />} />
+        <Route path="/property/:id" element={<PropertyDetails />} />
       </Routes>
     </Layout>
   )

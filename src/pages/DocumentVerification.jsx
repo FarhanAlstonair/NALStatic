@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Upload, FileCheck, AlertCircle, CheckCircle, Clock, X } from 'lucide-react'
+import { Upload, FileCheck, AlertCircle, CheckCircle, Clock } from 'lucide-react'
 
 const DocumentVerification = () => {
   const [uploadedFiles, setUploadedFiles] = useState([])
@@ -142,9 +142,9 @@ const DocumentVerification = () => {
                     </div>
                     <button
                       onClick={() => removeFile(file.id)}
-                      className="p-1 text-gray-400 hover:text-red-500"
+                      className="p-1 text-gray-400 hover:text-red-500 text-sm"
                     >
-                      <X className="w-4 h-4" />
+                      Remove
                     </button>
                   </div>
                 ))}

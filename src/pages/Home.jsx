@@ -86,9 +86,12 @@ const Home = () => {
               India's Most Trusted
               <span className="block text-yellow-300">Property Platform</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl mb-4 text-blue-100 max-w-3xl mx-auto">
               Instant document verification, real-time valuations, and secure property transactions all in one place
             </p>
+            {/* <p className="text-lg mb-8 text-blue-200">
+              Powered by <a href="https://alstonair.com" target="_blank" className="text-yellow-300 hover:text-yellow-200 font-medium underline">Alstonair Technologies</a>
+            </p> */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/verify" className="btn-primary bg-white text-primary-600 hover:bg-gray-100">
                 Verify Documents
@@ -269,8 +272,11 @@ const Home = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Get Started?
             </h2>
-            <p className="text-xl mb-8 text-blue-100">
+            <p className="text-xl mb-4 text-blue-100">
               Join thousands of users who trust NAL India for their property needs
+            </p>
+            <p className="text-lg mb-8 text-blue-200">
+              Built on Alstonair's enterprise-grade technology platform
             </p>
             <Link to="/profile" className="btn-primary bg-white text-primary-600 hover:bg-gray-100">
               Create Account

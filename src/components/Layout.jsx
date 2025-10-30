@@ -1,11 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Search, User, ChevronDown, Building, FileCheck, Gavel, GitCompare, Calculator } from 'lucide-react'
+import { Menu, Search, User, ChevronDown, Building, FileCheck, Gavel, GitCompare, Calculator, Brain, BarChart3, TrendingUp, Map, Camera } from 'lucide-react'
 
 const Layout = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
   const location = useLocation()
+  const dropdownRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setActiveDropdown(null)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const navigation = [
     {
@@ -24,6 +35,17 @@ const Layout = ({ children }) => {
         { name: 'Document Verification', href: '/verify', icon: FileCheck },
         { name: 'Property Bidding', href: '/bidding', icon: Gavel },
         { name: 'Loan Calculator', href: '/loan-calculator', icon: Calculator }
+      ]
+    },
+    {
+      name: 'AI & Analytics',
+      href: '/ai-recommendations',
+      dropdown: [
+        { name: 'AI Recommendations', href: '/ai-recommendations', icon: Brain },
+        { name: 'Price Prediction', href: '/price-prediction', icon: TrendingUp },
+        { name: 'Competitor Analytics', href: '/competitor-analytics', icon: BarChart3 },
+        { name: 'Geo Analysis', href: '/geo-analysis', icon: Map },
+        { name: 'AR Tours', href: '/ar-tours', icon: Camera }
       ]
     },
     { name: 'About', href: '/about' },
@@ -49,7 +71,7 @@ const Layout = ({ children }) => {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-1">
+            <nav className="hidden lg:flex items-center space-x-1" ref={dropdownRef}>
               {navigation.map((item, index) => {
                 const isActive = location.pathname === item.href || 
                   (item.dropdown && item.dropdown.some(sub => location.pathname === sub.href))
@@ -143,7 +165,7 @@ const Layout = ({ children }) => {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="lg:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
               >
-                {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {isMenuOpen ? <Menu className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
@@ -208,12 +230,38 @@ const Layout = ({ children }) => {
       {/* Footer */}
       <footer className="bg-white border-t border-gray-100 mt-auto">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-          <div className="text-center">
-            <div className="flex items-center justify-center space-x-3 mb-4">
-              <img src="/src/assets/logo.jpg" alt="NAL India" className="w-8 h-8 rounded-lg" />
-              <span className="text-lg font-semibold text-gray-900">NAL India</span>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="md:col-span-2">
+              <div className="flex items-center space-x-3 mb-4">
+                <img src="/src/assets/logo.jpg" alt="NAL India" className="w-8 h-8 rounded-lg" />
+                <span className="text-lg font-semibold text-gray-900">NAL India</span>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Powered by Alstonair - Your trusted partner in property verification and real estate solutions.
+              </p>
+              <p className="text-sm text-gray-500">
+                A product of Alstonair Technologies
+              </p>
             </div>
-            <p className="text-gray-600">&copy; 2024 NAL India. All rights reserved.</p>
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-3">Company</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><a href="/about" className="hover:text-primary-600">About Us</a></li>
+                <li><a href="/contact" className="hover:text-primary-600">Contact</a></li>
+                <li><a href="https://alstonair.com" target="_blank" className="hover:text-primary-600">Alstonair</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-3">Services</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><a href="/verify" className="hover:text-primary-600">Document Verification</a></li>
+                <li><a href="/properties" className="hover:text-primary-600">Property Listings</a></li>
+                <li><a href="/ai-recommendations" className="hover:text-primary-600">AI Analytics</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-200 mt-8 pt-8 text-center">
+            <p className="text-gray-600">&copy; 2024 Alstonair Technologies. All rights reserved.</p>
           </div>
         </div>
       </footer>

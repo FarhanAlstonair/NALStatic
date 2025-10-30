@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Plus, MapPin, Bed, Bath, Square, Heart, Share2, Eye, Filter } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { MapPin, Bed, Bath, Square, Heart, Share2, Filter } from 'lucide-react'
 
 const PropertyListing = () => {
   const [activeTab, setActiveTab] = useState('all')
@@ -169,10 +170,9 @@ const PropertyListing = () => {
         </div>
 
         <div className="flex space-x-2 pt-2">
-          <button className="flex-1 btn-primary text-sm py-2">
-            <Eye className="w-4 h-4 mr-1" />
+          <Link to={`/property/${property.id}`} className="flex-1 btn-primary text-sm py-2 text-center">
             View Details
-          </button>
+          </Link>
           <button className="flex-1 btn-secondary text-sm py-2">
             Contact Owner
           </button>
@@ -194,7 +194,6 @@ const PropertyListing = () => {
           </p>
         </div>
         <button className="btn-primary mt-4 sm:mt-0">
-          <Plus className="w-4 h-4 mr-2" />
           Post Property
         </button>
       </div>
