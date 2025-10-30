@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import { FavoritesProvider } from './context/FavoritesContext'
+import { AuthProvider } from './context/AuthContext'
 import Home from './pages/Home'
 import PropertyListing from './pages/PropertyListing'
 import DocumentVerification from './pages/DocumentVerification'
@@ -22,8 +23,9 @@ import Signup from './pages/Signup'
 
 function App() {
   return (
-    <FavoritesProvider>
-      <Layout>
+    <AuthProvider>
+      <FavoritesProvider>
+        <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/properties" element={<PropertyListing />} />
@@ -44,8 +46,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
-      </Layout>
-    </FavoritesProvider>
+        </Layout>
+      </FavoritesProvider>
+    </AuthProvider>
   )
 }
 

@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,14 +10,27 @@ const Login = () => {
   })
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setError('')
     setIsLoading(true)
-    // Simulate API call
+    
+    // Check if user exists in localStorage (fake authentication)
+    const users = JSON.parse(localStorage.getItem('nalUsers') || '[]')
+    const user = users.find(u => u.email === formData.email && u.password === formData.password)
+    
     setTimeout(() => {
+      if (user) {
+        login(user)
+        navigate('/')
+      } else {
+        setError('Invalid email or password. Please try again or create a new account.')
+      }
       setIsLoading(false)
-      alert('Login successful!')
     }, 1500)
   }
 
@@ -43,6 +57,13 @@ const Login = () => {
         {/* Login Form */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+            
             {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">

@@ -8,7 +8,7 @@ const AIRecommendations = () => {
   const [preferences, setPreferences] = useState({
     budget: 5000000,
     propertyType: 'apartment',
-    location: 'koramangala',
+    location: 'all',
     bedrooms: 2,
     amenities: []
   })
@@ -16,33 +16,33 @@ const AIRecommendations = () => {
   const [recommendations, setRecommendations] = useState([])
   const [isAnalyzing, setIsAnalyzing] = useState(false)
 
-  const aiRecommendations = [
+  const allProperties = [
     {
       id: 1,
       title: '3BHK Premium Apartment',
-      location: 'Bandra West, Mumbai',
+      location: 'Koramangala, Bangalore',
       price: 4500000,
       matchScore: 95,
       reasons: ['Perfect location match', 'Within budget', 'High ROI potential'],
       image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400',
       aiInsights: {
-        priceGrowth: '+12% in 2 years',
-        marketTrend: 'Rising',
-        investmentScore: 8.5
+        priceGrowth: '+15% in 2 years',
+        marketTrend: 'Hot',
+        investmentScore: 9.2
       }
     },
     {
       id: 2,
       title: '2BHK Modern Flat',
-      location: 'Koramangala, Bangalore',
+      location: 'Indiranagar, Bangalore',
       price: 3800000,
       matchScore: 88,
       reasons: ['Tech hub proximity', 'Good connectivity', 'Rental potential'],
       image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400',
       aiInsights: {
-        priceGrowth: '+15% in 2 years',
-        marketTrend: 'Hot',
-        investmentScore: 9.2
+        priceGrowth: '+12% in 2 years',
+        marketTrend: 'Rising',
+        investmentScore: 8.5
       }
     },
     {
@@ -58,6 +58,76 @@ const AIRecommendations = () => {
         marketTrend: 'Emerging',
         investmentScore: 8.8
       }
+    },
+    {
+      id: 4,
+      title: '1BHK Studio Apartment',
+      location: 'HSR Layout, Bangalore',
+      price: 2200000,
+      matchScore: 78,
+      reasons: ['Affordable pricing', 'Good for investment', 'Growing area'],
+      image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400',
+      aiInsights: {
+        priceGrowth: '+10% in 2 years',
+        marketTrend: 'Stable',
+        investmentScore: 7.8
+      }
+    },
+    {
+      id: 5,
+      title: '3BHK Penthouse',
+      location: 'Electronic City, Bangalore',
+      price: 5500000,
+      matchScore: 85,
+      reasons: ['IT hub location', 'Premium amenities', 'High appreciation'],
+      image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400',
+      aiInsights: {
+        priceGrowth: '+20% in 2 years',
+        marketTrend: 'Hot',
+        investmentScore: 9.0
+      }
+    },
+    {
+      id: 6,
+      title: '2BHK Garden Apartment',
+      location: 'Jayanagar, Bangalore',
+      price: 3200000,
+      matchScore: 80,
+      reasons: ['Central location', 'Metro connectivity', 'Family-friendly'],
+      image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=400',
+      aiInsights: {
+        priceGrowth: '+14% in 2 years',
+        marketTrend: 'Rising',
+        investmentScore: 8.3
+      }
+    },
+    {
+      id: 7,
+      title: '4BHK Independent House',
+      location: 'Banashankari, Bangalore',
+      price: 7800000,
+      matchScore: 75,
+      reasons: ['Independent living', 'Large space', 'Good locality'],
+      image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400',
+      aiInsights: {
+        priceGrowth: '+16% in 2 years',
+        marketTrend: 'Emerging',
+        investmentScore: 8.7
+      }
+    },
+    {
+      id: 8,
+      title: '2BHK Tech Park Apartment',
+      location: 'Marathahalli, Bangalore',
+      price: 4100000,
+      matchScore: 87,
+      reasons: ['Tech corridor', 'High rental yield', 'Modern amenities'],
+      image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400',
+      aiInsights: {
+        priceGrowth: '+17% in 2 years',
+        marketTrend: 'Hot',
+        investmentScore: 8.9
+      }
     }
   ]
 
@@ -65,7 +135,22 @@ const AIRecommendations = () => {
     setIsAnalyzing(true)
     // Simulate AI analysis
     setTimeout(() => {
-      setRecommendations(aiRecommendations)
+      // Filter properties based on preferences and location (Bangalore only)
+      let filteredProperties = allProperties.filter(property => {
+        const matchesBudget = property.price <= preferences.budget * 1.2 // Allow 20% flexibility
+        const matchesLocation = preferences.location === 'all' || 
+          property.location.toLowerCase().includes(preferences.location.replace('-', ' '))
+        return matchesBudget && matchesLocation
+      })
+
+      // Sort by match score
+      filteredProperties.sort((a, b) => b.matchScore - a.matchScore)
+
+      if (filteredProperties.length === 0) {
+        setRecommendations([])
+      } else {
+        setRecommendations(filteredProperties.slice(0, 6)) // Show top 6 matches
+      }
       setIsAnalyzing(false)
     }, 3000)
   }
@@ -206,11 +291,15 @@ const AIRecommendations = () => {
                   onChange={(e) => setPreferences({...preferences, location: e.target.value})}
                   className="input-field"
                 >
+                  <option value="all">All Bangalore Areas</option>
                   <option value="koramangala">Koramangala, Bangalore</option>
                   <option value="indiranagar">Indiranagar, Bangalore</option>
                   <option value="whitefield">Whitefield, Bangalore</option>
                   <option value="hsr-layout">HSR Layout, Bangalore</option>
                   <option value="electronic-city">Electronic City, Bangalore</option>
+                  <option value="jayanagar">Jayanagar, Bangalore</option>
+                  <option value="banashankari">Banashankari, Bangalore</option>
+                  <option value="marathahalli">Marathahalli, Bangalore</option>
                 </select>
               </div>
 
@@ -265,7 +354,7 @@ const AIRecommendations = () => {
                 </h2>
                 <div className="flex items-center space-x-2 text-sm text-gray-600">
                   <Target className="w-4 h-4" />
-                  <span>Sorted by AI match score</span>
+                  <span>Sorted by AI match score • Bangalore Properties Only</span>
                 </div>
               </div>
 
@@ -274,6 +363,28 @@ const AIRecommendations = () => {
                   <RecommendationCard key={property.id} property={property} />
                 ))}
               </div>
+            </div>
+          ) : recommendations.length === 0 && !isAnalyzing ? (
+            <div className="text-center py-12">
+              <Brain className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                No Properties Found
+              </h3>
+              <p className="text-gray-600 mb-4">
+                We apologize, but there are no properties available in Bangalore that match your current preferences at this time.
+              </p>
+              <p className="text-sm text-gray-500 mb-6">
+                Please try adjusting your budget range or location preferences, or check back later as we regularly update our listings.
+              </p>
+              <button 
+                onClick={() => {
+                  setPreferences(prev => ({ ...prev, budget: 20000000, location: 'all' }))
+                  generateRecommendations()
+                }}
+                className="btn-primary"
+              >
+                Reset Filters & Try Again
+              </button>
             </div>
           ) : (
             <div className="text-center py-12">

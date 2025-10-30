@@ -1,16 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Menu, Search, User, ChevronDown, Building, FileCheck, Gavel, GitCompare, Calculator, Brain, BarChart3, TrendingUp, Map, Camera, MapPin } from 'lucide-react'
+import { Menu, Search, User, ChevronDown, Building, FileCheck, Gavel, GitCompare, Calculator, Brain, BarChart3, TrendingUp, Map, Camera, MapPin, LogIn, LogOut } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
 
 const Layout = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [showSearchResults, setShowSearchResults] = useState(false)
+  const [showUserMenu, setShowUserMenu] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   const dropdownRef = useRef(null)
   const searchRef = useRef(null)
+  const userMenuRef = useRef(null)
+  const { user, logout, isAuthenticated } = useAuth()
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -19,6 +23,9 @@ const Layout = ({ children }) => {
       }
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setShowSearchResults(false)
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setShowUserMenu(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -72,8 +79,12 @@ const Layout = ({ children }) => {
     { id: 2, title: '2BHK Modern Flat', location: 'Indiranagar, Bangalore', price: '₹35,000/month', type: 'rent' },
     { id: 3, title: 'Commercial Office Space', location: 'Whitefield, Bangalore', price: '₹85,000/month', type: 'lease' },
     { id: 4, title: '4BHK Villa', location: 'HSR Layout, Bangalore', price: '₹2.8 Cr', type: 'sale' },
-    { id: 5, title: '1BHK Studio Apartment', location: 'Koramangala, Bangalore', price: '₹22,000/month', type: 'rent' },
-    { id: 6, title: 'Retail Shop Space', location: 'Indiranagar, Bangalore', price: '₹65,000/month', type: 'lease' }
+    { id: 5, title: '1BHK Studio Apartment', location: 'Electronic City, Bangalore', price: '₹22,000/month', type: 'rent' },
+    { id: 6, title: 'Retail Shop Space', location: 'Jayanagar, Bangalore', price: '₹65,000/month', type: 'lease' },
+    { id: 7, title: '3BHK Penthouse', location: 'Marathahalli, Bangalore', price: '₹2.2 Cr', type: 'sale' },
+    { id: 8, title: '2BHK Garden Apartment', location: 'Banashankari, Bangalore', price: '₹28,000/month', type: 'rent' },
+    { id: 9, title: '4BHK Independent House', location: 'Rajajinagar, Bangalore', price: '₹3.5 Cr', type: 'sale' },
+    { id: 10, title: 'Office Space', location: 'MG Road, Bangalore', price: '₹120,000/month', type: 'lease' }
   ]
 
   const filteredProperties = searchQuery.length > 0 
@@ -252,16 +263,55 @@ const Layout = ({ children }) => {
               </div>
               
               {/* User Menu */}
-              <div className="relative">
-                <Link
-                  to="/profile"
-                  className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 rounded-lg transition-colors"
-                >
-                  <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                    <User className="w-4 h-4 text-primary-600" />
+              <div className="relative" ref={userMenuRef}>
+                {isAuthenticated ? (
+                  <div>
+                    <button
+                      onClick={() => setShowUserMenu(!showUserMenu)}
+                      className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 rounded-lg transition-colors"
+                    >
+                      <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                        <User className="w-4 h-4 text-primary-600" />
+                      </div>
+                      <span className="hidden lg:block text-sm font-medium text-gray-700">
+                        {user?.firstName || 'Profile'}
+                      </span>
+                      <ChevronDown className="w-4 h-4 text-gray-400" />
+                    </button>
+                    
+                    {showUserMenu && (
+                      <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <Link
+                          to="/profile"
+                          onClick={() => setShowUserMenu(false)}
+                          className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                        >
+                          <User className="w-4 h-4" />
+                          <span>My Profile</span>
+                        </Link>
+                        <button
+                          onClick={() => {
+                            logout()
+                            setShowUserMenu(false)
+                            navigate('/')
+                          }}
+                          className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          <span>Sign Out</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
-                  <span className="hidden lg:block text-sm font-medium text-gray-700">Profile</span>
-                </Link>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    <span className="hidden lg:block text-sm font-medium">Login</span>
+                  </Link>
+                )}
               </div>
               
               {/* Mobile menu button */}

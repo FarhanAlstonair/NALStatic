@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   User, 
   Settings, 
@@ -16,21 +16,43 @@ import {
   X
 } from 'lucide-react'
 import { useFavorites } from '../context/FavoritesContext'
-import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import { Link, useNavigate } from 'react-router-dom'
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState('profile')
   const [isEditing, setIsEditing] = useState(false)
   const { favorites, removeFromFavorites } = useFavorites()
+  const { user, updateProfile, isAuthenticated } = useAuth()
+  const navigate = useNavigate()
   const [profileData, setProfileData] = useState({
-    name: 'Farhan Tigadi',
-    email: 'farhan@email.com',
-    phone: '+91 98765 43210',
-    location: 'Bangalore, Karnataka',
-    bio: 'Real estate investor looking for premium properties in Bangalore areas.',
-    verified: true,
-    joinDate: '2025-10-30'
+    name: '',
+    email: '',
+    phone: '',
+    location: '',
+    bio: '',
+    verified: false,
+    joinDate: ''
   })
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login')
+      return
+    }
+    
+    if (user) {
+      setProfileData({
+        name: user.name || `${user.firstName} ${user.lastName}`,
+        email: user.email || '',
+        phone: user.phone || '',
+        location: user.location || '',
+        bio: user.bio || '',
+        verified: user.verified || false,
+        joinDate: user.joinDate || ''
+      })
+    }
+  }, [user, isAuthenticated, navigate])
 
   const tabs = [
     { id: 'profile', label: 'Profile', icon: User },
@@ -43,19 +65,19 @@ const UserProfile = () => {
   const myProperties = [
     {
       id: 1,
-      title: '2BHK Apartment in Bandra',
+      title: '2BHK Apartment in Koramangala',
       status: 'active',
       type: 'rent',
-      price: '₹45,000/month',
+      price: '₹35,000/month',
       views: 234,
       inquiries: 12
     },
     {
       id: 2,
-      title: 'Commercial Office Space',
+      title: '3BHK Villa in Whitefield',
       status: 'sold',
       type: 'sale',
-      price: '₹1.2 Cr',
+      price: '₹1.8 Cr',
       views: 156,
       inquiries: 8
     }
@@ -64,15 +86,35 @@ const UserProfile = () => {
 
 
   const recentActivity = [
-    { action: 'Viewed property', item: '3BHK Apartment in Andheri', time: '2 hours ago' },
-    { action: 'Added to favorites', item: 'Villa in Pune', time: '1 day ago' },
+    { action: 'Viewed property', item: '3BHK Apartment in Koramangala', time: '2 hours ago' },
+    { action: 'Added to favorites', item: 'Villa in Whitefield', time: '1 day ago' },
     { action: 'Document verified', item: 'Property Title Deed', time: '3 days ago' },
-    { action: 'Posted property', item: '2BHK in Bandra', time: '1 week ago' }
+    { action: 'Posted property', item: '2BHK in Indiranagar', time: '1 week ago' }
   ]
 
   const handleSave = () => {
+    // Update user data in localStorage
+    const updatedUser = {
+      ...user,
+      name: profileData.name,
+      email: profileData.email,
+      phone: profileData.phone,
+      location: profileData.location,
+      bio: profileData.bio
+    }
+    
+    // Update in auth context
+    updateProfile(updatedUser)
+    
+    // Update in users array in localStorage
+    const users = JSON.parse(localStorage.getItem('nalUsers') || '[]')
+    const userIndex = users.findIndex(u => u.id === user.id)
+    if (userIndex !== -1) {
+      users[userIndex] = updatedUser
+      localStorage.setItem('nalUsers', JSON.stringify(users))
+    }
+    
     setIsEditing(false)
-    // Save logic here
   }
 
   const handleInputChange = (field, value) => {
@@ -400,6 +442,10 @@ const UserProfile = () => {
       case 'settings': return <SettingsSection />
       default: return <ProfileSection />
     }
+  }
+
+  if (!isAuthenticated) {
+    return null // Will redirect to login
   }
 
   return (

@@ -16,8 +16,10 @@ import {
   GitCompare,
   Calculator
 } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
 
 const Home = () => {
+  const { isAuthenticated } = useAuth()
   const coreFeatures = [
     {
       icon: FileCheck,
@@ -300,16 +302,16 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Get Started?
+              {isAuthenticated ? 'Explore Premium Properties' : 'Ready to Get Started?'}
             </h2>
             <p className="text-xl mb-4 text-blue-100">
-              Join thousands of users who trust NAL India for their property needs
+              {isAuthenticated ? 'Discover your perfect property in Bangalore' : 'Join thousands of users who trust NAL India for their property needs'}
             </p>
             <p className="text-lg mb-8 text-blue-200">
               Built on Alstonair's enterprise-grade technology platform
             </p>
-            <Link to="/signup" className="btn-primary bg-white text-primary-600 hover:bg-gray-100 hover:scale-105 transition-all duration-200 hover:shadow-xl">
-              Create Account
+            <Link to={isAuthenticated ? "/properties" : "/signup"} className="btn-primary bg-white text-primary-600 hover:bg-gray-100 hover:scale-105 transition-all duration-200 hover:shadow-xl">
+              {isAuthenticated ? 'Explore Properties' : 'Get Started Today'}
             </Link>
           </div>
         </div>

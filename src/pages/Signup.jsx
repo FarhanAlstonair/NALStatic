@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { User, Mail, Lock, Eye, EyeOff, Phone, MapPin, ArrowRight, Check } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -17,23 +18,60 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setError('')
+    
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!')
+      setError('Passwords do not match!')
       return
     }
     if (!formData.agreeTerms) {
-      alert('Please agree to the terms and conditions')
+      setError('Please agree to the terms and conditions')
       return
     }
     
     setIsLoading(true)
-    // Simulate API call
+    
+    // Check if user already exists
+    const users = JSON.parse(localStorage.getItem('nalUsers') || '[]')
+    const existingUser = users.find(u => u.email === formData.email)
+    
     setTimeout(() => {
+      if (existingUser) {
+        setError('An account with this email already exists. Please login instead.')
+        setIsLoading(false)
+        return
+      }
+      
+      // Create new user
+      const newUser = {
+        id: Date.now(),
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phone: formData.phone,
+        location: formData.location,
+        password: formData.password,
+        userType: formData.userType,
+        verified: false,
+        joinDate: new Date().toISOString().split('T')[0],
+        bio: `${formData.userType === 'buyer' ? 'Looking to buy' : formData.userType === 'seller' ? 'Looking to sell' : 'Looking to rent'} properties in ${formData.location}.`
+      }
+      
+      // Save to localStorage
+      users.push(newUser)
+      localStorage.setItem('nalUsers', JSON.stringify(users))
+      
+      // Login the user
+      login(newUser)
+      navigate('/')
       setIsLoading(false)
-      alert('Account created successfully!')
     }, 2000)
   }
 
@@ -61,6 +99,13 @@ const Signup = () => {
         {/* Signup Form */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+            
             {/* User Type Selection */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-3">
