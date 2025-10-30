@@ -88,7 +88,7 @@ const Home = () => {
             alt="Modern city skyline" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A]/90 via-[#1D4ED8]/85 to-indigo-700/90"></div>
+<div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A]/50 via-[#1D4ED8]/70 to-indigo-200/50"></div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
           <div className="text-center">
@@ -340,7 +340,7 @@ const Home = () => {
             alt="Modern city buildings" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A]/90 via-[#1D4ED8]/85 to-indigo-700/90"></div>
+<div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A]/50 via-[#1D4ED8]/70 to-indigo-200/50"></div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
