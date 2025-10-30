@@ -398,12 +398,9 @@ const Layout = ({ children }) => {
                 A product of Alstonair Technologies
               </p>
               <div className="flex space-x-4 mt-6">
-                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors cursor-pointer">
-                  <span className="text-white font-bold">f</span>
-                </div>
-                <div className="w-10 h-10 bg-blue-400 rounded-lg flex items-center justify-center hover:bg-blue-500 transition-colors cursor-pointer">
-                  <span className="text-white font-bold">t</span>
-                </div>
+                <a href="https://www.instagram.com/alstonair/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center hover:from-purple-600 hover:to-pink-600 transition-colors">
+                  <span className="text-white font-bold text-sm">ig</span>
+                </a>
                 <a href="https://www.linkedin.com/company/alstonair-technologies-private-limited/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-blue-700 rounded-lg flex items-center justify-center hover:bg-blue-800 transition-colors">
                   <span className="text-white font-bold">in</span>
                 </a>
