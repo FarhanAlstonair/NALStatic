@@ -409,15 +409,15 @@ const GeoDemographicAnalysis = () => {
   const currentData = getCurrentData()
 
   const ScoreCard = ({ title, score, icon: Icon, color }) => (
-    <div className="card text-center">
-      <div className={`w-12 h-12 ${color} rounded-full flex items-center justify-center mx-auto mb-3`}>
-        <Icon className="w-6 h-6 text-white" />
+    <div className="bg-white rounded-2xl shadow-md p-6 text-center border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+      <div className={`w-16 h-16 ${color} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
+        <Icon className="w-8 h-8 text-white" />
       </div>
-      <h3 className="font-semibold text-gray-900 mb-1">{title}</h3>
-      <div className="text-2xl font-bold text-gray-900 mb-2">{score}/10</div>
-      <div className="w-full bg-gray-200 rounded-full h-2">
+      <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
+      <div className="text-3xl font-bold text-gray-900 mb-3">{score}/10</div>
+      <div className="w-full bg-gray-200 rounded-full h-3">
         <div 
-          className={`h-2 rounded-full ${color.replace('bg-', 'bg-')}`}
+          className={`h-3 rounded-full ${color.replace('bg-', 'bg-')}`}
           style={{ width: `${score * 10}%` }}
         ></div>
       </div>
@@ -440,19 +440,33 @@ const GeoDemographicAnalysis = () => {
   )
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Geo-Demographic Analysis
-        </h1>
-        <p className="text-lg text-gray-600">
-          Comprehensive location insights combining geographic and demographic data
-        </p>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1920&h=600&fit=crop&crop=center" 
+            alt="City analytics and data visualization" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A8A]/90 to-indigo-600/80"></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative">
+          <div className="text-center text-white">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Geo-Demographic Analysis
+            </h1>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+              Comprehensive location insights combining geographic and demographic data for smarter property decisions
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
       {/* Location Input */}
-      <div className="card mb-8">
+      <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-gray-100">
         <h3 className="text-lg font-semibold text-gray-900 mb-6">Select Location for Analysis</h3>
         
         <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -816,6 +830,7 @@ const GeoDemographicAnalysis = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   )
 }

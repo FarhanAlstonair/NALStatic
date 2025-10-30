@@ -25,7 +25,7 @@ const PropertyListing = () => {
       bedrooms: 3,
       bathrooms: 2,
       area: 1200,
-      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400',
+      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop&crop=center',
       verified: true,
       riblScore: 85
     },
@@ -38,7 +38,7 @@ const PropertyListing = () => {
       bedrooms: 2,
       bathrooms: 2,
       area: 950,
-      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400',
+      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop&crop=center',
       verified: true,
       riblScore: 78
     },
@@ -51,7 +51,7 @@ const PropertyListing = () => {
       bedrooms: 0,
       bathrooms: 2,
       area: 800,
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400',
+      image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop&crop=center',
       verified: false,
       riblScore: 72
     },
@@ -64,7 +64,7 @@ const PropertyListing = () => {
       bedrooms: 4,
       bathrooms: 3,
       area: 2200,
-      image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400',
+      image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&h=300&fit=crop&crop=center',
       verified: true,
       riblScore: 92
     },
@@ -77,7 +77,7 @@ const PropertyListing = () => {
       bedrooms: 1,
       bathrooms: 1,
       area: 450,
-      image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400',
+      image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=400&h=300&fit=crop&crop=center',
       verified: true,
       riblScore: 68
     },
@@ -90,7 +90,7 @@ const PropertyListing = () => {
       bedrooms: 0,
       bathrooms: 1,
       area: 300,
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400',
+      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop&crop=center',
       verified: false,
       riblScore: 65
     },
@@ -103,7 +103,7 @@ const PropertyListing = () => {
       bedrooms: 3,
       bathrooms: 3,
       area: 1400,
-      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400',
+      image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=300&fit=crop&crop=center',
       verified: true,
       riblScore: 88
     },
@@ -116,7 +116,7 @@ const PropertyListing = () => {
       bedrooms: 2,
       bathrooms: 2,
       area: 1100,
-      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400',
+      image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop&crop=center',
       verified: true,
       riblScore: 82
     }

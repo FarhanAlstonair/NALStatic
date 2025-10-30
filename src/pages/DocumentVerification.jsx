@@ -67,22 +67,36 @@ const DocumentVerification = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Document Verification
-        </h1>
-        <p className="text-lg text-gray-600">
-          Upload your property documents for instant verification and authenticity check
-        </p>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1920&h=600&fit=crop&crop=center" 
+            alt="Document verification and legal papers" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A8A]/90 to-emerald-600/80"></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative">
+          <div className="text-center text-white">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Document Verification
+            </h1>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+              Upload your property documents for instant AI-powered verification and authenticity check
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Upload Section */}
         <div className="lg:col-span-2 space-y-6">
           {/* Upload Area */}
-          <div className="card">
+          <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">
               Upload Documents
             </h2>
@@ -114,7 +128,7 @@ const DocumentVerification = () => {
 
           {/* Uploaded Files */}
           {uploadedFiles.length > 0 && (
-            <div className="card">
+            <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-semibold text-gray-900">
                   Uploaded Files ({uploadedFiles.length})
@@ -154,7 +168,7 @@ const DocumentVerification = () => {
 
           {/* Verification Results */}
           {(isVerifying || verificationResults.length > 0) && (
-            <div className="card">
+            <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">
                 Verification Results
               </h2>
@@ -219,7 +233,7 @@ const DocumentVerification = () => {
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Document Types */}
-          <div className="card">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Supported Documents
             </h3>
@@ -234,7 +248,7 @@ const DocumentVerification = () => {
           </div>
 
           {/* Verification Process */}
-          <div className="card">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               How It Works
             </h3>
@@ -270,7 +284,7 @@ const DocumentVerification = () => {
           </div>
 
           {/* Security Notice */}
-          <div className="card bg-blue-50 border-blue-200">
+          <div className="bg-gradient-to-r from-blue-50 to-emerald-50 rounded-2xl shadow-lg p-6 border border-blue-200">
             <div className="flex items-start space-x-3">
               <FileCheck className="w-6 h-6 text-blue-600 mt-1" />
               <div>
@@ -285,6 +299,7 @@ const DocumentVerification = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )

@@ -8,14 +8,14 @@ const PropertyComparison = () => {
     {
       id: 1,
       title: '3BHK Luxury Apartment',
-      location: 'Bandra West, Mumbai',
+      location: 'Koramangala, Bangalore',
       price: 2500000,
       bedrooms: 3,
       bathrooms: 2,
       area: 1200,
       riblScore: 85,
       amenities: ['Swimming Pool', 'Gym', 'Parking', 'Security', 'Garden'],
-      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=300'
+      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=300&h=200&fit=crop&crop=center'
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ const PropertyComparison = () => {
       area: 950,
       riblScore: 78,
       amenities: ['Gym', 'Parking', 'Security', 'Elevator', 'Internet'],
-      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=300'
+      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=300&h=200&fit=crop&crop=center'
     },
     {
       id: 3,
@@ -39,7 +39,7 @@ const PropertyComparison = () => {
       area: 2200,
       riblScore: 92,
       amenities: ['Swimming Pool', 'Garden', 'Parking', 'Security', 'Power Backup'],
-      image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=300'
+      image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=300&h=200&fit=crop&crop=center'
     }
   ]
 
