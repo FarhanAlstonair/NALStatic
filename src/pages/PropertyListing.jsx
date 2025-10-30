@@ -342,7 +342,7 @@ const PropertyListing = () => {
               onClick={() => setShowFilters(!showFilters)}
               className="btn-secondary hover:scale-105 transition-all duration-200 hover:shadow-md"
             >
-              <Filter className="w-4 h-4 mr-2" />
+              {/* <Filter className="w-4 h-4 mr-2" /> */}
               Filters
             </button>
           </div>
