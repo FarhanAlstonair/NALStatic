@@ -162,10 +162,11 @@ const CompetitorAnalytics = () => {
               onChange={(e) => setSelectedLocation(e.target.value)}
               className="input-field w-auto"
             >
-              <option value="mumbai">Mumbai</option>
-              <option value="bangalore">Bangalore</option>
-              <option value="delhi">Delhi</option>
-              <option value="pune">Pune</option>
+              <option value="koramangala">Koramangala, Bangalore</option>
+              <option value="indiranagar">Indiranagar, Bangalore</option>
+              <option value="whitefield">Whitefield, Bangalore</option>
+              <option value="hsr-layout">HSR Layout, Bangalore</option>
+              <option value="electronic-city">Electronic City, Bangalore</option>
             </select>
           </div>
           <div>

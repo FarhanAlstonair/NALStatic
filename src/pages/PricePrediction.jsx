@@ -128,11 +128,11 @@ const PricePrediction = () => {
                   onChange={(e) => setPropertyData({...propertyData, location: e.target.value})}
                   className="input-field"
                 >
-                  <option value="mumbai-bandra">Mumbai - Bandra</option>
-                  <option value="mumbai-andheri">Mumbai - Andheri</option>
-                  <option value="bangalore-koramangala">Bangalore - Koramangala</option>
-                  <option value="bangalore-whitefield">Bangalore - Whitefield</option>
-                  <option value="delhi-gurgaon">Delhi - Gurgaon</option>
+                  <option value="bangalore-koramangala">Koramangala, Bangalore</option>
+                  <option value="bangalore-indiranagar">Indiranagar, Bangalore</option>
+                  <option value="bangalore-whitefield">Whitefield, Bangalore</option>
+                  <option value="bangalore-hsr">HSR Layout, Bangalore</option>
+                  <option value="bangalore-electronic-city">Electronic City, Bangalore</option>
                 </select>
               </div>
 

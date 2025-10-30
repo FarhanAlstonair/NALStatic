@@ -183,7 +183,7 @@ const Home = () => {
               </div>
             </Link>
 
-            <Link to="/search" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary-500 group">
+            <Link to="/properties" className="card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary-500 group">
               <div className="text-center">
                 <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Search className="w-8 h-8 text-white" />

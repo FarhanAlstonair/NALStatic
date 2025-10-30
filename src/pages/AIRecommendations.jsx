@@ -1,11 +1,14 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Brain, TrendingUp, MapPin, Star, Filter, Zap, Target, Heart } from 'lucide-react'
+import { useFavorites } from '../context/FavoritesContext'
 
 const AIRecommendations = () => {
+  const { toggleFavorite, isFavorite } = useFavorites()
   const [preferences, setPreferences] = useState({
     budget: 5000000,
     propertyType: 'apartment',
-    location: 'mumbai',
+    location: 'koramangala',
     bedrooms: 2,
     amenities: []
   })
@@ -134,9 +137,14 @@ const AIRecommendations = () => {
         </div>
 
         <div className="flex space-x-2">
-          <button className="flex-1 btn-primary text-sm">View Details</button>
-          <button className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-            <Heart className="w-4 h-4 text-gray-600" />
+          <Link to={`/property/${property.id}`} className="flex-1 btn-primary text-sm py-2 text-center hover:scale-105 transition-transform duration-200">
+            View Details
+          </Link>
+          <button 
+            onClick={() => toggleFavorite(property)}
+            className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 hover:scale-110 transition-all duration-200"
+          >
+            <Heart className={`w-4 h-4 transition-colors duration-200 ${isFavorite(property.id) ? 'text-red-500 fill-red-500' : 'text-gray-600 hover:text-red-400'}`} />
           </button>
         </div>
       </div>
@@ -198,10 +206,11 @@ const AIRecommendations = () => {
                   onChange={(e) => setPreferences({...preferences, location: e.target.value})}
                   className="input-field"
                 >
-                  <option value="mumbai">Mumbai</option>
-                  <option value="bangalore">Bangalore</option>
-                  <option value="delhi">Delhi</option>
-                  <option value="pune">Pune</option>
+                  <option value="koramangala">Koramangala, Bangalore</option>
+                  <option value="indiranagar">Indiranagar, Bangalore</option>
+                  <option value="whitefield">Whitefield, Bangalore</option>
+                  <option value="hsr-layout">HSR Layout, Bangalore</option>
+                  <option value="electronic-city">Electronic City, Bangalore</option>
                 </select>
               </div>
 
