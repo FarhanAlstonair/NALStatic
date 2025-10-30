@@ -4,7 +4,6 @@ import { FavoritesProvider } from './context/FavoritesContext'
 import Home from './pages/Home'
 import PropertyListing from './pages/PropertyListing'
 import DocumentVerification from './pages/DocumentVerification'
-import PropertySearch from './pages/PropertySearch'
 import UserProfile from './pages/UserProfile'
 import Bidding from './pages/Bidding'
 import PropertyComparison from './pages/PropertyComparison'
@@ -29,7 +28,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/properties" element={<PropertyListing />} />
           <Route path="/verify" element={<DocumentVerification />} />
-          <Route path="/search" element={<PropertySearch />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/bidding" element={<Bidding />} />
           <Route path="/compare" element={<PropertyComparison />} />

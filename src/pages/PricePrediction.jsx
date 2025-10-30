@@ -211,7 +211,7 @@ const PricePrediction = () => {
                   </>
                 ) : (
                   <>
-                    <TrendingUp className="w-4 h-4 mr-2" />
+                    {/* <TrendingUp className="w-4 h-4 mr-2" /> */}
                     Predict Price
                   </>
                 )}

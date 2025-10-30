@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
+import { useSearchParams, Link } from 'react-router-dom'
 import { Search, MapPin, Filter, SlidersHorizontal, Map, List, Star } from 'lucide-react'
 
 const PropertySearch = () => {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchParams] = useSearchParams()
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '')
   const [viewMode, setViewMode] = useState('list')
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
   const [map, setMap] = useState(null)
+  const [searchResults, setSearchResults] = useState([])
 
   const propertyLocations = [
     { lat: 12.9352, lng: 77.6245, title: 'Koramangala Property', price: '₹1.8Cr' },
@@ -19,6 +22,33 @@ const PropertySearch = () => {
       initializeMap()
     }
   }, [viewMode])
+
+  useEffect(() => {
+    const query = searchParams.get('q')
+    if (query) {
+      setSearchQuery(query)
+      performSearch(query)
+    }
+  }, [searchParams])
+
+  const performSearch = (query) => {
+    const properties = [
+      { id: 1, title: '3BHK Luxury Apartment', location: 'Koramangala, Bangalore', price: '₹1.8 Cr', type: 'sale', image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400' },
+      { id: 2, title: '2BHK Modern Flat', location: 'Indiranagar, Bangalore', price: '₹35,000/month', type: 'rent', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400' },
+      { id: 3, title: 'Commercial Office Space', location: 'Whitefield, Bangalore', price: '₹85,000/month', type: 'lease', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400' },
+      { id: 4, title: '4BHK Villa', location: 'HSR Layout, Bangalore', price: '₹2.8 Cr', type: 'sale', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400' },
+      { id: 5, title: '1BHK Studio Apartment', location: 'Koramangala, Bangalore', price: '₹22,000/month', type: 'rent', image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400' },
+      { id: 6, title: 'Retail Shop Space', location: 'Indiranagar, Bangalore', price: '₹65,000/month', type: 'lease', image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400' }
+    ]
+    
+    const filtered = properties.filter(property => 
+      property.title.toLowerCase().includes(query.toLowerCase()) ||
+      property.location.toLowerCase().includes(query.toLowerCase()) ||
+      property.type.toLowerCase().includes(query.toLowerCase())
+    )
+    
+    setSearchResults(filtered)
+  }
 
   const initializeMap = () => {
     if (window.google) {
@@ -174,7 +204,7 @@ const PropertySearch = () => {
               ))}
             </select>
             
-            <button className="btn-primary">
+            <button onClick={() => performSearch(searchQuery)} className="btn-primary">
               <Search className="w-4 h-4 mr-2" />
               Search
             </button>
@@ -326,6 +356,10 @@ const PropertySearch = () => {
               {popularSearches.map((search, index) => (
                 <button
                   key={index}
+                  onClick={() => {
+                    setSearchQuery(search)
+                    performSearch(search)
+                  }}
                   className="block w-full text-left text-sm text-primary-600 hover:text-primary-700 hover:bg-primary-50 px-2 py-1 rounded"
                 >
                   {search}
@@ -388,33 +422,94 @@ const PropertySearch = () => {
             </div>
           </div>
 
-          {/* Search Suggestions */}
-          <div className="space-y-4">
-            {searchSuggestions.map((suggestion, index) => (
-              <div key={index} className="card hover:shadow-md transition-shadow cursor-pointer">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      suggestion.type === 'location' ? 'bg-green-100' : 'bg-blue-100'
-                    }`}>
-                      {suggestion.type === 'location' ? (
-                        <MapPin className={`w-5 h-5 ${suggestion.type === 'location' ? 'text-green-600' : 'text-blue-600'}`} />
-                      ) : (
-                        <Star className="w-5 h-5 text-blue-600" />
-                      )}
+          {/* Search Results */}
+          {searchQuery && (
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Search Results for "{searchQuery}" ({searchResults.length} found)
+              </h3>
+              {searchResults.length > 0 ? (
+                <div className="space-y-4">
+                  {searchResults.map((property) => (
+                    <div key={property.id} className="card hover:shadow-md transition-shadow">
+                      <div className="flex items-center space-x-4">
+                        <img
+                          src={property.image}
+                          alt={property.title}
+                          className="w-20 h-16 object-cover rounded-lg"
+                        />
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900">{property.title}</h4>
+                          <div className="flex items-center text-gray-600 text-sm mt-1">
+                            <MapPin className="w-4 h-4 mr-1" />
+                            {property.location}
+                          </div>
+                          <div className="flex items-center justify-between mt-2">
+                            <span className="text-lg font-bold text-primary-600">{property.price}</span>
+                            <span className="bg-primary-100 text-primary-700 px-2 py-1 rounded-full text-xs capitalize">
+                              {property.type}
+                            </span>
+                          </div>
+                        </div>
+                        <Link to={`/property/${property.id}`} className="btn-secondary text-sm">
+                          View Details
+                        </Link>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-medium text-gray-900">{suggestion.text}</h3>
-                      <p className="text-sm text-gray-600">{suggestion.count}</p>
-                    </div>
-                  </div>
-                  <button className="btn-secondary text-sm">
-                    Search
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-gray-600 mb-4">No properties found for "{searchQuery}"</p>
+                  <button 
+                    onClick={() => {
+                      setSearchQuery('')
+                      setSearchResults([])
+                    }}
+                    className="btn-secondary"
+                  >
+                    Clear Search
                   </button>
                 </div>
-              </div>
-            ))}
-          </div>
+              )}
+            </div>
+          )}
+
+          {/* Search Suggestions */}
+          {!searchQuery && (
+            <div className="space-y-4">
+              {searchSuggestions.map((suggestion, index) => (
+                <div key={index} className="card hover:shadow-md transition-shadow cursor-pointer">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                        suggestion.type === 'location' ? 'bg-green-100' : 'bg-blue-100'
+                      }`}>
+                        {suggestion.type === 'location' ? (
+                          <MapPin className={`w-5 h-5 ${suggestion.type === 'location' ? 'text-green-600' : 'text-blue-600'}`} />
+                        ) : (
+                          <Star className="w-5 h-5 text-blue-600" />
+                        )}
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900">{suggestion.text}</h3>
+                        <p className="text-sm text-gray-600">{suggestion.count}</p>
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => {
+                        setSearchQuery(suggestion.text)
+                        performSearch(suggestion.text)
+                      }}
+                      className="btn-secondary text-sm"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Google Maps View */}
           {viewMode === 'map' && (

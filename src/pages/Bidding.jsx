@@ -128,7 +128,7 @@ const Bidding = () => {
                 className="btn-primary w-full"
                 disabled={bidAmount <= property.currentBid}
               >
-                <Gavel className="w-4 h-4 mr-2" />
+                {/* <Gavel className="w-4 h-4 mr-2" /> */}
                 Place Bid
               </button>
             </div>

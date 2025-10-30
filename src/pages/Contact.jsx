@@ -170,7 +170,7 @@ const Contact = () => {
 
               <div>
                 <button type="submit" className="btn-primary w-full md:w-auto">
-                  <Send className="w-4 h-4 mr-2" />
+                  {/* <Send className="w-4 h-4 mr-2" /> */}
                   Send Message
                 </button>
               </div>

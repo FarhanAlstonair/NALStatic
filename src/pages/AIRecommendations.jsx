@@ -231,7 +231,7 @@ const AIRecommendations = () => {
                   </>
                 ) : (
                   <>
-                    <Brain className="w-4 h-4 mr-2" />
+                    {/* <Brain className="w-4 h-4 mr-2" /> */}
                     Get AI Recommendations
                   </>
                 )}

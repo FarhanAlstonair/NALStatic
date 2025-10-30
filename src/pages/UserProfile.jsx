@@ -23,13 +23,13 @@ const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false)
   const { favorites, removeFromFavorites } = useFavorites()
   const [profileData, setProfileData] = useState({
-    name: 'Rajesh Kumar',
-    email: 'rajesh.kumar@email.com',
+    name: 'Farhan Tigadi',
+    email: 'farhan@email.com',
     phone: '+91 98765 43210',
-    location: 'Mumbai, Maharashtra',
-    bio: 'Real estate investor looking for premium properties in Mumbai and Pune.',
+    location: 'Bangalore, Karnataka',
+    bio: 'Real estate investor looking for premium properties in Bangalore areas.',
     verified: true,
-    joinDate: '2023-01-15'
+    joinDate: '2025-10-30'
   })
 
   const tabs = [

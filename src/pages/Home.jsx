@@ -92,11 +92,11 @@ const Home = () => {
             {/* <p className="text-lg mb-8 text-blue-200">
               Powered by <a href="https://alstonair.com" target="_blank" className="text-yellow-300 hover:text-yellow-200 font-medium underline">Alstonair Technologies</a>
             </p> */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/verify" className="btn-primary bg-white text-primary-600 hover:bg-gray-100">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+              <Link to="/verify" className="btn-primary bg-white text-primary-600 hover:bg-gray-100 hover:scale-105 transition-all duration-200 hover:shadow-xl">
                 Verify Documents
               </Link>
-              <Link to="/properties" className="btn-primary bg-white text-primary-600 hover:bg-gray-100">
+              <Link to="/properties" className="btn-primary bg-white text-primary-600 hover:bg-gray-100 hover:scale-105 transition-all duration-200 hover:shadow-xl">
                 Browse Properties
               </Link>
             </div>
@@ -108,8 +108,8 @@ const Home = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-primary-600 mb-2">
+            <div key={index} className="text-center animate-in fade-in slide-in-from-bottom-4 duration-500" style={{animationDelay: `${index * 100}ms`}}>
+              <div className="text-3xl md:text-4xl font-bold text-primary-600 mb-2 hover:scale-110 transition-transform duration-300 cursor-default">
                 {stat.value}
               </div>
               <div className="text-gray-600 font-medium">
@@ -135,8 +135,8 @@ const Home = () => {
           {coreFeatures.map((feature, index) => {
             const Icon = feature.icon
             return (
-              <div key={index} className="card hover:shadow-lg transition-shadow duration-300">
-                <div className={`w-12 h-12 ${feature.color} rounded-lg flex items-center justify-center mb-4`}>
+              <div key={index} className="card hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-in fade-in slide-in-from-bottom-4" style={{animationDelay: `${index * 100}ms`}}>
+                <div className={`w-12 h-12 ${feature.color} rounded-lg flex items-center justify-center mb-4 hover:scale-110 transition-transform duration-200`}>
                   <Icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -308,7 +308,7 @@ const Home = () => {
             <p className="text-lg mb-8 text-blue-200">
               Built on Alstonair's enterprise-grade technology platform
             </p>
-            <Link to="/signup" className="btn-primary bg-white text-primary-600 hover:bg-gray-100">
+            <Link to="/signup" className="btn-primary bg-white text-primary-600 hover:bg-gray-100 hover:scale-105 transition-all duration-200 hover:shadow-xl">
               Create Account
             </Link>
           </div>
