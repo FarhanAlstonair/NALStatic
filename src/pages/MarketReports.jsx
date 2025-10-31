@@ -5,13 +5,13 @@ const MarketReports = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <div className="mb-8">
+          {/* <div className="mb-8">
             <Construction className="w-24 h-24 text-primary-600 mx-auto mb-6" />
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Market Reports</h1>
             <p className="text-xl text-gray-600 mb-8">
               Comprehensive property market analysis and insights
             </p>
-          </div>
+          </div> */}
 
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12">
             <div className="max-w-md mx-auto">
@@ -39,7 +39,7 @@ const MarketReports = () => {
 
               <div className="flex items-center justify-center text-sm text-gray-500">
                 <Calendar className="w-4 h-4 mr-2" />
-                <span>Expected launch: Q1 2026</span>
+                <span>Expected launch: Q 2026</span>
               </div>
             </div>
           </div>

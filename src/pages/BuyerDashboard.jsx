@@ -2,22 +2,27 @@ import { useState, useEffect } from 'react'
 import { Heart, Eye, ShoppingCart, CreditCard, MapPin, Home, TrendingUp, FileText, Zap } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useFavorites } from '../context/FavoritesContext'
 
 const BuyerDashboard = () => {
   const { user } = useAuth()
-  const [favorites, setFavorites] = useState([])
+  const { favorites } = useFavorites()
   const [recentViews, setRecentViews] = useState([])
   const [purchases, setPurchases] = useState([])
   const [showCheckout, setShowCheckout] = useState(false)
   const [selectedProperty, setSelectedProperty] = useState(null)
 
+  const formatCurrency = (amount) => {
+    if (amount >= 100) return `₹${(amount / 100).toFixed(1)} Cr`
+    if (amount >= 1) return `₹${amount.toFixed(1)} L`
+    return `₹${(amount * 100).toFixed(0)}`
+  }
+
   useEffect(() => {
     // Load user data from localStorage
-    const userFavorites = JSON.parse(localStorage.getItem(`favorites_${user?.id}`) || '[]')
     const userViews = JSON.parse(localStorage.getItem(`recentViews_${user?.id}`) || '[]')
     const userPurchases = JSON.parse(localStorage.getItem(`purchases_${user?.id}`) || '[]')
     
-    setFavorites(userFavorites)
     setRecentViews(userViews)
     setPurchases(userPurchases)
   }, [user])
@@ -110,7 +115,15 @@ const BuyerDashboard = () => {
               <div>
                 <p className="text-sm font-medium text-gray-600">Total Spent</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  ₹{purchases.reduce((sum, p) => sum + parseFloat(p.amount.replace(/[₹,]/g, '')), 0).toLocaleString()}
+                  {formatCurrency(purchases.reduce((sum, p) => {
+                    const cleanAmount = p.amount.replace(/[₹,\s]/g, '')
+                    if (cleanAmount.includes('Cr')) {
+                      return sum + parseFloat(cleanAmount.replace('Cr', '')) * 100
+                    } else if (cleanAmount.includes('L')) {
+                      return sum + parseFloat(cleanAmount.replace('L', ''))
+                    }
+                    return sum + parseFloat(cleanAmount) / 100000
+                  }, 0))}
                 </p>
               </div>
               <CreditCard className="w-8 h-8 text-purple-600" />
