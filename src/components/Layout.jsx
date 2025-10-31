@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Menu, Search, User, ChevronDown, Building, FileCheck, Gavel, GitCompare, Calculator, Brain, BarChart3, TrendingUp, Map, Camera, MapPin, LogIn, LogOut } from 'lucide-react'
+import { Menu, Search, User, ChevronDown, Building, FileCheck, Gavel, GitCompare, Calculator, Brain, BarChart3, TrendingUp, Map, Camera, MapPin, LogIn, LogOut, FileText, Activity } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import Chatbot from './Chatbot'
 
 const Layout = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -51,8 +52,10 @@ const Layout = ({ children }) => {
       href: '/verify',
       dropdown: [
         { name: 'Document Verification', href: '/verify', icon: FileCheck },
+        { name: 'Urgent Sale Value', href: '/urgent-sale-value', icon: TrendingUp },
         { name: 'Property Bidding', href: '/bidding', icon: Gavel },
-        { name: 'Loan Calculator', href: '/loan-calculator', icon: Calculator }
+        { name: 'Loan Calculator', href: '/loan-calculator', icon: Calculator },
+        { name: 'Asset Management', href: '/asset-management', icon: Building }
       ]
     },
     {
@@ -61,9 +64,18 @@ const Layout = ({ children }) => {
       dropdown: [
         { name: 'AI Recommendations', href: '/ai-recommendations', icon: Brain },
         { name: 'Price Prediction', href: '/price-prediction', icon: TrendingUp },
+        { name: 'Property Trends', href: '/property-trends-extended', icon: Activity },
+        { name: 'Heat Map', href: '/heat-map', icon: Map },
         { name: 'Competitor Analytics', href: '/competitor-analytics', icon: BarChart3 },
-        { name: 'Geo Analysis', href: '/geo-analysis', icon: Map },
         { name: 'AR Tours', href: '/ar-tours', icon: Camera }
+      ]
+    },
+    {
+      name: 'Resources',
+      href: '/government-guidelines',
+      dropdown: [
+        { name: 'Government Guidelines', href: '/government-guidelines', icon: FileText },
+        { name: 'Market Reports', href: '/market-reports', icon: BarChart3 }
       ]
     },
     { name: 'About', href: '/about' },
@@ -267,15 +279,9 @@ const Layout = ({ children }) => {
                   <div>
                     <button
                       onClick={() => setShowUserMenu(!showUserMenu)}
-                      className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 rounded-lg transition-colors"
+                      className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors relative ml-4"
                     >
-                      <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                        <User className="w-4 h-4 text-primary-600" />
-                      </div>
-                      <span className="hidden lg:block text-sm font-medium text-gray-700">
-                        {user?.firstName || 'Profile'}
-                      </span>
-                      <ChevronDown className="w-4 h-4 text-gray-400" />
+                      <User className="w-5 h-5 text-gray-700" />
                     </button>
                     
                     {showUserMenu && (
@@ -288,6 +294,36 @@ const Layout = ({ children }) => {
                           <User className="w-4 h-4" />
                           <span>My Profile</span>
                         </Link>
+                        {user?.userType === 'seller' && (
+                          <Link
+                            to="/seller-dashboard"
+                            onClick={() => setShowUserMenu(false)}
+                            className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                          >
+                            <Building className="w-4 h-4" />
+                            <span>Seller Dashboard</span>
+                          </Link>
+                        )}
+                        {user?.userType === 'buyer' && (
+                          <Link
+                            to="/buyer-dashboard"
+                            onClick={() => setShowUserMenu(false)}
+                            className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                          >
+                            <Building className="w-4 h-4" />
+                            <span>Buyer Dashboard</span>
+                          </Link>
+                        )}
+                        {user?.userType === 'agent' && (
+                          <Link
+                            to="/agent-dashboard"
+                            onClick={() => setShowUserMenu(false)}
+                            className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                          >
+                            <Building className="w-4 h-4" />
+                            <span>Agent Dashboard</span>
+                          </Link>
+                        )}
                         <button
                           onClick={() => {
                             logout()
@@ -374,6 +410,9 @@ const Layout = ({ children }) => {
           </div>
         )}
       </header>
+
+      {/* Chatbot */}
+      <Chatbot />
 
       {/* Main Content */}
       <main className="flex-1">

@@ -1,6 +1,10 @@
 import { Building, Users, Award, Target, Globe, Shield } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 const About = () => {
+  const { isAuthenticated } = useAuth()
+  
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Hero Section */}
@@ -152,12 +156,15 @@ const About = () => {
           Join thousands of users who trust NAL India for their property needs.
         </p>
         <div className="space-x-4">
-          <a href="/signup" className="btn-primary">
-            Get Started
-          </a>
-          <a href="/properties" className="btn-secondary">
-            Browse Properties
-          </a>
+          {!isAuthenticated ? (
+            <Link to="/signup" className="btn-primary">
+              Get Started
+            </Link>
+          ) : (
+            <Link to="/properties" className="btn-primary">
+              Browse Properties
+            </Link>
+          )}
         </div>
       </div>
     </div>

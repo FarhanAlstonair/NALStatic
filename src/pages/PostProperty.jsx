@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, Upload, MapPin, FileText, CheckCircle, User, Home, Camera, FileCheck, Eye } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 const PostProperty = () => {
+  const { user } = useAuth()
+  const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(1)
   const [formData, setFormData] = useState({
     // Personal Details
@@ -848,12 +852,71 @@ const PostProperty = () => {
       </div>
       
       <div className="text-center">
-        <button className="btn-primary text-lg px-8 py-3">
+        <button 
+          onClick={handleSubmit}
+          className="btn-primary text-lg px-8 py-3"
+        >
           Submit Property Listing
         </button>
       </div>
     </div>
   )
+
+  const handleSubmit = () => {
+    // Generate property with real images
+    const propertyImages = [
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800',
+      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800'
+    ]
+
+    const newProperty = {
+      id: Date.now(),
+      sellerId: user?.id,
+      sellerName: user?.name,
+      sellerType: user?.userType,
+      title: formData.title,
+      description: formData.description,
+      type: formData.listingType,
+      propertyType: formData.propertyType,
+      price: formData.salePrice || formData.monthlyRent || formData.startingBiddingPrice || 'Contact for price',
+      location: `${formData.city}, ${formData.state}`,
+      address: formData.address,
+      area: formData.builtUpArea,
+      bedrooms: formData.bedrooms,
+      bathrooms: formData.bathrooms,
+      image: propertyImages[0],
+      images: propertyImages,
+      specifications: formData.specifications,
+      features: formData.features,
+      amenities: formData.amenities,
+      facing: formData.facing,
+      furnishing: formData.furnishing,
+      propertyAge: formData.propertyAge,
+      views: 0,
+      inquiries: 0,
+      createdAt: new Date().toISOString(),
+      status: 'active'
+    }
+
+    // Save to localStorage
+    const existingProperties = JSON.parse(localStorage.getItem('properties') || '[]')
+    existingProperties.push(newProperty)
+    localStorage.setItem('properties', JSON.stringify(existingProperties))
+
+    // Clear form draft
+    localStorage.removeItem('propertyFormDraft')
+
+    // Navigate to appropriate dashboard
+    if (user?.userType === 'seller') {
+      navigate('/seller-dashboard')
+    } else if (user?.userType === 'agent') {
+      navigate('/agent-dashboard')
+    } else {
+      navigate('/properties')
+    }
+  }
 
   const renderStepContent = () => {
     switch (currentStep) {

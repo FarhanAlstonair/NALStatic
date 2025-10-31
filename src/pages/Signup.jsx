@@ -61,7 +61,7 @@ const Signup = () => {
         userType: formData.userType,
         verified: false,
         joinDate: new Date().toISOString().split('T')[0],
-        bio: `${formData.userType === 'buyer' ? 'Looking to buy' : formData.userType === 'seller' ? 'Looking to sell' : 'Looking to rent'} properties in ${formData.location}.`
+        bio: `${formData.userType === 'buyer' ? 'Looking to buy' : formData.userType === 'seller' ? 'Looking to sell' : 'Real estate agent helping clients with'} properties.`
       }
       
       // Save to localStorage
@@ -115,7 +115,7 @@ const Signup = () => {
                 {[
                   { value: 'buyer', label: 'Buy Property' },
                   { value: 'seller', label: 'Sell Property' },
-                  { value: 'renter', label: 'Rent Property' }
+                  { value: 'agent', label: 'Real Estate Agent' }
                 ].map((type) => (
                   <label key={type.value} className="relative">
                     <input
@@ -195,45 +195,22 @@ const Signup = () => {
               </div>
             </div>
 
-            {/* Phone & Location */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number
-                </label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                    placeholder="+91 98765 43210"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Location
-                </label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <select
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                  >
-                    <option value="">Select location</option>
-                    <option value="koramangala">Koramangala, Bangalore</option>
-                    <option value="indiranagar">Indiranagar, Bangalore</option>
-                    <option value="whitefield">Whitefield, Bangalore</option>
-                    <option value="hsr-layout">HSR Layout, Bangalore</option>
-                  </select>
-                </div>
+            {/* Phone */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Phone Number
+              </label>
+              <div className="relative">
+                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                  placeholder="+91 98765 43210"
+                />
               </div>
             </div>
 

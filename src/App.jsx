@@ -20,6 +20,15 @@ import PropertyDetails from './pages/PropertyDetails'
 import PostProperty from './pages/PostProperty'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import GovernmentGuidelines from './pages/GovernmentGuidelines'
+import HeatMap from './pages/HeatMap'
+import PropertyTrendsExtended from './pages/PropertyTrendsExtended'
+import UrgentSaleValue from './pages/UrgentSaleValue'
+import AssetManagement from './pages/AssetManagement'
+import MarketReports from './pages/MarketReports'
+import SellerDashboard from './pages/SellerDashboard'
+import BuyerDashboard from './pages/BuyerDashboard'
+import AgentDashboard from './pages/AgentDashboard'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -42,6 +51,15 @@ function App() {
           <Route path="/price-prediction" element={<ProtectedRoute><PricePrediction /></ProtectedRoute>} />
           <Route path="/geo-analysis" element={<ProtectedRoute><GeoDemographicAnalysis /></ProtectedRoute>} />
           <Route path="/ar-tours" element={<ProtectedRoute><ARPropertyTours /></ProtectedRoute>} />
+          <Route path="/government-guidelines" element={<GovernmentGuidelines />} />
+          <Route path="/heat-map" element={<ProtectedRoute><HeatMap /></ProtectedRoute>} />
+          <Route path="/property-trends-extended" element={<ProtectedRoute><PropertyTrendsExtended /></ProtectedRoute>} />
+          <Route path="/urgent-sale-value" element={<ProtectedRoute><UrgentSaleValue /></ProtectedRoute>} />
+          <Route path="/asset-management" element={<ProtectedRoute><AssetManagement /></ProtectedRoute>} />
+          <Route path="/market-reports" element={<MarketReports />} />
+          <Route path="/seller-dashboard" element={<ProtectedRoute><SellerDashboard /></ProtectedRoute>} />
+          <Route path="/buyer-dashboard" element={<ProtectedRoute><BuyerDashboard /></ProtectedRoute>} />
+          <Route path="/agent-dashboard" element={<ProtectedRoute><AgentDashboard /></ProtectedRoute>} />
           <Route path="/property/:id" element={<ProtectedRoute><PropertyDetails /></ProtectedRoute>} />
           <Route path="/post-property" element={<ProtectedRoute><PostProperty /></ProtectedRoute>} />
           <Route path="/login" element={<Login />} />

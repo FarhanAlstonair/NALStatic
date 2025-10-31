@@ -46,7 +46,7 @@ const UserProfile = () => {
         name: user.name || `${user.firstName} ${user.lastName}`,
         email: user.email || '',
         phone: user.phone || '',
-        location: user.location || '',
+
         bio: user.bio || '',
         verified: user.verified || false,
         joinDate: user.joinDate || ''
@@ -99,7 +99,7 @@ const UserProfile = () => {
       name: profileData.name,
       email: profileData.email,
       phone: profileData.phone,
-      location: profileData.location,
+
       bio: profileData.bio
     }
     
@@ -219,25 +219,7 @@ const UserProfile = () => {
               )}
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Location
-              </label>
-              {isEditing ? (
-                <input
-                  key="location-input"
-                  type="text"
-                  value={profileData.location}
-                  onChange={(e) => handleInputChange('location', e.target.value)}
-                  className="input-field"
-                />
-              ) : (
-                <div className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4 text-gray-400" />
-                  <span>{profileData.location}</span>
-                </div>
-              )}
-            </div>
+
           </div>
 
           <div>
