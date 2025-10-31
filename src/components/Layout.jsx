@@ -125,7 +125,7 @@ const Layout = ({ children }) => {
             {/* Logo */}
             <div className="flex items-center">
               <Link to="/" className="flex items-center group">
-                <img src="/src/assets/logo.jpg" alt="NAL" className="w-12 h-12 rounded-xl shadow-md" />
+                <img src="/src/assets/logo.jpg" alt="NAL" className="w-12 h-12" />
               </Link>
             </div>
 
@@ -388,7 +388,7 @@ const Layout = ({ children }) => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
-                <img src="/src/assets/logo.jpg" alt="NAL" className="w-12 h-12 rounded-xl shadow-lg" />
+                <img src="/src/assets/logo.jpg" alt="NAL" className="w-12 h-12" />
                 <span className="text-3xl font-bold text-white">NAL</span>
               </div>
               <p className="text-gray-300 mb-6 text-lg leading-relaxed">
