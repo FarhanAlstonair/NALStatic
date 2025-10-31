@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { 
   FileCheck, 
@@ -20,6 +21,37 @@ import { useAuth } from '../context/AuthContext'
 
 const Home = () => {
   const { isAuthenticated } = useAuth()
+  const [currentSlide, setCurrentSlide] = useState(0)
+  
+  const heroImages = [
+    {
+      url: 'https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+      title: 'Modern City Skyline'
+    },
+    {
+      url: 'https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+      title: 'Luxury Villa'
+    },
+    {
+      url: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+      title: 'Modern Apartments'
+    },
+    {
+      url: 'https://images.pexels.com/photos/374023/pexels-photo-374023.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+      title: 'City Buildings'
+    },
+    {
+      url: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+      title: 'Residential Complex'
+    }
+  ]
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
   const coreFeatures = [
     {
       icon: FileCheck,
@@ -81,17 +113,42 @@ const Home = () => {
   return (
     <div className="space-y-16">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden h-screen">
+        {/* Image Slider */}
         <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&h=1080&fit=crop&crop=center" 
-            alt="Modern city skyline" 
-            className="w-full h-full object-cover"
-          />
-<div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A]/50 via-[#1D4ED8]/70 to-indigo-200/50"></div>
+          {heroImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                index === currentSlide 
+                  ? 'opacity-100 scale-100' 
+                  : 'opacity-0 scale-105'
+              }`}
+            >
+              <img 
+                src={image.url}
+                alt={image.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
+          
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A]/60 via-[#1D4ED8]/70 to-indigo-200/50"></div>
+          
+          {/* Animated Particles */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white/20 rounded-full animate-bounce"></div>
+            <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-white/30 rounded-full animate-pulse"></div>
+            <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-white/10 rounded-full animate-ping"></div>
+            <div className="absolute top-2/3 right-1/4 w-1.5 h-1.5 bg-white/25 rounded-full animate-bounce"></div>
+          </div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
-          <div className="text-center">
+        
+
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-center justify-center min-h-screen">
+          <div className="text-center w-full">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-wide text-white">
               India's Most Trusted
               <span className="block text-yellow-400">Property Platform</span>
@@ -112,7 +169,7 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-white py-16">
+      <section className="bg-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -130,13 +187,13 @@ const Home = () => {
       </section>
 
       {/* Core Features */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
               Core Features
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Essential tools and features that make property transactions secure, fast, and reliable
             </p>
           </div>
@@ -163,13 +220,13 @@ const Home = () => {
       </section>
 
       {/* Quick Actions */}
-      <section className="bg-gray-50 py-20">
+      <section className="bg-gray-50 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
               Quick Actions
             </h2>
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-lg text-gray-600 leading-relaxed">
               Get started with our most popular features
             </p>
           </div>
@@ -178,8 +235,8 @@ const Home = () => {
             <Link to={isAuthenticated ? "/verify" : "/login"} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-2 hover:border-[#1E3A8A] border-2 border-transparent group overflow-hidden">
               <div className="relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=200&fit=crop&crop=center" 
-                  alt="Document verification" 
+                  src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=300&fit=crop&crop=center" 
+                  alt="Property document verification" 
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute inset-0 bg-emerald-500/20 group-hover:bg-emerald-500/30 transition-colors duration-300"></div>
@@ -205,8 +262,8 @@ const Home = () => {
             <Link to="/properties" className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-2 hover:border-[#1E3A8A] border-2 border-transparent group overflow-hidden">
               <div className="relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=200&fit=crop&crop=center" 
-                  alt="Modern apartment interior" 
+                  src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop&crop=center" 
+                  alt="Modern apartments" 
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute inset-0 bg-blue-500/20 group-hover:bg-blue-500/30 transition-colors duration-300"></div>
@@ -232,8 +289,8 @@ const Home = () => {
             <Link to="/post-property" className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-2 hover:border-[#1E3A8A] border-2 border-transparent group overflow-hidden">
               <div className="relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&h=200&fit=crop&crop=center" 
-                  alt="Real estate agent with keys" 
+                  src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&h=300&fit=crop&crop=center" 
+                  alt="Property listing" 
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute inset-0 bg-purple-500/20 group-hover:bg-purple-500/30 transition-colors duration-300"></div>
@@ -260,13 +317,13 @@ const Home = () => {
       </section>
 
       {/* Advanced Features */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
               Advanced Features
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Take advantage of our premium tools for smarter property decisions
             </p>
           </div>

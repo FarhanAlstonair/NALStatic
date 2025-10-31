@@ -8,11 +8,17 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hi! I'm NAL Assistant. How can I help you with your property needs today?",
+      text: "Hi there! 👋 I'm here to help you find your dream property. Are you looking to buy, sell, or rent?",
       sender: 'bot',
       timestamp: new Date()
     }
   ])
+  const [userContext, setUserContext] = useState({
+    lookingFor: null,
+    budget: null,
+    location: null,
+    propertyType: null
+  })
   const [inputMessage, setInputMessage] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef(null)
@@ -25,27 +31,74 @@ const Chatbot = () => {
     scrollToBottom()
   }, [messages])
 
-  const predefinedResponses = {
-    'hello': 'Hello! Welcome to NAL India. How can I assist you today?',
-    'hi': 'Hi there! I\'m here to help with your property queries.',
-    'property verification': 'Our document verification service uses AI to instantly verify property documents. You can upload documents like sale deeds, title deeds, and NOCs for quick verification.',
-    'document verification': 'We verify various property documents including sale deeds, title deeds, NOCs, building approvals, and RERA certificates. The process takes just a few minutes.',
-    'ribl score': 'RIBL Score is our proprietary scoring system that evaluates property quality, legal status, and investment potential on a scale of 1-100.',
-    'property search': 'You can search properties by location, price range, property type (buy/sell/rent/lease), and various filters like BHK, amenities, and more.',
-    'payment': 'We offer secure payment gateway integration for property transactions. All payments are encrypted and processed through trusted payment partners.',
-    'contact': 'You can reach us at support@nalindia.com or call our helpline at +91-XXXXXXXXXX. Our team is available 24/7.',
-    'pricing': 'Our pricing varies based on services. Document verification starts at ₹99, property listing is free, and premium features have subscription plans.',
-    'rera': 'RERA (Real Estate Regulatory Authority) registration is mandatory for projects above 500 sq meters. We help verify RERA compliance for all listed properties.',
-    'loan calculator': 'Our loan calculator helps you estimate EMI, eligibility, and compare offers from multiple banks. You can access it from the Services menu.',
-    'property trends': 'We provide detailed market analysis, price trends, and growth predictions for different areas. Check our Property Trends section for insights.',
-    'default': 'I understand you\'re asking about property services. Here are some things I can help with:\n\n• Property verification and documentation\n• RIBL score information\n• Property search and listings\n• Payment and pricing details\n• RERA compliance\n• Market trends and analysis\n\nWhat specific information would you like to know?'
+  const getContextualResponse = (userMessage) => {
+    const message = userMessage.toLowerCase()
+    
+    // Intent detection for property search
+    if (message.includes('buy') || message.includes('purchase')) {
+      setUserContext(prev => ({...prev, lookingFor: 'buy'}))
+      return "Great! Looking to buy a property 🏠 What's your budget range? And which area in Bangalore are you considering?"
+    }
+    
+    if (message.includes('sell')) {
+      setUserContext(prev => ({...prev, lookingFor: 'sell'}))
+      return "Perfect! I can help you sell your property 💰 What type of property do you have? (Apartment/Villa/Plot/Commercial)"
+    }
+    
+    if (message.includes('rent')) {
+      setUserContext(prev => ({...prev, lookingFor: 'rent'}))
+      return "Looking for a rental property? 🏡 What's your monthly budget and preferred location?"
+    }
+    
+    // Budget detection
+    if (message.match(/\d+\s*(lakh|crore|cr|l)/)) {
+      const budget = message.match(/\d+\s*(lakh|crore|cr|l)/)[0]
+      setUserContext(prev => ({...prev, budget}))
+      return `Got it! Budget of ${budget} 💵 Which areas are you looking at? I can show you properties in Koramangala, Whitefield, HSR Layout, or other localities.`
+    }
+    
+    // Location detection
+    const locations = ['koramangala', 'whitefield', 'hsr', 'indiranagar', 'electronic city', 'sarjapur', 'marathahalli']
+    const foundLocation = locations.find(loc => message.includes(loc))
+    if (foundLocation) {
+      setUserContext(prev => ({...prev, location: foundLocation}))
+      return `${foundLocation.charAt(0).toUpperCase() + foundLocation.slice(1)} is a great choice! 📍 I found ${Math.floor(Math.random() * 50) + 10} properties there. What type are you looking for? (1BHK/2BHK/3BHK/Villa)`
+    }
+    
+    // Property type detection
+    if (message.includes('bhk') || message.includes('bedroom')) {
+      const bhk = message.match(/(\d+)\s*bhk/)?.[1] || 'multi'
+      return `Perfect! ${bhk}BHK properties 🏠 I can show you verified listings with photos, virtual tours, and RIBL scores. Want to see available options now?`
+    }
+    
+    // Specific queries
+    const responses = {
+      'hello': 'Hey! 👋 Looking for a property? I can help you buy, sell, or rent in Bangalore!',
+      'hi': 'Hi there! 😊 Are you looking to buy, sell, or rent a property today?',
+      'loan': 'Need a home loan? 🏦 I can help you check eligibility, compare rates (starting 8.3%), and calculate EMI. What\'s your monthly income?',
+      'emi': 'EMI Calculator 📊 Just tell me the loan amount, tenure, and I\'ll calculate your monthly EMI instantly!',
+      'documents': 'Document verification made easy! 📄 Upload your sale deed, title deed, or NOC and get instant AI-powered verification.',
+      'price': 'Want to know property prices? 💰 Tell me the area and property type, I\'ll share current market rates and trends.',
+      'agent': 'Looking for an agent? 👨‍💼 I can connect you with RERA-verified agents in your area. Which locality?',
+      'visit': 'Want to schedule a property visit? 📅 Just share the property ID or tell me your requirements!',
+      'legal': 'Legal help needed? ⚖️ I can guide you through registration, stamp duty (3-5% in Karnataka), and documentation.',
+      'investment': 'Property investment advice? 📈 I can analyze ROI, rental yields, and growth potential. Which area interests you?'
+    }
+    
+    for (const [key, response] of Object.entries(responses)) {
+      if (message.includes(key)) return response
+    }
+    
+    return "I'm here to help with all your property needs! 🏠 Try asking me about:\n\n🔍 Finding properties\n💰 Loan & EMI calculations\n📄 Document verification\n📊 Market prices\n👨‍💼 Connecting with agents\n📅 Scheduling visits\n\nWhat would you like to know?"
   }
 
   const quickReplies = [
-    'Document Verification',
-    'Property Search',
-    'RIBL Score',
-    'Pricing'
+    'Buy Property',
+    'Sell Property',
+    'Rent Property',
+    'Check Loan EMI',
+    'Verify Documents',
+    'Market Prices'
   ]
 
   const getBotResponse = (userMessage) => {
@@ -53,16 +106,10 @@ const Chatbot = () => {
     
     if (message.includes('homepage') || message.includes('home')) {
       navigate('/')
-      return 'Redirecting you to homepage...'
+      return 'Taking you to homepage... 🏠'
     }
     
-    for (const [key, response] of Object.entries(predefinedResponses)) {
-      if (message.includes(key)) {
-        return response
-      }
-    }
-    
-    return predefinedResponses.default
+    return getContextualResponse(userMessage)
   }
 
   const handleSendMessage = (messageText = inputMessage) => {
@@ -90,15 +137,7 @@ const Chatbot = () => {
       setMessages(prev => [...prev, botResponse])
       setIsTyping(false)
       
-      // Show quick questions after bot response
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          id: Date.now() + 2,
-          text: '',
-          sender: 'quick-questions',
-          timestamp: new Date()
-        }])
-      }, 500)
+
     }, 1000)
   }
 
@@ -116,12 +155,25 @@ const Chatbot = () => {
   return (
     <>
       {/* Chat Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200 z-50"
-      >
-        {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
-      </button>
+      <div className="fixed bottom-6 right-6 z-50">
+        <div className="relative flex items-center justify-center">
+          {/* Multiple Smaller Ripple Effects */}
+          <div className="absolute w-16 h-16 bg-blue-400 rounded-full animate-ping opacity-15" style={{animationDuration: '3s'}}></div>
+          <div className="absolute w-15 h-15 bg-blue-500 rounded-full animate-ping opacity-20" style={{animationDuration: '2.5s', animationDelay: '0.3s'}}></div>
+          <div className="absolute w-14 h-14 bg-blue-600 rounded-full animate-ping opacity-25" style={{animationDuration: '2s', animationDelay: '0.6s'}}></div>
+          <div className="absolute w-13 h-13 bg-blue-400 rounded-full animate-ping opacity-15" style={{animationDuration: '3.5s', animationDelay: '0.9s'}}></div>
+          <div className="absolute w-12 h-12 bg-blue-500 rounded-full animate-pulse opacity-20" style={{animationDuration: '4s', animationDelay: '1.2s'}}></div>
+          <div className="absolute w-11 h-11 bg-blue-600 rounded-full animate-ping opacity-25" style={{animationDuration: '2.8s', animationDelay: '1.5s'}}></div>
+          
+          {/* Main Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="relative w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-105 z-10"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+          </button>
+        </div>
+      </div>
 
       {/* Chat Window */}
       {isOpen && (
@@ -158,24 +210,7 @@ const Chatbot = () => {
                         ? 'bg-primary-600 text-white'
                         : 'bg-gray-100 text-gray-800'
                     }`}>
-                      {message.sender === 'quick-questions' ? (
-                        <div>
-                          <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
-                          <div className="flex flex-wrap gap-1">
-                            {quickReplies.map((reply) => (
-                              <button
-                                key={reply}
-                                onClick={() => handleSendMessage(reply)}
-                                className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded-full transition-colors"
-                              >
-                                {reply}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      ) : (
                         <p className="text-sm whitespace-pre-line">{message.text}</p>
-                      )}
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
                       {formatTime(message.timestamp)}
@@ -204,21 +239,28 @@ const Chatbot = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick Replies */}
-          {messages.length === 1 && (
-            <div className="px-4 pb-2">
-              <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
-              <div className="flex flex-wrap gap-1">
-                {quickReplies.map((reply) => (
-                  <button
-                    key={reply}
-                    onClick={() => handleSendMessage(reply)}
-                    className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded-full transition-colors"
-                  >
-                    {reply}
-                  </button>
-                ))}
-              </div>
+          {/* Restart Button */}
+          {messages.length > 2 && (
+            <div className="px-4 pb-2 text-center">
+              <button
+                onClick={() => {
+                  setMessages([{
+                    id: 1,
+                    text: "Hi there! 👋 I'm here to help you find your dream property. Are you looking to buy, sell, or rent?",
+                    sender: 'bot',
+                    timestamp: new Date()
+                  }])
+                  setUserContext({
+                    lookingFor: null,
+                    budget: null,
+                    location: null,
+                    propertyType: null
+                  })
+                }}
+                className="text-xs bg-primary-100 hover:bg-primary-200 text-primary-700 px-3 py-1 rounded-full transition-colors"
+              >
+                🔄 Start New Conversation
+              </button>
             </div>
           )}
 

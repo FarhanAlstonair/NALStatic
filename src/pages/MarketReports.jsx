@@ -19,9 +19,9 @@ const MarketReports = () => {
                 <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <TrendingUp className="w-8 h-8 text-primary-600" />
                 </div>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-3">Coming Soon</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-3">In Progress</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  We're working hard to bring you detailed market reports with comprehensive 
+                  Our analytics team is actively developing comprehensive market reports with detailed 
                   property analytics, trend analysis, and investment insights.
                 </p>
               </div>
@@ -37,10 +37,7 @@ const MarketReports = () => {
                 </ul>
               </div>
 
-              <div className="flex items-center justify-center text-sm text-gray-500">
-                <Calendar className="w-4 h-4 mr-2" />
-                <span>Expected launch: Q 2026</span>
-              </div>
+
             </div>
           </div>
         </div>

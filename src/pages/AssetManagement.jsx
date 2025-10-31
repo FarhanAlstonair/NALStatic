@@ -15,12 +15,12 @@ const AssetManagement = () => {
           </h1>
           
           <div className="flex items-center justify-center gap-2 mb-6">
-            <Wrench className="w-5 h-5 text-amber-500" />
-            <span className="text-lg font-semibold text-amber-600">Coming Soon</span>
+            <Wrench className="w-5 h-5 text-blue-500" />
+            <span className="text-lg font-semibold text-blue-600">In Progress</span>
           </div>
           
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            We're building an advanced asset management system to help you track, analyze, and optimize your property portfolio with powerful insights and automated reporting.
+            Our development team is actively working on an advanced asset management system to help you track, analyze, and optimize your property portfolio with powerful insights and automated reporting.
           </p>
           
           <div className="bg-gray-50 rounded-xl p-6 mb-8">
@@ -45,10 +45,7 @@ const AssetManagement = () => {
             </ul>
           </div>
           
-          <div className="flex items-center justify-center gap-2 text-gray-500 mb-8">
-            <Clock className="w-4 h-4" />
-            <span className="text-sm">Expected launch: Q1 2026</span>
-          </div>
+
           
           <Link 
             to="/properties" 

@@ -29,6 +29,8 @@ import MarketReports from './pages/MarketReports'
 import SellerDashboard from './pages/SellerDashboard'
 import BuyerDashboard from './pages/BuyerDashboard'
 import AgentDashboard from './pages/AgentDashboard'
+import AdminLogin from './pages/AdminLogin'
+import AdminDashboard from './pages/AdminDashboard'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -64,6 +66,8 @@ function App() {
           <Route path="/post-property" element={<ProtectedRoute><PostProperty /></ProtectedRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
         </Layout>
       </FavoritesProvider>

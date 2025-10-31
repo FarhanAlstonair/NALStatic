@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Menu, Search, User, ChevronDown, Building, FileCheck, Gavel, GitCompare, Calculator, Brain, BarChart3, TrendingUp, Map, Camera, MapPin, LogIn, LogOut, FileText, Activity } from 'lucide-react'
+import { Menu, Search, User, ChevronDown, Building, FileCheck, Gavel, GitCompare, Calculator, Brain, BarChart3, TrendingUp, Map, Camera, MapPin, LogIn, LogOut, FileText, Activity, Instagram, Linkedin } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import Chatbot from './Chatbot'
 
@@ -10,12 +10,21 @@ const Layout = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [showSearchResults, setShowSearchResults] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   const dropdownRef = useRef(null)
   const searchRef = useRef(null)
   const userMenuRef = useRef(null)
   const { user, logout, isAuthenticated } = useAuth()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -131,13 +140,18 @@ const Layout = ({ children }) => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200 sticky top-0 z-50">
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-white/50 backdrop-blur-xl shadow-xl border-b border-gray-200/50' 
+          : 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200'
+      }`}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <div className="flex items-center">
               <Link to="/" className="flex items-center group">
                 <img src="/src/assets/logo.jpg" alt="NAL" className="w-12 h-12" />
+                <span className="ml-3 text-2xl font-bold text-gray-900">NAL</span>
               </Link>
             </div>
 
@@ -438,10 +452,10 @@ const Layout = ({ children }) => {
               </p>
               <div className="flex space-x-4 mt-6">
                 <a href="https://www.instagram.com/alstonair/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center hover:from-purple-600 hover:to-pink-600 transition-colors">
-                  <span className="text-white font-bold text-sm">ig</span>
+                  <Instagram className="w-5 h-5 text-white" />
                 </a>
                 <a href="https://www.linkedin.com/company/alstonair-technologies-private-limited/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-blue-700 rounded-lg flex items-center justify-center hover:bg-blue-800 transition-colors">
-                  <span className="text-white font-bold">in</span>
+                  <Linkedin className="w-5 h-5 text-white" />
                 </a>
               </div>
             </div>
@@ -468,9 +482,9 @@ const Layout = ({ children }) => {
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-base">&copy; 2024 Alstonair Technologies. All rights reserved.</p>
               <div className="flex space-x-6 mt-4 md:mt-0">
-                <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</Link>
-                <Link to="/terms" className="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</Link>
-                <Link to="/cookies" className="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</Link>
+                <a href="https://alstonair.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                <a href="https://alstonair.com/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+                <a href="https://alstonair.com/cookie-policy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
               </div>
             </div>
           </div>

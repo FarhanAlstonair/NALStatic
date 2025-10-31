@@ -24,7 +24,40 @@ const BuyerDashboard = () => {
     const userPurchases = JSON.parse(localStorage.getItem(`purchases_${user?.id}`) || '[]')
     
     setRecentViews(userViews)
-    setPurchases(userPurchases)
+    
+    // Add mock purchases if none exist
+    if (userPurchases.length === 0) {
+      const mockPurchases = [
+        {
+          id: 1,
+          propertyId: 15,
+          property: {
+            title: '3BHK Luxury Condo',
+            location: 'Bellandur, Bangalore',
+            image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop'
+          },
+          purchaseDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+          amount: '₹2.6 Cr',
+          status: 'completed'
+        },
+        {
+          id: 2,
+          propertyId: 8,
+          property: {
+            title: '2BHK Garden View',
+            location: 'HSR Layout, Bangalore',
+            image: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/736414796.jpg?k=3afde184481bd835cf71b2ba9ccbd83a3e31031a382cdd18ddc6f1814b64bfd4&o=&hp=1'
+          },
+          purchaseDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(),
+          amount: '₹28,000/month',
+          status: 'completed'
+        }
+      ]
+      setPurchases(mockPurchases)
+      localStorage.setItem(`purchases_${user?.id}`, JSON.stringify(mockPurchases))
+    } else {
+      setPurchases(userPurchases)
+    }
   }, [user])
 
   const handleBuyProperty = (property) => {
@@ -57,16 +90,29 @@ const BuyerDashboard = () => {
       title: '3BHK Luxury Apartment',
       location: 'Koramangala, Bangalore',
       price: '₹1.8 Cr',
-      image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400',
-      type: 'sale'
+      image: 'https://imagecdn.99acres.com/media1/32690/10/653810107M-1759080334729.jpg',
+      type: 'sale',
+      riblScore: 'A+',
+      urgentSale: true
     },
     {
       id: 2,
       title: '2BHK Modern Flat',
       location: 'Indiranagar, Bangalore',
       price: '₹1.2 Cr',
-      image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400',
-      type: 'sale'
+      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop',
+      type: 'sale',
+      riblScore: 'A'
+    },
+    {
+      id: 3,
+      title: '4BHK Villa',
+      location: 'HSR Layout, Bangalore',
+      price: '₹2.8 Cr',
+      image: 'https://th.bing.com/th/id/OIP.DCE_Nl83XmL1WHvbnMojzgHaFW?w=255&h=184&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3',
+      type: 'sale',
+      riblScore: 'A+',
+      urgentSale: true
     }
   ]
 
@@ -84,7 +130,7 @@ const BuyerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Favorites</p>
-                <p className="text-2xl font-bold text-gray-900">{favorites.length}</p>
+                <p className="text-2xl font-bold text-gray-900">{favorites.length || 7}</p>
               </div>
               <Heart className="w-8 h-8 text-red-500" />
             </div>
@@ -94,7 +140,7 @@ const BuyerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Recent Views</p>
-                <p className="text-2xl font-bold text-gray-900">{recentViews.length}</p>
+                <p className="text-2xl font-bold text-gray-900">{recentViews.length || 12}</p>
               </div>
               <Eye className="w-8 h-8 text-blue-600" />
             </div>
@@ -104,7 +150,7 @@ const BuyerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Purchases</p>
-                <p className="text-2xl font-bold text-gray-900">{purchases.length}</p>
+                <p className="text-2xl font-bold text-gray-900">{purchases.length || 2}</p>
               </div>
               <ShoppingCart className="w-8 h-8 text-green-600" />
             </div>
@@ -115,7 +161,7 @@ const BuyerDashboard = () => {
               <div>
                 <p className="text-sm font-medium text-gray-600">Total Spent</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {formatCurrency(purchases.reduce((sum, p) => {
+                  {purchases.length > 0 ? formatCurrency(purchases.reduce((sum, p) => {
                     const cleanAmount = p.amount.replace(/[₹,\s]/g, '')
                     if (cleanAmount.includes('Cr')) {
                       return sum + parseFloat(cleanAmount.replace('Cr', '')) * 100
@@ -123,7 +169,7 @@ const BuyerDashboard = () => {
                       return sum + parseFloat(cleanAmount.replace('L', ''))
                     }
                     return sum + parseFloat(cleanAmount) / 100000
-                  }, 0))}
+                  }, 0)) : '₹2.4 Cr'}
                 </p>
               </div>
               <CreditCard className="w-8 h-8 text-purple-600" />
@@ -147,12 +193,28 @@ const BuyerDashboard = () => {
                       className="w-16 h-16 rounded-lg object-cover"
                     />
                     <div className="flex-1">
-                      <h3 className="font-medium text-gray-900">{property.title}</h3>
-                      <div className="flex items-center gap-1 text-sm text-gray-500">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-medium text-gray-900">{property.title}</h3>
+                        {property.urgentSale && (
+                          <span className="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-medium">
+                            Urgent Sale
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-1 text-sm text-gray-500 mb-1">
                         <MapPin className="w-3 h-3" />
                         {property.location}
                       </div>
-                      <p className="font-semibold text-primary-600">{property.price}</p>
+                      <div className="flex items-center justify-between">
+                        <p className={`font-semibold ${property.urgentSale ? 'text-red-600' : 'text-primary-600'}`}>{property.price}</p>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          property.riblScore === 'A+' ? 'bg-green-100 text-green-800' :
+                          property.riblScore === 'A' ? 'bg-blue-100 text-blue-800' :
+                          'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          RIBL: {property.riblScore}
+                        </span>
+                      </div>
                     </div>
                     <button
                       onClick={() => handleBuyProperty(property)}

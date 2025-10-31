@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Bed, Bath, Square, Heart, Share2, Filter } from 'lucide-react'
+import { MapPin, Bed, Bath, Square, Heart, Share2, Filter, MessageCircle } from 'lucide-react'
 import { useFavorites } from '../context/FavoritesContext'
 
 const PropertyListing = () => {
@@ -13,9 +13,13 @@ const PropertyListing = () => {
     bedrooms: '',
     riblScore: ''
   })
+  const [visibleProperties, setVisibleProperties] = useState(8)
+  const [map, setMap] = useState(null)
+  const [markers, setMarkers] = useState([])
+  const mapRef = useRef(null)
   const { toggleFavorite, isFavorite } = useFavorites()
 
-  const properties = [
+  const [allProperties] = useState([
     {
       id: 1,
       title: '3BHK Luxury Apartment',
@@ -25,9 +29,14 @@ const PropertyListing = () => {
       bedrooms: 3,
       bathrooms: 2,
       area: 1200,
-      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop&crop=center',
+      image: 'https://imagecdn.99acres.com/media1/32690/10/653810107M-1759080334729.jpg',
       verified: true,
-      riblScore: 85
+      riblScore: 'A+',
+      urgentSale: true,
+      originalPrice: '₹2.2 Cr',
+      lat: 12.9352,
+      lng: 77.6245,
+      whatsapp: '+91 98765 43210'
     },
     {
       id: 2,
@@ -38,9 +47,12 @@ const PropertyListing = () => {
       bedrooms: 2,
       bathrooms: 2,
       area: 950,
-      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop&crop=center',
+      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop',
       verified: true,
-      riblScore: 78
+      riblScore: 'A',
+      lat: 12.9784,
+      lng: 77.6408,
+      whatsapp: '+91 87654 32109'
     },
     {
       id: 3,
@@ -51,9 +63,12 @@ const PropertyListing = () => {
       bedrooms: 0,
       bathrooms: 2,
       area: 800,
-      image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop&crop=center',
+      image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop',
       verified: false,
-      riblScore: 72
+      riblScore: 'B',
+      lat: 12.9698,
+      lng: 77.7500,
+      whatsapp: '+91 76543 21098'
     },
     {
       id: 4,
@@ -64,9 +79,14 @@ const PropertyListing = () => {
       bedrooms: 4,
       bathrooms: 3,
       area: 2200,
-      image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&h=300&fit=crop&crop=center',
+      image: 'https://th.bing.com/th/id/OIP.DCE_Nl83XmL1WHvbnMojzgHaFW?w=255&h=184&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3',
       verified: true,
-      riblScore: 92
+      riblScore: 'A+',
+      urgentSale: true,
+      originalPrice: '₹3.2 Cr',
+      lat: 12.9116,
+      lng: 77.6473,
+      whatsapp: '+91 65432 10987'
     },
     {
       id: 5,
@@ -77,9 +97,12 @@ const PropertyListing = () => {
       bedrooms: 1,
       bathrooms: 1,
       area: 450,
-      image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=400&h=300&fit=crop&crop=center',
+      image: 'https://th.bing.com/th/id/OIP.qCo-AOmEyzwUOH8O1kz2cAHaJ4?w=127&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3',
       verified: true,
-      riblScore: 68
+      riblScore: 'C',
+      lat: 12.8440,
+      lng: 77.6630,
+      whatsapp: '+91 54321 09876'
     },
     {
       id: 6,
@@ -90,9 +113,12 @@ const PropertyListing = () => {
       bedrooms: 0,
       bathrooms: 1,
       area: 300,
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop&crop=center',
+      image: 'https://th.bing.com/th/id/OIP.WYXsH91kA9H_9L8ZMApRLgHaE8?w=285&h=190&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3',
       verified: false,
-      riblScore: 65
+      riblScore: 'D',
+      lat: 12.9784,
+      lng: 77.6408,
+      whatsapp: '+91 43210 98765'
     },
     {
       id: 7,
@@ -103,9 +129,12 @@ const PropertyListing = () => {
       bedrooms: 3,
       bathrooms: 3,
       area: 1400,
-      image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=300&fit=crop&crop=center',
+      image: 'https://imagecdn.99acres.com/media1/32862/1/657241213M-1759769061882.jpg',
       verified: true,
-      riblScore: 88
+      riblScore: 'A',
+      lat: 12.9698,
+      lng: 77.7500,
+      whatsapp: '+91 32109 87654'
     },
     {
       id: 8,
@@ -116,22 +145,76 @@ const PropertyListing = () => {
       bedrooms: 2,
       bathrooms: 2,
       area: 1100,
-      image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop&crop=center',
+      image: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/736414796.jpg?k=3afde184481bd835cf71b2ba9ccbd83a3e31031a382cdd18ddc6f1814b64bfd4&o=&hp=1',
       verified: true,
-      riblScore: 82
+      riblScore: 'A',
+      lat: 12.9116,
+      lng: 77.6473,
+      whatsapp: '+91 21098 76543'
     }
-  ]
+  ])
+
+  const properties = allProperties.slice(0, visibleProperties)
+
+  useEffect(() => {
+    const initMap = () => {
+      if (window.google && mapRef.current) {
+        const mapInstance = new window.google.maps.Map(mapRef.current, {
+          zoom: 11,
+          center: { lat: 12.9716, lng: 77.5946 }
+        })
+        setMap(mapInstance)
+        
+        // Add markers for properties
+        properties.forEach(property => {
+          if (property.lat && property.lng) {
+            const marker = new window.google.maps.Marker({
+              position: { lat: property.lat, lng: property.lng },
+              map: mapInstance,
+              title: property.title
+            })
+            
+            const infoWindow = new window.google.maps.InfoWindow({
+              content: `
+                <div style="padding: 8px; max-width: 200px;">
+                  <h4>${property.title}</h4>
+                  <p>${property.location}</p>
+                  <p><strong>${property.price}</strong></p>
+                  <p>RIBL: ${property.riblScore}</p>
+                </div>
+              `
+            })
+            
+            marker.addListener('click', () => {
+              infoWindow.open(mapInstance, marker)
+            })
+          }
+        })
+      }
+    }
+    
+    const timer = setTimeout(() => {
+      if (window.google) {
+        initMap()
+      }
+    }, 1000)
+    
+    return () => clearTimeout(timer)
+  }, [properties])
 
   const tabs = [
     { id: 'all', label: 'All Properties', count: properties.length },
     { id: 'sale', label: 'For Sale', count: properties.filter(p => p.type === 'sale').length },
     { id: 'rent', label: 'For Rent', count: properties.filter(p => p.type === 'rent').length },
-    { id: 'lease', label: 'For Lease', count: properties.filter(p => p.type === 'lease').length }
+    { id: 'lease', label: 'For Lease', count: properties.filter(p => p.type === 'lease').length },
+    { id: 'urgent', label: 'Urgent Sale', count: properties.filter(p => p.urgentSale).length }
   ]
 
   const getFilteredAndSortedProperties = () => {
     let filtered = activeTab === 'all' 
       ? properties 
+      : activeTab === 'urgent'
+      ? properties.filter(property => property.urgentSale)
       : properties.filter(property => property.type === activeTab)
     
     // Apply filters
@@ -164,9 +247,11 @@ const PropertyListing = () => {
     if (filters.riblScore) {
       filtered = filtered.filter(property => {
         switch (filters.riblScore) {
-          case '80+': return property.riblScore >= 80
-          case '70-79': return property.riblScore >= 70 && property.riblScore < 80
-          case '60-69': return property.riblScore >= 60 && property.riblScore < 70
+          case 'A+': return property.riblScore === 'A+'
+          case 'A': return property.riblScore === 'A'
+          case 'B': return property.riblScore === 'B'
+          case 'C': return property.riblScore === 'C'
+          case 'D': return property.riblScore === 'D'
           default: return true
         }
       })
@@ -180,7 +265,8 @@ const PropertyListing = () => {
         case 'price-high':
           return parseFloat(b.price.replace(/[^\d.]/g, '')) - parseFloat(a.price.replace(/[^\d.]/g, ''))
         case 'ribl-score':
-          return b.riblScore - a.riblScore
+          const scoreOrder = { 'A+': 5, 'A': 4, 'B': 3, 'C': 2, 'D': 1 }
+          return scoreOrder[b.riblScore] - scoreOrder[a.riblScore]
         case 'newest':
         default:
           return b.id - a.id
@@ -219,6 +305,11 @@ const PropertyListing = () => {
               Verified
             </span>
           )}
+          {property.urgentSale && (
+            <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium animate-pulse">
+              Urgent Sale
+            </span>
+          )}
           <span className="bg-primary-500 text-white px-2 py-1 rounded-full text-xs font-medium capitalize">
             {property.type}
           </span>
@@ -248,14 +339,22 @@ const PropertyListing = () => {
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="text-2xl font-bold text-primary-600">
-            {property.price}
+          <div>
+            {property.urgentSale && property.originalPrice && (
+              <div className="text-sm text-gray-500 line-through">{property.originalPrice}</div>
+            )}
+            <div className={`text-2xl font-bold ${property.urgentSale ? 'text-red-600' : 'text-primary-600'}`}>
+              {property.price}
+            </div>
           </div>
           <div className="flex items-center space-x-1 text-sm text-gray-600">
             <span>RIBL Score:</span>
-            <span className={`font-medium ${
-              property.riblScore >= 80 ? 'text-green-600' : 
-              property.riblScore >= 70 ? 'text-yellow-600' : 'text-red-600'
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              property.riblScore === 'A+' ? 'bg-green-100 text-green-800' :
+              property.riblScore === 'A' ? 'bg-blue-100 text-blue-800' :
+              property.riblScore === 'B' ? 'bg-yellow-100 text-yellow-800' :
+              property.riblScore === 'C' ? 'bg-orange-100 text-orange-800' :
+              'bg-red-100 text-red-800'
             }`}>
               {property.riblScore}
             </span>
@@ -283,16 +382,21 @@ const PropertyListing = () => {
           <Link to={`/property/${property.id}`} className="flex-1 btn-primary text-sm py-2 text-center hover:scale-105 transition-transform duration-200">
             View Details
           </Link>
-          <button className="flex-1 btn-secondary text-sm py-2 hover:scale-105 transition-transform duration-200">
-            Contact Owner
-          </button>
+          <a 
+            href={`https://wa.me/${property.whatsapp?.replace(/[^0-9]/g, '')}?text=Hi, I'm interested in ${property.title} - ${property.price}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors hover:scale-105 duration-200"
+          >
+            <MessageCircle className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </div>
   )
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
         <div>
@@ -342,7 +446,6 @@ const PropertyListing = () => {
               onClick={() => setShowFilters(!showFilters)}
               className="btn-secondary hover:scale-105 transition-all duration-200 hover:shadow-md"
             >
-              {/* <Filter className="w-4 h-4 mr-2" /> */}
               Filters
             </button>
           </div>
@@ -412,9 +515,11 @@ const PropertyListing = () => {
                 onChange={(e) => handleFilterChange('riblScore', e.target.value)}
               >
                 <option value="">Any Score</option>
-                <option value="80+">80+ (Excellent)</option>
-                <option value="70-79">70-79 (Good)</option>
-                <option value="60-69">60-69 (Fair)</option>
+                <option value="A+">A+ (Excellent)</option>
+                <option value="A">A (Very Good)</option>
+                <option value="B">B (Good)</option>
+                <option value="C">C (Fair)</option>
+                <option value="D">D (Poor)</option>
               </select>
             </div>
           </div>
@@ -432,19 +537,92 @@ const PropertyListing = () => {
         </p>
       </div>
 
-      {/* Property Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProperties.map(property => (
-          <PropertyCard key={property.id} property={property} />
-        ))}
+      {/* Map and Properties Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Google Map - Left Side (2/3 width) */}
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <div className="p-4 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">Property Locations</h3>
+              <p className="text-sm text-gray-600">Click on markers to view property details</p>
+            </div>
+            <div ref={mapRef} className="w-full h-[600px]"></div>
+          </div>
+        </div>
+        
+        {/* Properties List - Right Side (1/3 width) */}
+        <div className="lg:col-span-1">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div className="p-4 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">Properties ({filteredProperties.length})</h3>
+            </div>
+            <div className="max-h-[600px] overflow-y-auto">
+              <div className="space-y-4 p-4">
+                {filteredProperties.map(property => (
+                  <div key={property.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <div className="flex gap-3">
+                      <img
+                        src={property.image}
+                        alt={property.title}
+                        className="w-20 h-16 object-cover rounded-lg flex-shrink-0"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-medium text-gray-900 text-sm truncate">{property.title}</h4>
+                        <div className="flex items-center text-xs text-gray-500 mt-1">
+                          <MapPin className="w-3 h-3 mr-1" />
+                          <span className="truncate">{property.location}</span>
+                        </div>
+                        <div className="flex items-center justify-between mt-2">
+                          <span className={`text-sm font-bold ${property.urgentSale ? 'text-red-600' : 'text-primary-600'}`}>
+                            {property.price}
+                          </span>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            property.riblScore === 'A+' ? 'bg-green-100 text-green-800' :
+                            property.riblScore === 'A' ? 'bg-blue-100 text-blue-800' :
+                            property.riblScore === 'B' ? 'bg-yellow-100 text-yellow-800' :
+                            property.riblScore === 'C' ? 'bg-orange-100 text-orange-800' :
+                            'bg-red-100 text-red-800'
+                          }`}>
+                            {property.riblScore}
+                          </span>
+                        </div>
+                        <div className="flex gap-2 mt-3">
+                          <Link 
+                            to={`/property/${property.id}`} 
+                            className="flex-1 bg-primary-600 hover:bg-primary-700 text-white text-xs py-2 px-3 rounded-lg text-center transition-colors"
+                          >
+                            View Details
+                          </Link>
+                          <a 
+                            href={`https://wa.me/${property.whatsapp?.replace(/[^0-9]/g, '')}?text=Hi, I'm interested in ${property.title} - ${property.price}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors"
+                          >
+                            <MessageCircle className="w-3 h-3" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Load More */}
-      <div className="text-center mt-12">
-        <button className="btn-secondary hover:scale-105 transition-all duration-200 hover:shadow-lg">
-          Load More Properties
-        </button>
-      </div>
+      {visibleProperties < allProperties.length && (
+        <div className="text-center mt-8">
+          <button 
+            onClick={() => setVisibleProperties(prev => Math.min(prev + 6, allProperties.length))}
+            className="btn-secondary hover:scale-105 transition-all duration-200 hover:shadow-lg"
+          >
+            Load More Properties ({allProperties.length - visibleProperties} remaining)
+          </button>
+        </div>
+      )}
     </div>
   )
 }
