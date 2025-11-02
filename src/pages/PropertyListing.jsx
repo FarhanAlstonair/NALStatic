@@ -91,7 +91,7 @@ const PropertyListing = () => {
       bathrooms: 3,
       area: 2200,
       images: [
-        'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop',
+        'https://th.bing.com/th/id/OIP.K-jzj1ZkjP7SmF2nxgSsCQHaFj?w=220&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3',
         'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop'
       ],
       verified: true,
@@ -113,7 +113,7 @@ const PropertyListing = () => {
       bathrooms: 1,
       area: 450,
       images: [
-        'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=300&fit=crop'
+        'https://th.bing.com/th/id/OIP.42IrADvcICS4Mx8US1PK1QHaEK?w=244&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
       ],
       verified: true,
       riblScore: 'C',
@@ -132,7 +132,7 @@ const PropertyListing = () => {
       bathrooms: 1,
       area: 300,
       images: [
-        'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop'
+        'https://th.bing.com/th/id/OIP.wCsvKmCQq1qRQ9XD216AdAHaE7?w=273&h=182&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
       ],
       verified: false,
       riblScore: 'D',
@@ -503,7 +503,7 @@ const PropertyListing = () => {
             <Link to="/post-property" className="mt-4 sm:mt-0 bg-blue-500 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
               Post Property FREE
             </Link>
-          </div>
+          </div>https://th.bing.com/th/id/OIP.5ztF8dODW8WOJLBCP0GSMAHaFc?w=165&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3
         </div>
 
         {/* Tabs */}
