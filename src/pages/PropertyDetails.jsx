@@ -18,12 +18,17 @@ import {
   Eye,
   Camera,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ShoppingCart
 } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
+import PaymentGateway from '../components/PaymentGateway'
 
 const PropertyDetails = () => {
   const { id } = useParams()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const { user } = useAuth()
+  const [showPaymentGateway, setShowPaymentGateway] = useState(false)
 
   // Mock property data - in real app, fetch by ID
   const property = {
@@ -84,6 +89,31 @@ const PropertyDetails = () => {
 
   const prevImage = () => {
     setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length)
+  }
+
+  const handleBuyProperty = () => {
+    setShowPaymentGateway(true)
+  }
+
+  const handlePurchaseSuccess = () => {
+    const purchase = {
+      id: Date.now(),
+      propertyId: property.id,
+      property: {
+        ...property,
+        price: formatPrice(property.price),
+        image: property.images[0]
+      },
+      purchaseDate: new Date().toISOString(),
+      amount: formatPrice(property.price),
+      status: 'completed'
+    }
+    
+    const existingPurchases = JSON.parse(localStorage.getItem(`purchases_${user?.id}`) || '[]')
+    const updatedPurchases = [...existingPurchases, purchase]
+    localStorage.setItem(`purchases_${user?.id}`, JSON.stringify(updatedPurchases))
+    
+    setShowPaymentGateway(false)
   }
 
   return (
@@ -276,16 +306,25 @@ const PropertyDetails = () => {
 
 
 <div className="grid grid-cols-1 gap-2">
-  <button className="btn-primary text-sm py-3 w-full flex justify-center items-center rounded-md">
-    {/* <Phone className="w-5 h-5 mr-2" />  */}
+  {user?.role !== 'seller' && property.type === 'sale' && (
+    <button 
+      onClick={handleBuyProperty}
+      className="bg-orange-600 hover:bg-orange-700 text-white text-sm py-3 w-full flex justify-center items-center rounded-md shadow-sm transition-colors"
+    >
+      <ShoppingCart className="w-4 h-4 mr-2" />
+      Buy Now
+    </button>
+  )}
+  <button className="btn-primary text-sm py-3 w-full flex justify-center items-center rounded-md shadow-sm">
+    <Phone className="w-4 h-4 mr-2" />
     Call
   </button>
-  <button className="btn-secondary text-sm py-3 w-full flex justify-center items-center rounded-md">
-    {/* <Mail className="w-5 h-5 mr-2" /> */}
+  <button className="btn-secondary text-sm py-3 w-full flex justify-center items-center rounded-md shadow-sm">
+    <Mail className="w-4 h-4 mr-2" />
      Message
   </button>
-  <button className="btn-secondary text-sm py-3 w-full flex justify-center items-center rounded-md">
-    {/* <Calendar className="w-5 h-5 mr-2" /> */}
+  <button className="btn-secondary text-sm py-3 w-full flex justify-center items-center rounded-md shadow-sm">
+    <Calendar className="w-4 h-4 mr-2" />
     Schedule a Visit
   </button>
 </div>
@@ -332,6 +371,19 @@ const PropertyDetails = () => {
             </div>
           </div>
         </div>
+
+        {/* Payment Gateway */}
+        {showPaymentGateway && (
+          <PaymentGateway
+            property={{
+              ...property,
+              price: formatPrice(property.price),
+              image: property.images[0]
+            }}
+            onClose={() => setShowPaymentGateway(false)}
+            onSuccess={handlePurchaseSuccess}
+          />
+        )}
       </div>
     </div>
   )

@@ -19,6 +19,19 @@ import {
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 
+// Import NAL icons
+import nal1 from '../assets/icons/NAL/nal 1.png'
+import nal2 from '../assets/icons/NAL/15.png'
+import nal3 from '../assets/icons/NAL/nal 3.png'
+import nal4 from '../assets/icons/NAL/nal 4.png'
+import nal5 from '../assets/icons/NAL/nal 5.png'
+import nal6 from '../assets/icons/NAL/nal 6.png'
+import nal7 from '../assets/icons/NAL/nal 7.png'
+import nal8 from '../assets/icons/NAL/nal 8.png'
+import nal9 from '../assets/icons/NAL/nal 9.png'
+import nal10 from '../assets/icons/NAL/nal 10.png'
+import nal11 from '../assets/icons/NAL/nal 11.png'
+
 const Home = () => {
   const { isAuthenticated } = useAuth()
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -54,52 +67,44 @@ const Home = () => {
   }, [])
   const coreFeatures = [
     {
-      icon: FileCheck,
+      image: nal1,
       title: 'Instant Document Verification',
-      description: 'Verify property documents automatically and quickly',
-      color: 'bg-emerald-500'
+      description: 'Verify property documents automatically and quickly'
     },
     {
-      icon: DollarSign,
+      image: nal2,
       title: 'Urgent Sale Value',
-      description: 'Get real-time property value estimations',
-      color: 'bg-blue-500'
+      description: 'Get real-time property value estimations'
     },
     {
-      icon: Star,
+      image: nal3,
       title: 'RIBL Scorecard',
-      description: 'Property quality and ownership scoring',
-      color: 'bg-amber-500'
+      description: 'Property quality and ownership scoring'
     },
     {
-      icon: Building,
+      image: nal4,
       title: 'Buy/Sell/Rent/Lease',
-      description: 'Complete property transaction platform',
-      color: 'bg-indigo-500'
+      description: 'Complete property transaction platform'
     },
     {
-      icon: Search,
+      image: nal5,
       title: 'Smart Property Search',
-      description: 'Advanced search with intelligent filters',
-      color: 'bg-emerald-500'
+      description: 'Advanced search with intelligent filters'
     },
     {
-      icon: MessageCircle,
+      image: nal6,
       title: 'Realtime Chatbot',
-      description: 'Instant assistance and communication',
-      color: 'bg-blue-500'
+      description: 'Instant assistance and communication'
     },
     {
-      icon: TrendingUp,
+      image: nal7,
       title: 'Property Trends',
-      description: 'Market insights and trend analysis',
-      color: 'bg-amber-500'
+      description: 'Market insights and trend analysis'
     },
     {
-      icon: CreditCard,
+      image: nal8,
       title: 'Secure Payments',
-      description: 'Safe and secure payment gateway',
-      color: 'bg-indigo-500'
+      description: 'Safe and secure payment gateway'
     }
   ]
 
@@ -157,10 +162,10 @@ const Home = () => {
               Instant document verification, real-time valuations, and secure property transactions all in one place
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
-              <Link to={isAuthenticated ? "/verify" : "/login"} className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out">
+              <Link to={isAuthenticated ? "/verify" : "/login"} className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
                 Verify Documents
               </Link>
-              <Link to="/properties" className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out">
+              <Link to="/properties" className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
                 Browse Properties
               </Link>
             </div>
@@ -173,7 +178,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center animate-in fade-in slide-in-from-bottom-4 duration-500" style={{animationDelay: `${index * 100}ms`}}>
+              <div key={index} className="text-center animate-in fade-in slide-in-from-bottom-4 duration-500 shadow-sm" style={{animationDelay: `${index * 100}ms`}}>
                 <div className="text-4xl md:text-5xl font-bold text-[#1E3A8A] mb-3 hover:scale-110 transition-transform duration-300 cursor-default">
                   {stat.value}
                 </div>
@@ -198,18 +203,21 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {coreFeatures.map((feature, index) => {
-              const Icon = feature.icon
               return (
-                <div key={index} className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-in-out border border-gray-100 animate-in fade-in slide-in-from-bottom-4" style={{animationDelay: `${index * 100}ms`}}>
-                  <div className={`w-16 h-16 ${feature.color} rounded-2xl flex items-center justify-center mb-6 hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="w-8 h-8 text-white" />
+                <div key={index} className="bg-white border border-gray-100 p-6 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-in-out h-full flex flex-col" style={{animationDelay: `${index * 100}ms`}}>
+                  <div className="flex justify-center mb-6">
+                    <img 
+                      src={feature.image} 
+                      alt={feature.title}
+                      className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 object-contain hover:scale-110 transition-transform duration-300"
+                    />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 text-center">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 text-sm sm:text-base text-center flex-grow">
                     {feature.description}
                   </p>
                 </div>
@@ -242,9 +250,13 @@ const Home = () => {
                 <div className="absolute inset-0 bg-emerald-500/20 group-hover:bg-emerald-500/30 transition-colors duration-300"></div>
               </div>
               <div className="p-8 text-center">
-                <div className="w-20 h-20 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 -mt-12 relative z-10">
-                  <FileCheck className="w-10 h-10 text-white" />
-                </div>
+                {/* <div className="w-20 h-20 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 -mt-12 relative z-10 p-4">
+                  <img 
+                    src={nal1} 
+                    alt="Document Verification"
+                    className="w-12 h-12 object-contain"
+                  />
+                </div> */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#1E3A8A] transition-colors duration-300">
                   Verify Documents
                 </h3>
@@ -269,9 +281,13 @@ const Home = () => {
                 <div className="absolute inset-0 bg-blue-500/20 group-hover:bg-blue-500/30 transition-colors duration-300"></div>
               </div>
               <div className="p-8 text-center">
-                <div className="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 -mt-12 relative z-10">
-                  <Search className="w-10 h-10 text-white" />
-                </div>
+                {/* <div className="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 -mt-12 relative z-10 p-4">
+                  <img 
+                    src={nal5} 
+                    alt="Property Search"
+                    className="w-12 h-12 object-contain"
+                  />
+                </div> */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#1E3A8A] transition-colors duration-300">
                   Search Properties
                 </h3>
@@ -296,9 +312,13 @@ const Home = () => {
                 <div className="absolute inset-0 bg-purple-500/20 group-hover:bg-purple-500/30 transition-colors duration-300"></div>
               </div>
               <div className="p-8 text-center">
-                <div className="w-20 h-20 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 -mt-12 relative z-10">
-                  <Building className="w-10 h-10 text-white" />
-                </div>
+                {/* <div className="w-20 h-20 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 -mt-12 relative z-10 p-4">
+                  <img 
+                    src={nal4} 
+                    alt="List Property"
+                    className="w-12 h-12 object-contain"
+                  />
+                </div> */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#1E3A8A] transition-colors duration-300">
                   List Property
                 </h3>
@@ -328,58 +348,70 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link to="/bidding" className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-2 border border-gray-100 hover:border-indigo-600 group">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Gavel className="w-10 h-10 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Link to="/bidding" className="bg-white border border-gray-100 p-6 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-2 group h-full flex flex-col">
+              <div className="text-center flex-1 flex flex-col">
+                <div className="flex justify-center mb-6">
+                  <img 
+                    src={nal9} 
+                    alt="Property Bidding"
+                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 object-contain group-hover:scale-110 transition-transform duration-300"
+                  />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
                   Property Bidding
                 </h3>
-                <p className="text-gray-600 group-hover:text-gray-700 leading-relaxed mb-6">
+                <p className="text-gray-600 text-sm sm:text-base mb-6 flex-grow">
                   Participate in live property auctions and get the best deals
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold">
+                  <span className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-xl font-semibold text-sm">
                     Click to Explore →
                   </span>
                 </div>
               </div>
             </Link>
 
-            <Link to="/compare" className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-2 border border-gray-100 hover:border-indigo-600 group">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <GitCompare className="w-10 h-10 text-white" />
+            <Link to="/compare" className="bg-white border border-gray-100 p-6 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-2 group h-full flex flex-col">
+              <div className="text-center flex-1 flex flex-col">
+                <div className="flex justify-center mb-6">
+                  <img 
+                    src={nal10} 
+                    alt="Compare Properties"
+                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 object-contain group-hover:scale-110 transition-transform duration-300"
+                  />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
                   Compare Properties
                 </h3>
-                <p className="text-gray-600 group-hover:text-gray-700 leading-relaxed mb-6">
+                <p className="text-gray-600 text-sm sm:text-base mb-6 flex-grow">
                   Compare multiple properties side by side to make informed decisions
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold">
+                  <span className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-xl font-semibold text-sm">
                     Click to Compare →
                   </span>
                 </div>
               </div>
             </Link>
 
-            <Link to="/loan-calculator" className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-2 border border-gray-100 hover:border-indigo-600 group">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Calculator className="w-10 h-10 text-white" />
+            <Link to="/loan-calculator" className="bg-white border border-gray-100 p-6 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-2 group h-full flex flex-col">
+              <div className="text-center flex-1 flex flex-col">
+                <div className="flex justify-center mb-6">
+                  <img 
+                    src={nal11} 
+                    alt="Loan Calculator"
+                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 object-contain group-hover:scale-110 transition-transform duration-300"
+                  />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
                   Loan Calculator
                 </h3>
-                <p className="text-gray-600 group-hover:text-gray-700 leading-relaxed mb-6">
+                <p className="text-gray-600 text-sm sm:text-base mb-6 flex-grow">
                   Calculate EMI, eligibility, and plan your home loan effectively
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold">
+                  <span className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-xl font-semibold text-sm">
                     Click to Calculate →
                   </span>
                 </div>
@@ -410,7 +442,7 @@ const Home = () => {
             <p className="text-lg mb-10 text-blue-200">
               Built on Alstonair's enterprise-grade technology platform
             </p>
-            <Link to={isAuthenticated ? "/properties" : "/signup"} className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out">
+            <Link to={isAuthenticated ? "/properties" : "/signup"} className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
               {isAuthenticated ? 'Explore Properties' : 'Get Started Today'}
             </Link>
           </div>

@@ -82,7 +82,31 @@ const Chatbot = () => {
       'agent': 'Looking for an agent? 👨‍💼 I can connect you with RERA-verified agents in your area. Which locality?',
       'visit': 'Want to schedule a property visit? 📅 Just share the property ID or tell me your requirements!',
       'legal': 'Legal help needed? ⚖️ I can guide you through registration, stamp duty (3-5% in Karnataka), and documentation.',
-      'investment': 'Property investment advice? 📈 I can analyze ROI, rental yields, and growth potential. Which area interests you?'
+      'investment': 'Property investment advice? 📈 I can analyze ROI, rental yields, and growth potential. Which area interests you?',
+      
+      // Legal & Documentation
+      'rera': 'RERA = Real Estate (Regulation & Development) Act registration number that certifies project legality. ⚖️ All our listed properties are RERA-verified!',
+      'rera number': 'RERA = Real Estate (Regulation & Development) Act registration number that certifies project legality. ⚖️ All our listed properties are RERA-verified!',
+      'title verification': 'Title check is performed via Document Repository and Instant Verification API with land records. 📄 Upload your documents for instant verification!',
+      'property title': 'Title check is performed via Document Repository and Instant Verification API with land records. 📄 Upload your documents for instant verification!',
+      'noc': 'Typical NOCs: Municipal, Electricity, Water, and Fire Department — required before possession. 📋 I can help you track all required NOCs!',
+      'noc requirements': 'Typical NOCs: Municipal, Electricity, Water, and Fire Department — required before possession. 📋 I can help you track all required NOCs!',
+      'possession': 'After final payment and registration, possession handover occurs within 7 working days (on average). 🏠 Timeline may vary by project.',
+      'possession timeline': 'After final payment and registration, possession handover occurs within 7 working days (on average). 🏠 Timeline may vary by project.',
+      
+      // Technical Support
+      'save properties': 'Tap the ♥ icon or "Save Property" button on listing pages; view all saved items under "My Favorites." 💾 Easy property bookmarking!',
+      'save property': 'Tap the ♥ icon or "Save Property" button on listing pages; view all saved items under "My Favorites." 💾 Easy property bookmarking!',
+      'favorites': 'Tap the ♥ icon or "Save Property" button on listing pages; view all saved items under "My Favorites." 💾 Easy property bookmarking!',
+      'schedule visit': 'Use "Book Site Visit." We notify the seller/agent instantly and confirm slot on your dashboard. 📅 Quick and easy scheduling!',
+      'book visit': 'Use "Book Site Visit." We notify the seller/agent instantly and confirm slot on your dashboard. 📅 Quick and easy scheduling!',
+      'site visit': 'Use "Book Site Visit." We notify the seller/agent instantly and confirm slot on your dashboard. 📅 Quick and easy scheduling!',
+      'contact owner': 'Click "Contact Seller/Agent" to chat via WhatsApp or in-app messaging. 📱 Direct communication with property owners!',
+      'contact seller': 'Click "Contact Seller/Agent" to chat via WhatsApp or in-app messaging. 📱 Direct communication with property owners!',
+      'contact agent': 'Click "Contact Seller/Agent" to chat via WhatsApp or in-app messaging. 📱 Direct communication with property owners!',
+      'compare properties': 'Use the Comparison Tool to see side-by-side differences in price, amenities, and RIBL scores. 📊 Smart property comparison!',
+      'compare': 'Use the Comparison Tool to see side-by-side differences in price, amenities, and RIBL scores. 📊 Smart property comparison!',
+      'comparison': 'Use the Comparison Tool to see side-by-side differences in price, amenities, and RIBL scores. 📊 Smart property comparison!'
     }
     
     for (const [key, response] of Object.entries(responses)) {

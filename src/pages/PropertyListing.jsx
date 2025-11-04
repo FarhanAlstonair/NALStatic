@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Bed, Bath, Square, Heart, Share2, MessageCircle, Camera } from 'lucide-react'
+import { MapPin, Bed, Bath, Square, Heart, Share2, MessageCircle, Camera, ShoppingCart } from 'lucide-react'
 import { useFavorites } from '../context/FavoritesContext'
+import { useAuth } from '../context/AuthContext'
+import PaymentGateway from '../components/PaymentGateway'
 
 const PropertyListing = () => {
   const [activeTab, setActiveTab] = useState('all')
@@ -17,6 +19,9 @@ const PropertyListing = () => {
   const mapRef = useRef(null)
   const [map, setMap] = useState(null)
   const { toggleFavorite, isFavorite } = useFavorites()
+  const { user } = useAuth()
+  const [showPaymentGateway, setShowPaymentGateway] = useState(false)
+  const [selectedProperty, setSelectedProperty] = useState(null)
 
   const [allProperties] = useState([
     {
@@ -376,6 +381,31 @@ const PropertyListing = () => {
     return () => clearTimeout(timer)
   }, [filteredProperties])
 
+  const handleBuyProperty = (property) => {
+    setSelectedProperty(property)
+    setShowPaymentGateway(true)
+  }
+
+  const handlePurchaseSuccess = () => {
+    // Handle successful purchase
+    const purchase = {
+      id: Date.now(),
+      propertyId: selectedProperty.id,
+      property: selectedProperty,
+      purchaseDate: new Date().toISOString(),
+      amount: selectedProperty.price,
+      status: 'completed'
+    }
+    
+    // Save to localStorage
+    const existingPurchases = JSON.parse(localStorage.getItem(`purchases_${user?.id}`) || '[]')
+    const updatedPurchases = [...existingPurchases, purchase]
+    localStorage.setItem(`purchases_${user?.id}`, JSON.stringify(updatedPurchases))
+    
+    setShowPaymentGateway(false)
+    setSelectedProperty(null)
+  }
+
   const PropertyCard = ({ property }) => (
     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 group">
       <div className="relative">
@@ -466,19 +496,42 @@ const PropertyListing = () => {
         <div className="flex space-x-2">
           <Link 
             to={`/property/${property.id}`} 
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded text-sm font-medium text-center transition-colors"
+            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded text-sm font-medium text-center transition-colors shadow-sm"
           >
             View Details
           </Link>
+          {user?.role !== 'seller' && property.type === 'sale' && (
+            <button
+              onClick={() => handleBuyProperty(property)}
+              className="flex items-center justify-center px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded transition-colors shadow-sm"
+              title="Buy Now"
+            >
+              <ShoppingCart className="w-4 h-4" />
+            </button>
+          )}
           <a 
             href={`https://wa.me/${property.whatsapp?.replace(/[^0-9]/g, '')}?text=Hi, I'm interested in ${property.title} - ${property.price}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded transition-colors"
+            className="flex items-center justify-center px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded transition-colors shadow-sm"
           >
             <MessageCircle className="w-4 h-4" />
           </a>
-          <button className="flex items-center justify-center px-3 py-2 border border-gray-300 rounded hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({
+                  title: property.title,
+                  text: `Check out this property: ${property.title} - ${property.price}`,
+                  url: `${window.location.origin}/property/${property.id}`
+                })
+              } else {
+                navigator.clipboard.writeText(`${property.title} - ${property.price} - ${window.location.origin}/property/${property.id}`)
+                alert('Property link copied to clipboard!')
+              }
+            }}
+            className="flex items-center justify-center px-3 py-2 border border-gray-300 rounded hover:bg-gray-50 transition-colors shadow-sm"
+          >
             <Share2 className="w-4 h-4 text-gray-600" />
           </button>
         </div>
@@ -503,7 +556,7 @@ const PropertyListing = () => {
             <Link to="/post-property" className="mt-4 sm:mt-0 bg-blue-500 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
               Post Property FREE
             </Link>
-          </div>https://th.bing.com/th/id/OIP.5ztF8dODW8WOJLBCP0GSMAHaFc?w=165&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3
+          </div> 
         </div>
 
         {/* Tabs */}
@@ -636,6 +689,15 @@ const PropertyListing = () => {
               Clear All Filters
             </button>
           </div>
+        )}
+
+        {/* Payment Gateway */}
+        {showPaymentGateway && selectedProperty && (
+          <PaymentGateway
+            property={selectedProperty}
+            onClose={() => setShowPaymentGateway(false)}
+            onSuccess={handlePurchaseSuccess}
+          />
         )}
       </div>
     </div>

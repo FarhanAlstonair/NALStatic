@@ -87,8 +87,7 @@ const Layout = ({ children }) => {
         { name: 'Market Reports', href: '/market-reports', icon: BarChart3 }
       ]
     },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' }
+    { name: 'About', href: '/about' }
   ]
 
   const toggleDropdown = (index) => {
@@ -308,35 +307,48 @@ const Layout = ({ children }) => {
                           <User className="w-4 h-4" />
                           <span>My Profile</span>
                         </Link>
-                        {user?.userType === 'seller' && (
+                        {localStorage.getItem('adminAuth') === 'true' ? (
                           <Link
-                            to="/seller-dashboard"
+                            to="/admin/dashboard"
                             onClick={() => setShowUserMenu(false)}
                             className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
                           >
                             <Building className="w-4 h-4" />
-                            <span>Seller Dashboard</span>
+                            <span>Admin Dashboard</span>
                           </Link>
-                        )}
-                        {user?.userType === 'buyer' && (
-                          <Link
-                            to="/buyer-dashboard"
-                            onClick={() => setShowUserMenu(false)}
-                            className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
-                          >
-                            <Building className="w-4 h-4" />
-                            <span>Buyer Dashboard</span>
-                          </Link>
-                        )}
-                        {user?.userType === 'agent' && (
-                          <Link
-                            to="/agent-dashboard"
-                            onClick={() => setShowUserMenu(false)}
-                            className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
-                          >
-                            <Building className="w-4 h-4" />
-                            <span>Agent Dashboard</span>
-                          </Link>
+                        ) : (
+                          <>
+                            {user?.userType === 'seller' && (
+                              <Link
+                                to="/seller-dashboard"
+                                onClick={() => setShowUserMenu(false)}
+                                className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                              >
+                                <Building className="w-4 h-4" />
+                                <span>Seller Dashboard</span>
+                              </Link>
+                            )}
+                            {user?.userType === 'buyer' && (
+                              <Link
+                                to="/buyer-dashboard"
+                                onClick={() => setShowUserMenu(false)}
+                                className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                              >
+                                <Building className="w-4 h-4" />
+                                <span>Buyer Dashboard</span>
+                              </Link>
+                            )}
+                            {user?.userType === 'agent' && (
+                              <Link
+                                to="/agent-dashboard"
+                                onClick={() => setShowUserMenu(false)}
+                                className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                              >
+                                <Building className="w-4 h-4" />
+                                <span>Agent Dashboard</span>
+                              </Link>
+                            )}
+                          </>
                         )}
                         <button
                           onClick={() => {

@@ -25,6 +25,8 @@ const Login = () => {
     
     setTimeout(() => {
       if (user) {
+        // Clear admin auth when regular user logs in
+        localStorage.removeItem('adminAuth')
         login(user)
         navigate('/')
       } else {
