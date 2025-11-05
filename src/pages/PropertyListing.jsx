@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Bed, Bath, Square, Heart, Share2, MessageCircle, Camera, ShoppingCart } from 'lucide-react'
+import { MapPin, Bed, Bath, Square, Heart, Share2, MessageCircle, Camera } from 'lucide-react'
 import { useFavorites } from '../context/FavoritesContext'
 import { useAuth } from '../context/AuthContext'
 import PaymentGateway from '../components/PaymentGateway'
@@ -147,14 +147,130 @@ const PropertyListing = () => {
       amenities: ['Parking'],
       lat: 12.9784,
       lng: 77.6408
+    },
+    {
+      id: 7,
+      title: '2BHK Furnished Apartment Near Tech Park',
+      location: 'Electronic City Phase 1, Bangalore',
+      price: '₹28,000/month',
+      type: 'rent',
+      bedrooms: 2,
+      bathrooms: 2,
+      area: 1100,
+      images: [
+        'https://th.bing.com/th/id/OIP.R6d-zw2qX0YZieesebUZWAHaEK?w=297&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
+      ],
+      verified: true,
+      riblScore: 'A',
+      whatsapp: '+91 98765 12345',
+      postedBy: 'Agent',
+      postedDate: '4 days ago',
+      amenities: ['Parking', 'Gym', 'Security']
+    },
+    {
+      id: 8,
+      title: '5BHK Luxury Villa with Swimming Pool',
+      location: 'Sarjapur Road, Bangalore',
+      price: '₹4.2 Cr',
+      type: 'sale',
+      bedrooms: 5,
+      bathrooms: 4,
+      area: 3500,
+      images: [
+        'https://th.bing.com/th/id/OIP.8LBV3GcJFYv7Ec8ZJgBi-wHaFR?w=248&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
+      ],
+      verified: true,
+      riblScore: 'A+',
+      whatsapp: '+91 87654 98765',
+      postedBy: 'Builder',
+      postedDate: '6 days ago',
+      amenities: ['Swimming Pool', 'Garden', 'Parking', 'Security']
+    },
+    {
+      id: 9,
+      title: 'Commercial Space for Restaurant',
+      location: 'Brigade Road, Bangalore',
+      price: '₹1,20,000/month',
+      type: 'lease',
+      bedrooms: 0,
+      bathrooms: 3,
+      area: 1500,
+      images: [
+        'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop'
+      ],
+      verified: false,
+      riblScore: 'B',
+      whatsapp: '+91 76543 87654',
+      postedBy: 'Owner',
+      postedDate: '2 weeks ago',
+      amenities: ['Parking', 'Kitchen Setup']
+    },
+    {
+      id: 10,
+      title: '3BHK Penthouse with Terrace Garden',
+      location: 'JP Nagar 7th Phase, Bangalore',
+      price: '₹45,000/month',
+      type: 'rent',
+      bedrooms: 3,
+      bathrooms: 3,
+      area: 1800,
+      images: [
+        'https://th.bing.com/th/id/OIP.itI0w9OVgz8Vkm4IDLno-AHaEK?w=316&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
+      ],
+      verified: true,
+      riblScore: 'A+',
+      urgentSale: true,
+      originalPrice: '₹55,000/month',
+      whatsapp: '+91 65432 76543',
+      postedBy: 'Owner',
+      postedDate: '3 days ago',
+      amenities: ['Terrace Garden', 'Parking', 'Gym']
+    },
+    {
+      id: 11,
+      title: '1BHK Compact Home Near Metro',
+      location: 'Marathahalli, Bangalore',
+      price: '₹18,000/month',
+      type: 'rent',
+      bedrooms: 1,
+      bathrooms: 1,
+      area: 550,
+      images: [
+        'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400&h=300&fit=crop'
+      ],
+      verified: true,
+      riblScore: 'B',
+      whatsapp: '+91 54321 65432',
+      postedBy: 'Agent',
+      postedDate: '1 week ago',
+      amenities: ['Parking', 'Security']
+    },
+    {
+      id: 12,
+      title: 'Warehouse Space for Logistics',
+      location: 'Bommasandra Industrial Area, Bangalore',
+      price: '₹75,000/month',
+      type: 'lease',
+      bedrooms: 0,
+      bathrooms: 2,
+      area: 5000,
+      images: [
+        'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&h=300&fit=crop'
+      ],
+      verified: false,
+      riblScore: 'C',
+      whatsapp: '+91 43210 54321',
+      postedBy: 'Builder',
+      postedDate: '10 days ago',
+      amenities: ['Loading Dock', 'Security']
     }
   ])
 
   // Add coordinates to existing properties
   const propertiesWithCoords = allProperties.map((property, index) => ({
     ...property,
-    lat: property.lat || [12.9352, 12.9784, 12.9698, 12.9116, 12.8440, 12.9784][index] || 12.9716,
-    lng: property.lng || [77.6245, 77.6408, 77.7500, 77.6473, 77.6630, 77.6408][index] || 77.5946
+    lat: property.lat || [12.9352, 12.9784, 12.9698, 12.9116, 12.8440, 12.9784, 12.8456, 12.9279, 12.9648, 12.9089, 12.9560, 12.8058][index] || 12.9716,
+    lng: property.lng || [77.6245, 77.6408, 77.7500, 77.6473, 77.6630, 77.6408, 77.6632, 77.6271, 77.5946, 77.6648, 77.6975, 77.6632][index] || 77.5946
   }))
 
 
@@ -500,15 +616,6 @@ const PropertyListing = () => {
           >
             View Details
           </Link>
-          {user?.role !== 'seller' && property.type === 'sale' && (
-            <button
-              onClick={() => handleBuyProperty(property)}
-              className="flex items-center justify-center px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded transition-colors shadow-sm"
-              title="Buy Now"
-            >
-              <ShoppingCart className="w-4 h-4" />
-            </button>
-          )}
           <a 
             href={`https://wa.me/${property.whatsapp?.replace(/[^0-9]/g, '')}?text=Hi, I'm interested in ${property.title} - ${property.price}`}
             target="_blank"
