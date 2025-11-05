@@ -41,29 +41,29 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/properties" element={<PropertyListing />} />
-          <Route path="/verify" element={<ProtectedRoute><DocumentVerification /></ProtectedRoute>} />
-          <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
-          <Route path="/bidding" element={<ProtectedRoute><Bidding /></ProtectedRoute>} />
-          <Route path="/compare" element={<ProtectedRoute><PropertyComparison /></ProtectedRoute>} />
-          <Route path="/loan-calculator" element={<ProtectedRoute><LoanCalculator /></ProtectedRoute>} />
+          <Route path="/verify" element={<DocumentVerification />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/bidding" element={<Bidding />} />
+          <Route path="/compare" element={<PropertyComparison />} />
+          <Route path="/loan-calculator" element={<LoanCalculator />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/ai-recommendations" element={<ProtectedRoute><AIRecommendations /></ProtectedRoute>} />
-          <Route path="/competitor-analytics" element={<ProtectedRoute><CompetitorAnalytics /></ProtectedRoute>} />
-          <Route path="/price-prediction" element={<ProtectedRoute><PricePrediction /></ProtectedRoute>} />
-          <Route path="/geo-analysis" element={<ProtectedRoute><GeoDemographicAnalysis /></ProtectedRoute>} />
-          <Route path="/ar-tours" element={<ProtectedRoute><ARPropertyTours /></ProtectedRoute>} />
+          <Route path="/ai-recommendations" element={<AIRecommendations />} />
+          <Route path="/competitor-analytics" element={<CompetitorAnalytics />} />
+          <Route path="/price-prediction" element={<PricePrediction />} />
+          <Route path="/geo-analysis" element={<GeoDemographicAnalysis />} />
+          <Route path="/ar-tours" element={<ARPropertyTours />} />
           <Route path="/government-guidelines" element={<GovernmentGuidelines />} />
-          <Route path="/heat-map" element={<ProtectedRoute><HeatMap /></ProtectedRoute>} />
-          <Route path="/property-trends-extended" element={<ProtectedRoute><PropertyTrendsExtended /></ProtectedRoute>} />
-          <Route path="/urgent-sale-value" element={<ProtectedRoute><UrgentSaleValue /></ProtectedRoute>} />
-          <Route path="/asset-management" element={<ProtectedRoute><AssetManagement /></ProtectedRoute>} />
+          <Route path="/heat-map" element={<HeatMap />} />
+          <Route path="/property-trends-extended" element={<PropertyTrendsExtended />} />
+          <Route path="/urgent-sale-value" element={<UrgentSaleValue />} />
+          <Route path="/asset-management" element={<AssetManagement />} />
           <Route path="/market-reports" element={<MarketReports />} />
-          <Route path="/seller-dashboard" element={<ProtectedRoute><SellerDashboard /></ProtectedRoute>} />
-          <Route path="/buyer-dashboard" element={<ProtectedRoute><BuyerDashboard /></ProtectedRoute>} />
-          <Route path="/agent-dashboard" element={<ProtectedRoute><AgentDashboard /></ProtectedRoute>} />
-          <Route path="/property/:id" element={<ProtectedRoute><PropertyDetails /></ProtectedRoute>} />
-          <Route path="/post-property" element={<ProtectedRoute><PostProperty /></ProtectedRoute>} />
+          <Route path="/seller-dashboard" element={<SellerDashboard />} />
+          <Route path="/buyer-dashboard" element={<BuyerDashboard />} />
+          <Route path="/agent-dashboard" element={<AgentDashboard />} />
+          <Route path="/property/:id" element={<PropertyDetails />} />
+          <Route path="/post-property" element={<PostProperty />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/admin/login" element={<AdminLogin />} />

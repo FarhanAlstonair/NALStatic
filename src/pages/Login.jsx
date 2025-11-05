@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import logo from '../assets/logo.jpg'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -49,7 +50,7 @@ const Login = () => {
         {/* Header */}
         <div className="text-center">
           <Link to="/" className="inline-flex items-center space-x-2 mb-6">
-            <img src="/src/assets/logo.jpg" alt="NAL" className="w-10 h-10 rounded-xl" />
+            <img src={logo} alt="NAL" className="w-10 h-10 rounded-xl" />
             <span className="text-2xl font-bold text-[#1E3A8A]">NAL</span>
           </Link>
           <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome back</h2>

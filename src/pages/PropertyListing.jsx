@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Bed, Bath, Square, Heart, Share2, MessageCircle, Camera } from 'lucide-react'
+import { MapPin, Bed, Bath, Square, Heart, Share2, MessageCircle, Camera, ShoppingCart } from 'lucide-react'
 import { useFavorites } from '../context/FavoritesContext'
 import { useAuth } from '../context/AuthContext'
 import PaymentGateway from '../components/PaymentGateway'
@@ -418,6 +418,10 @@ const PropertyListing = () => {
   }, [filteredProperties])
 
   const handleBuyProperty = (property) => {
+    if (!user) {
+      window.location.href = '/signup'
+      return
+    }
     setSelectedProperty(property)
     setShowPaymentGateway(true)
   }
@@ -536,6 +540,15 @@ const PropertyListing = () => {
           >
             View Details
           </Link>
+          {user?.role !== 'seller' && property.type === 'sale' && (
+            <button
+              onClick={() => handleBuyProperty(property)}
+              className="flex items-center justify-center px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded transition-colors shadow-sm"
+              title="Buy Now"
+            >
+              <ShoppingCart className="w-4 h-4" />
+            </button>
+          )}
           <a 
             href={`https://wa.me/${property.whatsapp?.replace(/[^0-9]/g, '')}?text=Hi, I'm interested in ${property.title} - ${property.price}`}
             target="_blank"

@@ -29,7 +29,7 @@ export const FavoritesProvider = ({ children }) => {
 
   const toggleFavorite = (property) => {
     if (!isAuthenticated) {
-      alert('Please login to add properties to favorites')
+      window.location.href = '/signup'
       return
     }
     if (isFavorite(property.id)) {

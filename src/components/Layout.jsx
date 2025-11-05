@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, Search, User, ChevronDown, Building, FileCheck, Gavel, GitCompare, Calculator, Brain, BarChart3, TrendingUp, Map, Camera, MapPin, LogIn, LogOut, FileText, Activity, Instagram, Linkedin } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import Chatbot from './Chatbot'
+import logo from '../assets/logo.jpg'
 
 const Layout = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -87,7 +88,8 @@ const Layout = ({ children }) => {
         { name: 'Market Reports', href: '/market-reports', icon: BarChart3 }
       ]
     },
-    { name: 'About', href: '/about' }
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' }
   ]
 
   const toggleDropdown = (index) => {
@@ -149,7 +151,7 @@ const Layout = ({ children }) => {
             {/* Logo */}
             <div className="flex items-center">
               <Link to="/" className="flex items-center group">
-                <img src="/src/assets/logo.jpg" alt="NAL" className="w-12 h-12" />
+                <img src={logo} alt="NAL" className="w-12 h-12" />
                 <span className="ml-3 text-2xl font-bold text-gray-900">NAL</span>
               </Link>
             </div>
@@ -168,8 +170,8 @@ const Layout = ({ children }) => {
                           onClick={() => toggleDropdown(index)}
                           className={`flex items-center space-x-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                             isActive
-                              ? 'text-primary-600 bg-primary-50'
-                              : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                              ? 'text-primary-600'
+                              : 'text-gray-700 hover:text-gray-900'
                           }`}
                         >
                           <span>{item.name}</span>
@@ -190,7 +192,7 @@ const Layout = ({ children }) => {
                                   onClick={() => setActiveDropdown(null)}
                                   className={`flex items-center space-x-3 px-4 py-3 text-sm transition-colors ${
                                     isSubActive
-                                      ? 'text-primary-600 bg-primary-50'
+                                      ? 'text-primary-600'
                                       : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
                                   }`}
                                 >
@@ -207,8 +209,8 @@ const Layout = ({ children }) => {
                         to={item.href}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                           isActive
-                            ? 'text-primary-600 bg-primary-50'
-                            : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                            ? 'text-primary-600'
+                            : 'text-gray-700 hover:text-gray-900'
                         }`}
                       >
                         {item.name}
@@ -406,8 +408,8 @@ const Layout = ({ children }) => {
                               onClick={() => setIsMenuOpen(false)}
                               className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                                 isSubActive
-                                  ? 'text-primary-600 bg-primary-50'
-                                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                                  ? 'text-primary-600'
+                                  : 'text-gray-600 hover:text-gray-900'
                               }`}
                             >
                               <SubIcon className="w-4 h-4" />
@@ -423,8 +425,8 @@ const Layout = ({ children }) => {
                       onClick={() => setIsMenuOpen(false)}
                       className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                         location.pathname === item.href
-                          ? 'text-primary-600 bg-primary-50'
-                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                          ? 'text-primary-600'
+                          : 'text-gray-600 hover:text-gray-900'
                       }`}
                     >
                       {item.name}
@@ -453,7 +455,7 @@ const Layout = ({ children }) => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
-                <img src="/src/assets/logo.jpg" alt="NAL" className="w-12 h-12" />
+                <img src={logo} alt="NAL" className="w-12 h-12" />
                 <span className="text-3xl font-bold text-white">NAL</span>
               </div>
               <p className="text-gray-300 mb-6 text-lg leading-relaxed">

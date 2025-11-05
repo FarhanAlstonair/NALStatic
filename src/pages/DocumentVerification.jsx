@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Upload, FileCheck, AlertCircle, CheckCircle, Clock } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 const DocumentVerification = () => {
   const [uploadedFiles, setUploadedFiles] = useState([])
@@ -17,7 +19,13 @@ const DocumentVerification = () => {
     'Power of Attorney'
   ]
 
+  const { isAuthenticated } = useAuth()
+
   const handleFileUpload = (event) => {
+    if (!isAuthenticated) {
+      window.location.href = '/signup'
+      return
+    }
     const files = Array.from(event.target.files)
     const newFiles = files.map(file => ({
       id: Date.now() + Math.random(),

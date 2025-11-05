@@ -162,7 +162,7 @@ const Home = () => {
               Instant document verification, real-time valuations, and secure property transactions all in one place
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
-              <Link to={isAuthenticated ? "/verify" : "/login"} className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
+              <Link to="/verify" className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
                 Verify Documents
               </Link>
               <Link to="/properties" className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
@@ -240,7 +240,7 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link to={isAuthenticated ? "/verify" : "/login"} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-2 hover:border-[#1E3A8A] border-2 border-transparent group overflow-hidden">
+            <Link to="/verify" className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-2 hover:border-[#1E3A8A] border-2 border-transparent group overflow-hidden">
               <div className="relative">
                 <img 
                   src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=300&fit=crop&crop=center" 
@@ -442,8 +442,8 @@ const Home = () => {
             <p className="text-lg mb-10 text-blue-200">
               Built on Alstonair's enterprise-grade technology platform
             </p>
-            <Link to={isAuthenticated ? "/properties" : "/signup"} className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
-              {isAuthenticated ? 'Explore Properties' : 'Get Started Today'}
+            <Link to="/properties" className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
+              Explore Properties
             </Link>
           </div>
         </div>  
