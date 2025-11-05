@@ -451,54 +451,139 @@ const Layout = ({ children }) => {
 
       {/* Footer */}
       <footer className="bg-slate-900 text-white mt-auto">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-            <div className="md:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <img src={logo} alt="NAL" className="w-12 h-12" />
-                <span className="text-3xl font-bold text-white">NAL</span>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Main Footer Content */}
+          <div className="py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* Brand Section */}
+              <div className="lg:col-span-5">
+                <div className="flex items-center space-x-3 mb-6">
+                  <img src={logo} alt="NAL" className="w-12 h-12" />
+                  <div>
+                    <span className="text-2xl font-bold text-white">NAL India</span>
+                    <p className="text-xs text-blue-400">by Alstonair Technologies</p>
+                  </div>
+                </div>
+                <p className="text-gray-300 mb-6 text-base leading-relaxed max-w-md">
+                  India's most trusted property verification and real estate platform. Empowering property decisions with AI-powered document verification and comprehensive market insights.
+                </p>
+                
+                {/* Key Features */}
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  <div className="flex items-center text-sm text-gray-300">
+                    <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                    AI-Powered Verification
+                  </div>
+                  <div className="flex items-center text-sm text-gray-300">
+                    <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                    RIBL Scorecard System
+                  </div>
+                  <div className="flex items-center text-sm text-gray-300">
+                    <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                    Instant Document Check
+                  </div>
+                  <div className="flex items-center text-sm text-gray-300">
+                    <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                    Secure Transactions
+                  </div>
+                </div>
+                
+                {/* Social Links */}
+                <div className="flex space-x-4">
+                  <a href="https://www.instagram.com/alstonair/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                    <Instagram className="w-5 h-5 text-white" />
+                  </a>
+                  <a href="https://www.linkedin.com/company/alstonair-technologies-private-limited/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-all duration-300">
+                    <Linkedin className="w-5 h-5 text-white" />
+                  </a>
+                  <a href="https://x.com/Alstonair_25" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-black rounded-lg flex items-center justify-center hover:bg-gray-800 transition-all duration-300">
+                    <span className="text-white font-bold text-sm">X</span>
+                  </a>
+                  <a href="https://www.facebook.com/people/Alstonair-Technologies-Pvt-Ltd/61573148077738/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-blue-700 rounded-lg flex items-center justify-center hover:bg-blue-800 transition-all duration-300">
+                    <span className="text-white font-bold text-sm">f</span>
+                  </a>
+                  <a href="https://www.youtube.com/@AlstonairTechnologies" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center hover:bg-red-700 transition-all duration-300">
+                    <span className="text-white font-bold text-sm">▶</span>
+                  </a>
+                </div>
               </div>
-              <p className="text-gray-300 mb-6 text-lg leading-relaxed">
-                Powered by Alstonair - Your trusted partner in property verification and real estate solutions across India.
-              </p>
-              <p className="text-gray-400">
-                A product of Alstonair Technologies
-              </p>
-              <div className="flex space-x-4 mt-6">
-                <a href="https://www.instagram.com/alstonair/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center hover:from-purple-600 hover:to-pink-600 transition-colors">
-                  <Instagram className="w-5 h-5 text-white" />
-                </a>
-                <a href="https://www.linkedin.com/company/alstonair-technologies-private-limited/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-blue-700 rounded-lg flex items-center justify-center hover:bg-blue-800 transition-colors">
-                  <Linkedin className="w-5 h-5 text-white" />
-                </a>
+              
+              {/* Navigation Links */}
+              <div className="lg:col-span-7">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {/* NAL Services */}
+                  <div>
+                    <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">NAL Services</h3>
+                    <ul className="space-y-3">
+                      <li><Link to="/verify" className="text-gray-300 hover:text-white transition-colors text-sm">Document Verification</Link></li>
+                      <li><Link to="/properties" className="text-gray-300 hover:text-white transition-colors text-sm">Property Listings</Link></li>
+                      <li><Link to="/urgent-sale-value" className="text-gray-300 hover:text-white transition-colors text-sm">Urgent Sale Value</Link></li>
+                      <li><Link to="/ai-recommendations" className="text-gray-300 hover:text-white transition-colors text-sm">AI Recommendations</Link></li>
+                      <li><Link to="/price-prediction" className="text-gray-300 hover:text-white transition-colors text-sm">Price Prediction</Link></li>
+                      <li><Link to="/bidding" className="text-gray-300 hover:text-white transition-colors text-sm">Property Bidding</Link></li>
+                    </ul>
+                  </div>
+                  
+                  {/* Alstonair Products */}
+                  <div>
+                    <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Products</h3>
+                    <ul className="space-y-3">
+                      <li><a href="https://alstonair.com/nal-india" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">NAL India</a></li>
+                      <li><a href="https://fusteps.net/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">Fusteps</a></li>
+                      <li><a href="https://lokaet.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">Lokaet</a></li>
+                      <li><a href="https://dealahome.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">Bizlogies</a></li>
+                      <li><a href="https://cyberters.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">Cyberters</a></li>
+                      <li><a href="https://bigvels.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">Bigvels</a></li>
+                      <li><a href="https://alstonair.com/all-products" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-sm">All Products →</a></li>
+                    </ul>
+                  </div>
+                  
+                  {/* Company */}
+                  <div>
+                    <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Company</h3>
+                    <ul className="space-y-3">
+                     <li><a href="https://alstonair.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-sm">Alstonair Technologies</a></li>
+                      <li><Link to="/about" className="text-gray-300 hover:text-white transition-colors text-sm">About NAL</Link></li>
+                      <li><Link to="/contact" className="text-gray-300 hover:text-white transition-colors text-sm">Contact Us</Link></li>
+                      <li><a href="https://alstonair.com/job/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-sm">Careers</a></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div>
-              <h3 className="font-bold text-white mb-6 text-lg">Company</h3>
-              <ul className="space-y-4">
-                <li><Link to="/about" className="text-gray-300 hover:text-white transition-colors text-base">About Us</Link></li>
-                <li><Link to="/contact" className="text-gray-300 hover:text-white transition-colors text-base">Contact</Link></li>
-                <li><a href="https://alstonair.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-base">Alstonair</a></li>
-                <li><a href="https://alstonair.com/job/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-base">Careers</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold text-white mb-6 text-lg">Services</h3>
-              <ul className="space-y-4">
-                <li><Link to="/verify" className="text-gray-300 hover:text-white transition-colors text-base">Document Verification</Link></li>
-                <li><Link to="/properties" className="text-gray-300 hover:text-white transition-colors text-base">Property Listings</Link></li>
-                <li><Link to="/ai-recommendations" className="text-gray-300 hover:text-white transition-colors text-base">AI Analytics</Link></li>
-                <li><Link to="/loan-calculator" className="text-gray-300 hover:text-white transition-colors text-base">Loan Calculator</Link></li>
-              </ul>
             </div>
           </div>
-          <div className="border-t border-gray-700 mt-12 pt-8">
+          
+          {/* Alstonair Info Section */}
+          <div className="border-t border-gray-700 py-8">
+            <div className="bg-slate-800 rounded-xl p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-white font-semibold mb-3">Alstonair Technologies</h4>
+                  <p className="text-gray-300 text-sm mb-4">Empowering businesses with intelligent software solutions that drive innovation, efficiency, and growth across multiple industries.</p>
+                  <div className="text-sm text-gray-400 space-y-1">
+                    <p>📧 info@alstonair.com</p>
+                    <p>📞 +91 80684 47416</p>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-white font-semibold mb-3">Address</h4>
+                  <div className="text-sm text-gray-300">
+                    <p>#28 Third floor MCHS Layout</p>
+                    <p>KV Jayaram Road, Jakkur</p>
+                    <p>Bangalore 560064, India</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Bottom Copyright */}
+          <div className="border-t border-gray-700 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-gray-400 text-base">&copy; 2024 Alstonair Technologies. All rights reserved.</p>
-              <div className="flex space-x-6 mt-4 md:mt-0">
+              <p className="text-gray-400 text-sm mb-4 md:mb-0">© 2025 Alstonair Technologies Private Limited. All rights reserved.</p>
+              <div className="flex items-center space-x-6">
                 <a href="https://alstonair.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
                 <a href="https://alstonair.com/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
-                <a href="https://alstonair.com/cookie-policy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
               </div>
             </div>
           </div>
