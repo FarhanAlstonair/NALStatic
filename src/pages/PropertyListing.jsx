@@ -245,33 +245,14 @@ const PropertyListing = () => {
       postedBy: 'Agent',
       postedDate: '1 week ago',
       amenities: ['Parking', 'Security']
-    },
-    {
-      id: 12,
-      title: 'Warehouse Space for Logistics',
-      location: 'Bommasandra Industrial Area, Bangalore',
-      price: '₹75,000/month',
-      type: 'lease',
-      bedrooms: 0,
-      bathrooms: 2,
-      area: 5000,
-      images: [
-        'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&h=300&fit=crop'
-      ],
-      verified: false,
-      riblScore: 'C',
-      whatsapp: '+91 43210 54321',
-      postedBy: 'Builder',
-      postedDate: '10 days ago',
-      amenities: ['Loading Dock', 'Security']
     }
   ])
 
   // Add coordinates to existing properties
   const propertiesWithCoords = allProperties.map((property, index) => ({
     ...property,
-    lat: property.lat || [12.9352, 12.9784, 12.9698, 12.9116, 12.8440, 12.9784, 12.8456, 12.9279, 12.9648, 12.9089, 12.9560, 12.8058][index] || 12.9716,
-    lng: property.lng || [77.6245, 77.6408, 77.7500, 77.6473, 77.6630, 77.6408, 77.6632, 77.6271, 77.5946, 77.6648, 77.6975, 77.6632][index] || 77.5946
+    lat: property.lat || [12.9352, 12.9784, 12.9698, 12.9116, 12.8440, 12.9784, 12.8456, 12.9279, 12.9648, 12.9089, 12.9560][index] || 12.9716,
+    lng: property.lng || [77.6245, 77.6408, 77.7500, 77.6473, 77.6630, 77.6408, 77.6632, 77.6271, 77.5946, 77.6648, 77.6975][index] || 77.5946
   }))
 
 
