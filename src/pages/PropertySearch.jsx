@@ -446,7 +446,7 @@ const PropertySearch = () => {
                     <div key={property.id} className="card hover:shadow-md transition-shadow">
                       <div className="flex items-center space-x-4">
                         <img
-                          src={property.image}
+                          src={property.images?.[0] || property.image}
                           alt={property.title}
                           className="w-20 h-16 object-cover rounded-lg"
                         />

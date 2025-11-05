@@ -86,7 +86,7 @@ const PaymentGateway = ({ property, onClose, onSuccess }) => {
           <div className="bg-gray-50 rounded-lg p-4 mb-6">
             <div className="flex items-center gap-4">
               <img
-                src={property.image}
+                src={property.images?.[0] || property.image}
                 alt={property.title}
                 className="w-20 h-20 rounded-lg object-cover"
               />

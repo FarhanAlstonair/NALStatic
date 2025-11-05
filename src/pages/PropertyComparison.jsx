@@ -76,7 +76,7 @@ const PropertyComparison = () => {
               <th key={property.id} className="text-center py-4 px-4 min-w-64">
                 <div className="relative">
                   <img
-                    src={property.image}
+                    src={property.images?.[0] || property.image}
                     alt={property.title}
                     className="w-full h-32 object-cover rounded-lg mb-3"
                   />
@@ -223,7 +223,7 @@ const PropertyComparison = () => {
               .map(property => (
                 <div key={property.id} className="border border-gray-200 rounded-lg p-4 hover:border-primary-300 transition-colors">
                   <img
-                    src={property.image}
+                    src={property.images?.[0] || property.image}
                     alt={property.title}
                     className="w-full h-32 object-cover rounded-lg mb-3"
                   />

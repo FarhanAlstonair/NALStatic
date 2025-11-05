@@ -167,7 +167,7 @@ const AIRecommendations = () => {
     <div className="card hover:shadow-lg transition-all duration-300">
       <div className="relative">
         <img
-          src={property.image}
+          src={property.images?.[0] || property.image}
           alt={property.title}
           className="w-full h-48 object-cover rounded-lg mb-4"
         />

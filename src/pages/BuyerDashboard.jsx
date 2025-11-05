@@ -270,7 +270,7 @@ const BuyerDashboard = () => {
                 <div key={property.id} className="border border-gray-200 rounded-lg p-4">
                   <div className="flex items-center gap-4">
                     <img
-                      src={property.image}
+                      src={property.images?.[0] || property.image}
                       alt={property.title}
                       className="w-16 h-16 rounded-lg object-cover"
                     />
@@ -328,7 +328,7 @@ const BuyerDashboard = () => {
                     <div key={purchase.id} className="border border-gray-200 rounded-lg p-4">
                       <div className="flex items-center gap-4">
                         <img
-                          src={purchase.property.image}
+                          src={purchase.property.images?.[0] || purchase.property.image}
                           alt={purchase.property.title}
                           className="w-12 h-12 rounded-lg object-cover"
                         />
