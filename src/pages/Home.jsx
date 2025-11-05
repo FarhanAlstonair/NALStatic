@@ -21,7 +21,7 @@ import { useAuth } from '../context/AuthContext'
 
 // Import NAL icons
 import nal1 from '../assets/icons/NAL/nal 1.png'
-import nal2 from '../assets/icons/NAL/15.png'
+import nal2 from '../assets/icons/NAL/nal 2.png'
 import nal3 from '../assets/icons/NAL/nal 3.png'
 import nal4 from '../assets/icons/NAL/nal 4.png'
 import nal5 from '../assets/icons/NAL/nal 5.png'
@@ -178,7 +178,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center animate-in fade-in slide-in-from-bottom-4 duration-500 shadow-sm" style={{animationDelay: `${index * 100}ms`}}>
+              <div key={index} className="text-center animate-in fade-in slide-in-from-bottom-4 duration-500" style={{animationDelay: `${index * 100}ms`}}>
                 <div className="text-4xl md:text-5xl font-bold text-[#1E3A8A] mb-3 hover:scale-110 transition-transform duration-300 cursor-default">
                   {stat.value}
                 </div>

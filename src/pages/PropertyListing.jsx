@@ -4,6 +4,7 @@ import { MapPin, Bed, Bath, Square, Heart, Share2, MessageCircle, Camera } from 
 import { useFavorites } from '../context/FavoritesContext'
 import { useAuth } from '../context/AuthContext'
 import PaymentGateway from '../components/PaymentGateway'
+import LeafletMap from '../components/LeafletMap'
 
 const PropertyListing = () => {
   const [activeTab, setActiveTab] = useState('all')
@@ -430,71 +431,9 @@ const PropertyListing = () => {
     })
   }
 
+  // Simple map placeholder for now
   useEffect(() => {
-    const initMap = () => {
-      if (window.google && mapRef.current) {
-        const mapInstance = new window.google.maps.Map(mapRef.current, {
-          zoom: 11,
-          center: { lat: 12.9716, lng: 77.5946 },
-          styles: [
-            {
-              featureType: 'poi',
-              elementType: 'labels',
-              stylers: [{ visibility: 'off' }]
-            }
-          ]
-        })
-        setMap(mapInstance)
-        
-        // Add markers for filtered properties
-        filteredProperties.forEach(property => {
-          if (property.lat && property.lng) {
-            const marker = new window.google.maps.Marker({
-              position: { lat: property.lat, lng: property.lng },
-              map: mapInstance,
-              title: property.title,
-              icon: {
-                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                  <svg width="30" height="40" viewBox="0 0 30 40" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 0C6.716 0 0 6.716 0 15c0 8.284 15 25 15 25s15-16.716 15-25C30 6.716 23.284 0 15 0z" fill="#3B82F6"/>
-                    <circle cx="15" cy="15" r="8" fill="white"/>
-                    <text x="15" y="19" text-anchor="middle" font-size="10" fill="#3B82F6" font-weight="bold">₹</text>
-                  </svg>
-                `),
-                scaledSize: new window.google.maps.Size(30, 40)
-              }
-            })
-            
-            const infoWindow = new window.google.maps.InfoWindow({
-              content: `
-                <div style="padding: 12px; max-width: 250px; font-family: system-ui;">
-                  <img src="${property.images[0]}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;" />
-                  <h4 style="margin: 0 0 4px 0; font-size: 14px; font-weight: 600; color: #1f2937;">${property.title}</h4>
-                  <p style="margin: 0 0 8px 0; font-size: 12px; color: #6b7280;">${property.location}</p>
-                  <p style="margin: 0 0 8px 0; font-size: 16px; font-weight: 700; color: #1f2937;">${property.price}</p>
-                  <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 11px; color: #6b7280;">${property.bedrooms}BHK • ${property.area} sq ft</span>
-                    <span style="background: ${property.riblScore === 'A+' ? '#dcfce7' : property.riblScore === 'A' ? '#dbeafe' : '#fef3c7'}; color: ${property.riblScore === 'A+' ? '#166534' : property.riblScore === 'A' ? '#1e40af' : '#92400e'}; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 600;">RIBL ${property.riblScore}</span>
-                  </div>
-                </div>
-              `
-            })
-            
-            marker.addListener('click', () => {
-              infoWindow.open(mapInstance, marker)
-            })
-          }
-        })
-      }
-    }
-    
-    const timer = setTimeout(() => {
-      if (window.google) {
-        initMap()
-      }
-    }, 1000)
-    
-    return () => clearTimeout(timer)
+    // Map will be implemented here
   }, [filteredProperties])
 
   const handleBuyProperty = (property) => {
@@ -767,7 +706,7 @@ const PropertyListing = () => {
                 <h3 className="text-lg font-semibold text-gray-900">Property Locations</h3>
                 <p className="text-sm text-gray-600">{filteredProperties.length} properties</p>
               </div>
-              <div ref={mapRef} className="w-full h-[600px]"></div>
+              <LeafletMap properties={filteredProperties} />
             </div>
           </div>
           

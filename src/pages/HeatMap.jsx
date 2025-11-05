@@ -20,50 +20,47 @@ const HeatMap = () => {
     ]
     setHeatMapData(data)
     
-    // Initialize Google Map
-    if (window.google) {
-      initializeMap(data)
-    } else {
-      // Wait for Google Maps to load
-      const checkGoogle = setInterval(() => {
-        if (window.google) {
-          clearInterval(checkGoogle)
-          initializeMap(data)
-        }
-      }, 100)
-    }
+    // Initialize Leaflet Map
+    initializeMap(data)
   }, [])
 
   useEffect(() => {
-    if (window.google && heatMapData.length > 0) {
+    if (window.leafletMap && heatMapData.length > 0) {
       updateHeatMap()
     }
   }, [selectedMetric])
 
-  const initializeMap = (data) => {
-    const map = new window.google.maps.Map(document.getElementById('heatmap'), {
-      zoom: 11,
-      center: { lat: 12.9716, lng: 77.5946 }, // Bangalore center
-      mapTypeId: 'roadmap',
-      styles: [
-        {
-          featureType: 'poi',
-          elementType: 'labels',
-          stylers: [{ visibility: 'off' }]
-        }
-      ]
-    })
+  const initializeMap = async (data) => {
+    if (typeof window !== 'undefined' && document.getElementById('heatmap')) {
+      const L = (await import('leaflet')).default
+      await import('leaflet/dist/leaflet.css')
+      
+      // Fix default markers
+      delete L.Icon.Default.prototype._getIconUrl
+      L.Icon.Default.mergeOptions({
+        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png'
+      })
 
-    window.heatMapInstance = map
-    updateHeatMap()
+      const map = L.map('heatmap').setView([12.9716, 77.5946], 11)
+      
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map)
+
+      window.leafletMap = map
+      window.L = L
+      updateHeatMap()
+    }
   }
 
   const updateHeatMap = () => {
-    if (!window.google || !window.heatMapInstance) return
+    if (!window.leafletMap || !window.L) return
 
     // Clear existing overlays
     if (window.heatMapOverlays) {
-      window.heatMapOverlays.forEach(overlay => overlay.setMap(null))
+      window.heatMapOverlays.forEach(overlay => window.leafletMap.removeLayer(overlay))
     }
     window.heatMapOverlays = []
 
@@ -71,49 +68,42 @@ const HeatMap = () => {
       const value = getMetricValue(area, selectedMetric)
       const intensity = getIntensity(value, selectedMetric)
       
-      // Create circle overlay
-      const circle = new window.google.maps.Circle({
-        strokeColor: getCircleColor(intensity),
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
+      // Create professional heatmap circle
+      const circle = window.L.circle([area.lat, area.lng], {
+        color: getCircleColor(intensity),
+        weight: 2,
+        opacity: 0.8,
         fillColor: getCircleColor(intensity),
-        fillOpacity: 0.35,
-        map: window.heatMapInstance,
-        center: { lat: area.lat, lng: area.lng },
-        radius: 2000 + (intensity * 3000) // Dynamic radius based on intensity
-      })
+        fillOpacity: 0.6,
+        radius: 1500 + (intensity * 2500) // Smaller, more professional circles
+      }).addTo(window.leafletMap)
 
-      // Create info window
-      const infoWindow = new window.google.maps.InfoWindow({
-        content: `
-          <div class="p-3">
-            <h3 class="font-semibold text-gray-900 mb-2">${area.area}</h3>
-            <div class="space-y-1 text-sm">
-              <div class="flex justify-between">
-                <span class="text-gray-600">Price/sq ft:</span>
-                <span class="font-medium">₹${area.price}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Demand:</span>
-                <span class="font-medium">${area.demand}%</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Growth:</span>
-                <span class="font-medium">${area.growth}%</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Properties:</span>
-                <span class="font-medium">${area.properties}</span>
-              </div>
+      // Create popup
+      circle.bindPopup(`
+        <div style="padding: 12px; max-width: 200px;">
+          <h3 style="font-weight: 600; margin-bottom: 8px;">${area.area}</h3>
+          <div style="font-size: 14px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>Price/sq ft:</span>
+              <span style="font-weight: 500;">₹${area.price}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>Demand:</span>
+              <span style="font-weight: 500;">${area.demand}%</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>Growth:</span>
+              <span style="font-weight: 500;">${area.growth}%</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>Properties:</span>
+              <span style="font-weight: 500;">${area.properties}</span>
             </div>
           </div>
-        `
-      })
+        </div>
+      `)
 
-      circle.addListener('click', () => {
-        infoWindow.open(window.heatMapInstance, {
-          position: { lat: area.lat, lng: area.lng }
-        })
+      circle.on('click', () => {
         setSelectedArea(area)
       })
 
@@ -137,9 +127,12 @@ const HeatMap = () => {
   }
 
   const getCircleColor = (intensity) => {
-    if (intensity < 0.3) return '#3B82F6' // Blue for low
-    if (intensity < 0.7) return '#F59E0B' // Orange for medium
-    return '#EF4444' // Red for high
+    // Professional heatmap gradient like Zillow
+    if (intensity < 0.2) return '#10B981' // Green for very low
+    if (intensity < 0.4) return '#84CC16' // Light green for low
+    if (intensity < 0.6) return '#EAB308' // Yellow for medium
+    if (intensity < 0.8) return '#F97316' // Orange for high
+    return '#DC2626' // Red for very high
   }
 
   const metrics = [
@@ -198,23 +191,17 @@ const HeatMap = () => {
                 <p className="text-sm text-gray-600 mt-1">Interactive map showing property data across Bangalore</p>
               </div>
               
-              {/* Google Maps Heat Map */}
+              {/* Leaflet Heat Map */}
               <div className="relative">
                 <div id="heatmap" className="w-full h-96"></div>
                 
-                {/* Map Controls */}
-                <div className="absolute top-4 left-4 bg-white rounded-lg shadow-lg p-3 border border-gray-200">
-                  <div className="text-xs font-medium text-gray-700 mb-2">Heat Map Legend</div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs text-gray-500">Low</span>
-                    <div className="w-16 h-3 bg-gradient-to-r from-blue-400 to-red-500 rounded"></div>
-                    <span className="text-xs text-gray-500">High</span>
-                  </div>
-                  <div className="text-xs text-gray-600">
-                    <strong>Showing:</strong> {metrics.find(m => m.key === selectedMetric)?.label}
-                  </div>
-                  <div className="text-xs text-gray-500 mt-1">
-                    Click circles for details
+                {/* Professional Map Legend */}
+                <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg px-3 py-2 border border-gray-200" style={{zIndex: 9999}}>
+                  <div className="text-xs font-semibold text-gray-800 mb-1">{metrics.find(m => m.key === selectedMetric)?.label}</div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-gray-600">Low</span>
+                    <div className="w-16 h-2 bg-gradient-to-r from-green-500 via-yellow-500 via-orange-500 to-red-600 rounded-full"></div>
+                    <span className="text-xs text-gray-600">High</span>
                   </div>
                 </div>
               </div>
