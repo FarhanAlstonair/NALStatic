@@ -69,14 +69,21 @@ const SellerDashboard = () => {
   useEffect(() => {
     // Load user's properties from localStorage
     const allProperties = JSON.parse(localStorage.getItem('properties') || '[]')
-    const userProperties = allProperties.filter(p => p.sellerId === user?.id)
+    const userProperties = allProperties.filter(p => 
+      p.sellerId === user?.id || 
+      p.sellerName === user?.name ||
+      (user?.email && p.sellerEmail === user.email)
+    )
     setProperties(userProperties)
 
     // Calculate stats
     const totalViews = userProperties.reduce((sum, p) => sum + (p.views || 0), 0)
     const totalInquiries = userProperties.reduce((sum, p) => sum + (p.inquiries || 0), 0)
     const avgPrice = userProperties.length > 0 
-      ? userProperties.reduce((sum, p) => sum + parseFloat(p.price.replace(/[₹,]/g, '')), 0) / userProperties.length
+      ? userProperties.reduce((sum, p) => {
+          const cleanPrice = p.price.toString().replace(/[₹,\s]/g, '')
+          return sum + (parseFloat(cleanPrice) || 0)
+        }, 0) / userProperties.length
       : 0
 
     setStats({
@@ -260,41 +267,7 @@ const SellerDashboard = () => {
           )}
         </div>
 
-        {/* Quick Actions */}
-        <div className="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link
-              to="/urgent-sale-value"
-              className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <Zap className="w-6 h-6 text-orange-600" />
-              <div>
-                <h3 className="font-medium text-gray-900">Urgent Sale Value</h3>
-                <p className="text-sm text-gray-500">Get real-time valuations</p>
-              </div>
-            </Link>
 
-            <button 
-              onClick={() => setShowReportGenerator(true)}
-              className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <FileText className="w-6 h-6 text-blue-600" />
-              <div>
-                <h3 className="font-medium text-gray-900">Generate Reports</h3>
-                <p className="text-sm text-gray-500">Property status reports</p>
-              </div>
-            </button>
-
-            <button className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <Megaphone className="w-6 h-6 text-purple-600" />
-              <div>
-                <h3 className="font-medium text-gray-900">Campaign Management</h3>
-                <p className="text-sm text-gray-500">Marketing campaigns</p>
-              </div>
-            </button>
-          </div>
-        </div>
 
         {/* Loading Overlay */}
         {isGeneratingReport && (

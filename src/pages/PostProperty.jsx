@@ -851,13 +851,16 @@ const PostProperty = () => {
         </div>
       </div>
       
-      <div className="text-center">
+      <div className="text-center space-y-4">
         <button 
           onClick={handleSubmit}
           className="btn-primary text-lg px-8 py-3"
         >
           Submit Property Listing
         </button>
+        <p className="text-sm text-gray-600">
+          After submission, you can create advertising campaigns to promote your property
+        </p>
       </div>
     </div>
   )
@@ -908,13 +911,20 @@ const PostProperty = () => {
     // Clear form draft
     localStorage.removeItem('propertyFormDraft')
 
-    // Navigate to appropriate dashboard
-    if (user?.userType === 'seller') {
-      navigate('/seller-dashboard')
-    } else if (user?.userType === 'agent') {
-      navigate('/agent-dashboard')
+    // Show success message with option to create ad
+    const createAd = window.confirm('Property listed successfully! Would you like to create an advertising campaign to promote this property?')
+    
+    if (createAd) {
+      navigate('/property-ads')
     } else {
-      navigate('/properties')
+      // Navigate to appropriate dashboard
+      if (user?.userType === 'seller') {
+        navigate('/seller-dashboard')
+      } else if (user?.userType === 'agent') {
+        navigate('/agent-dashboard')
+      } else {
+        navigate('/properties')
+      }
     }
   }
 

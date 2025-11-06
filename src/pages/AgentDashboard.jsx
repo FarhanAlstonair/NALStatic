@@ -9,6 +9,14 @@ const AgentDashboard = () => {
   const [clients, setClients] = useState([])
   const [properties, setProperties] = useState([])
   const [commissions, setCommissions] = useState([])
+  
+  // Get real properties for agent
+  const allProperties = JSON.parse(localStorage.getItem('properties') || '[]')
+  const agentProperties = allProperties.filter(p => 
+    p.sellerId === user?.id || 
+    p.agentId === user?.id ||
+    (user?.email && (p.sellerEmail === user.email || p.agentEmail === user.email))
+  )
   const [showReportGenerator, setShowReportGenerator] = useState(false)
   const [isGeneratingReport, setIsGeneratingReport] = useState(false)
 
@@ -157,7 +165,7 @@ const AgentDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Properties Listed</p>
-                <p className="text-2xl font-bold text-gray-900">{properties.length || 12}</p>
+                <p className="text-2xl font-bold text-gray-900">{agentProperties.length || 12}</p>
               </div>
               <Home className="w-8 h-8 text-green-600" />
             </div>
@@ -270,60 +278,7 @@ const AgentDashboard = () => {
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link
-              to="/post-property"
-              className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <Plus className="w-6 h-6 text-primary-600" />
-              <div>
-                <h3 className="font-medium text-gray-900">Add New Property</h3>
-                <p className="text-sm text-gray-500">List a new property for clients</p>
-              </div>
-            </Link>
 
-            <button className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <Users className="w-6 h-6 text-blue-600" />
-              <div>
-                <h3 className="font-medium text-gray-900">Add New Client</h3>
-                <p className="text-sm text-gray-500">Register a new client</p>
-              </div>
-            </button>
-
-            <Link
-              to="/urgent-sale-value"
-              className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <Zap className="w-6 h-6 text-orange-600" />
-              <div>
-                <h3 className="font-medium text-gray-900">Urgent Sale Value</h3>
-                <p className="text-sm text-gray-500">Get property valuations</p>
-              </div>
-            </Link>
-
-            <button 
-              onClick={() => setShowReportGenerator(true)}
-              className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <FileText className="w-6 h-6 text-blue-600" />
-              <div>
-                <h3 className="font-medium text-gray-900">Generate Reports</h3>
-                <p className="text-sm text-gray-500">Client & commission reports</p>
-              </div>
-            </button>
-
-            <button className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <Megaphone className="w-6 h-6 text-purple-600" />
-              <div>
-                <h3 className="font-medium text-gray-900">Campaign Management</h3>
-                <p className="text-sm text-gray-500">Marketing campaigns</p>
-              </div>
-            </button>
-          </div>
-        </div>
 
         {/* Loading Overlay */}
         {isGeneratingReport && (

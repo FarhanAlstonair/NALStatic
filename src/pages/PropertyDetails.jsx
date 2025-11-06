@@ -22,12 +22,14 @@ import {
   ShoppingCart
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { useFavorites } from '../context/FavoritesContext'
 import PaymentGateway from '../components/PaymentGateway'
 
 const PropertyDetails = () => {
   const { id } = useParams()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const { user } = useAuth()
+  const { favorites, addToFavorites, removeFromFavorites } = useFavorites()
   const [showPaymentGateway, setShowPaymentGateway] = useState(false)
 
   // Mock property data - in real app, fetch by ID
@@ -127,8 +129,24 @@ const PropertyDetails = () => {
               Back to Properties
             </Link>
             <div className="flex items-center space-x-3">
-              <button className="p-2 text-gray-600 hover:text-red-500 hover:bg-red-50 rounded-lg">
-                <Heart className="w-5 h-5" />
+              <button 
+                onClick={() => {
+                  const isFavorite = favorites.some(fav => fav.id === property.id)
+                  if (isFavorite) {
+                    removeFromFavorites(property.id)
+                  } else {
+                    addToFavorites(property)
+                  }
+                }}
+                className={`p-2 rounded-lg transition-colors ${
+                  favorites.some(fav => fav.id === property.id)
+                    ? 'text-red-500 bg-red-50 hover:bg-red-100'
+                    : 'text-gray-600 hover:text-red-500 hover:bg-red-50'
+                }`}
+              >
+                <Heart className={`w-5 h-5 ${
+                  favorites.some(fav => fav.id === property.id) ? 'fill-current' : ''
+                }`} />
               </button>
               <button className="p-2 text-gray-600 hover:text-blue-500 hover:bg-blue-50 rounded-lg">
                 <Share2 className="w-5 h-5" />

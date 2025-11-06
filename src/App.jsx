@@ -29,8 +29,10 @@ import MarketReports from './pages/MarketReports'
 import SellerDashboard from './pages/SellerDashboard'
 import BuyerDashboard from './pages/BuyerDashboard'
 import AgentDashboard from './pages/AgentDashboard'
-import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
+import PropertyAds from './pages/PropertyAds'
+import DocumentRepository from './pages/DocumentRepository'
+import BookingManagement from './pages/BookingManagement'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -66,8 +68,11 @@ function App() {
           <Route path="/post-property" element={<PostProperty />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
+
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/property-ads" element={<PropertyAds />} />
+          <Route path="/document-repository" element={<DocumentRepository />} />
+          <Route path="/booking-management" element={<BookingManagement />} />
         </Routes>
         </Layout>
       </FavoritesProvider>

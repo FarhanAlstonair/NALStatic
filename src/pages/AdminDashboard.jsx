@@ -88,14 +88,20 @@ const AdminDashboard = () => {
     navigate('/admin/login')
   }
 
+  // Get real data from localStorage
+  const allProperties = JSON.parse(localStorage.getItem('properties') || '[]')
+  const allUsers = JSON.parse(localStorage.getItem('nalUsers') || '[]')
+  const verifications = JSON.parse(localStorage.getItem('verifications') || '[]')
+  
   const stats = [
-    { title: 'Total Properties', value: '18', icon: Building, color: 'blue' },
-    { title: 'Active Users', value: '156', icon: Users, color: 'green' },
-    { title: 'Verifications', value: '89', icon: FileCheck, color: 'purple' },
+    { title: 'Total Properties', value: allProperties.length || '18', icon: Building, color: 'blue' },
+    { title: 'Active Users', value: allUsers.length || '156', icon: Users, color: 'green' },
+    { title: 'Verifications', value: verifications.length || '89', icon: FileCheck, color: 'purple' },
     { title: 'Revenue', value: '₹2.8L', icon: TrendingUp, color: 'orange' }
   ]
 
-  const recentProperties = [
+  // Use real properties if available, otherwise use mock data
+  const mockProperties = [
     { id: 1, title: '3BHK Luxury Apartment', location: 'Koramangala', price: '₹1.8 Cr', ribl: 'A+', status: 'Active' },
     { id: 2, title: '2BHK Modern Flat', location: 'Indiranagar', price: '₹35,000/month', ribl: 'A', status: 'Active' },
     { id: 3, title: 'Commercial Office Space', location: 'Whitefield', price: '₹85,000/month', ribl: 'B', status: 'Active' },
@@ -105,6 +111,17 @@ const AdminDashboard = () => {
     { id: 7, title: '3BHK Premium Flat', location: 'Whitefield', price: '₹2.2 Cr', ribl: 'A', status: 'Active' },
     { id: 8, title: '2BHK Garden View', location: 'HSR Layout', price: '₹28,000/month', ribl: 'A', status: 'Active' }
   ]
+  
+  const recentProperties = allProperties.length > 0 
+    ? allProperties.slice(-8).map(prop => ({
+        id: prop.id,
+        title: prop.title,
+        location: prop.location?.split(',')[0] || 'Unknown',
+        price: prop.price,
+        ribl: prop.riblScore || 'A',
+        status: prop.status || 'Active'
+      }))
+    : mockProperties
 
   const urgentSaleProperties = [
     { id: 1, title: '3BHK Apartment', location: 'Koramangala', originalPrice: '₹2.2 Cr', urgentPrice: '₹1.8 Cr', discount: '18%', ribl: 'A+' },
@@ -231,36 +248,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <button 
-            onClick={() => setShowReportGenerator(true)}
-            className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <FileText className="w-6 h-6 text-blue-600" />
-            <div>
-              <h4 className="font-medium text-gray-900">Generate Reports</h4>
-              <p className="text-sm text-gray-500">Platform analytics & reports</p>
-            </div>
-          </button>
-          <button className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-            <Plus className="w-6 h-6 text-green-600" />
-            <div>
-              <h4 className="font-medium text-gray-900">Add Admin User</h4>
-              <p className="text-sm text-gray-500">Create new admin account</p>
-            </div>
-          </button>
-          <button className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-            <TrendingUp className="w-6 h-6 text-purple-600" />
-            <div>
-              <h4 className="font-medium text-gray-900">Analytics</h4>
-              <p className="text-sm text-gray-500">View detailed analytics</p>
-            </div>
-          </button>
-        </div>
-      </div>
+
     </div>
   )
 
