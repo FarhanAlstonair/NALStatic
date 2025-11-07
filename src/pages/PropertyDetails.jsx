@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { 
   ArrowLeft, 
   Heart, 
@@ -27,23 +27,91 @@ import PaymentGateway from '../components/PaymentGateway'
 
 const PropertyDetails = () => {
   const { id } = useParams()
+  const navigate = useNavigate()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const { user } = useAuth()
-  const { favorites, addToFavorites, removeFromFavorites } = useFavorites()
+  const { user, isAuthenticated, isLoading } = useAuth()
+  const { toggleFavorite, isFavorite } = useFavorites()
   const [showPaymentGateway, setShowPaymentGateway] = useState(false)
 
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      navigate('/login', { state: { from: `/property/${id}` } })
+    }
+  }, [isAuthenticated, isLoading, navigate, id])
+
+  // Show loading while checking authentication
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    )
+  }
+
+  // Don't render if not authenticated
+  if (!isAuthenticated) {
+    return null
+  }
+
   // Mock property data - in real app, fetch by ID
-  const property = {
-    id: 1,
+  const allProperties = [
+    {
+      id: 1,
+      title: '3BHK Luxury Apartment in Prime Location',
+      location: 'Koramangala 5th Block, Bangalore',
+      price: '₹1.8 Cr',
+      type: 'sale',
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 1200,
+      images: [
+        'https://imagecdn.99acres.com/media1/32690/10/653810107M-1759080334729.jpg',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop',
+        'https://images.unsplash.com/photo-1560449752-d9d7c2c1e5c4?w=400&h=300&fit=crop'
+      ],
+      verified: true,
+      riblScore: 'A+',
+      urgentSale: true,
+      originalPrice: '₹2.2 Cr',
+      whatsapp: '+91 98765 43210',
+      postedBy: 'Owner',
+      postedDate: '2 days ago',
+      amenities: ['Parking', 'Gym', 'Swimming Pool'],
+      description: 'Stunning 3BHK luxury apartment in the heart of Koramangala. This premium property offers modern amenities, excellent connectivity to IT hubs, and beautiful city views. Perfect for IT professionals and families looking for comfort and convenience.',
+      features: {
+        floor: '8th Floor',
+        facing: 'East',
+        furnished: 'Semi-Furnished',
+        age: '3 years',
+        parking: '2 Covered'
+      },
+      owner: {
+        name: 'Priya Krishnan',
+        phone: '+91 98765 43210',
+        email: 'priya@email.com',
+        verified: true
+      },
+      nearbyPlaces: [
+        { name: 'Koramangala Metro', distance: '0.3 km', type: 'Transport' },
+        { name: 'Forum Mall', distance: '0.5 km', type: 'Shopping' },
+        { name: 'Manipal Hospital', distance: '0.8 km', type: 'Healthcare' },
+        { name: 'National Public School', distance: '0.6 km', type: 'Education' }
+      ]
+    }
+  ]
+  
+  const property = allProperties.find(p => p.id === parseInt(id)) || {
+    id: parseInt(id),
     title: '3BHK Luxury Apartment',
     location: 'Koramangala, Bangalore',
-    price: 1800000,
+    price: '₹1.8 Cr',
     type: 'sale',
     bedrooms: 3,
     bathrooms: 2,
     area: 1200,
     verified: true,
-    riblScore: 85,
+    riblScore: 'A+',
     images: [
       'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
       'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800',
@@ -77,6 +145,9 @@ const PropertyDetails = () => {
   }
 
   const formatPrice = (price) => {
+    // If price is already formatted as string, return as is
+    if (typeof price === 'string') return price
+    
     if (price >= 10000000) {
       return `₹${(price / 10000000).toFixed(1)} Cr`
     } else if (price >= 100000) {
@@ -103,11 +174,11 @@ const PropertyDetails = () => {
       propertyId: property.id,
       property: {
         ...property,
-        price: formatPrice(property.price),
+        price: property.price,
         image: property.images[0]
       },
       purchaseDate: new Date().toISOString(),
-      amount: formatPrice(property.price),
+      amount: property.price,
       status: 'completed'
     }
     
@@ -130,22 +201,15 @@ const PropertyDetails = () => {
             </Link>
             <div className="flex items-center space-x-3">
               <button 
-                onClick={() => {
-                  const isFavorite = favorites.some(fav => fav.id === property.id)
-                  if (isFavorite) {
-                    removeFromFavorites(property.id)
-                  } else {
-                    addToFavorites(property)
-                  }
-                }}
+                onClick={() => toggleFavorite(property)}
                 className={`p-2 rounded-lg transition-colors ${
-                  favorites.some(fav => fav.id === property.id)
+                  isFavorite(property.id)
                     ? 'text-red-500 bg-red-50 hover:bg-red-100'
                     : 'text-gray-600 hover:text-red-500 hover:bg-red-50'
                 }`}
               >
                 <Heart className={`w-5 h-5 ${
-                  favorites.some(fav => fav.id === property.id) ? 'fill-current' : ''
+                  isFavorite(property.id) ? 'fill-current' : ''
                 }`} />
               </button>
               <button className="p-2 text-gray-600 hover:text-blue-500 hover:bg-blue-50 rounded-lg">
@@ -215,6 +279,9 @@ const PropertyDetails = () => {
                   <div className="text-3xl font-bold text-primary-600 mb-1">
                     {formatPrice(property.price)}
                   </div>
+                  {property.urgentSale && property.originalPrice && (
+                    <div className="text-sm text-gray-500 line-through mb-1">{property.originalPrice}</div>
+                  )}
                   <div className="flex items-center space-x-2">
                     {property.verified && (
                       <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">
@@ -395,7 +462,7 @@ const PropertyDetails = () => {
           <PaymentGateway
             property={{
               ...property,
-              price: formatPrice(property.price),
+              price: property.price,
               image: property.images[0]
             }}
             onClose={() => setShowPaymentGateway(false)}

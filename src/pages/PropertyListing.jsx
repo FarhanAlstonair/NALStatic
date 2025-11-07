@@ -476,7 +476,7 @@ const PropertyListing = () => {
           onClick={() => toggleFavorite(property)}
           className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-sm hover:bg-gray-50"
         >
-          <Heart className={`w-4 h-4 ${isFavorite(property.id) ? 'text-red-500 fill-red-500' : 'text-gray-600'}`} />
+          <Heart className={`w-4 h-4 ${isFavorite(property.id) ? 'text-red-500 fill-current' : 'text-gray-600'}`} />
         </button>
       </div>
 
