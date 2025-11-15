@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import { FavoritesProvider } from './context/FavoritesContext'
 import { AuthProvider } from './context/AuthContext'
+import { LanguageProvider } from './context/LanguageContext'
 import Home from './pages/Home'
 import PropertyListing from './pages/PropertyListing'
 import DocumentVerification from './pages/DocumentVerification'
@@ -38,8 +39,9 @@ import ProtectedRoute from './components/ProtectedRoute'
 function App() {
   return (
     <AuthProvider>
-      <FavoritesProvider>
-        <Layout>
+      <LanguageProvider>
+        <FavoritesProvider>
+          <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/properties" element={<PropertyListing />} />
@@ -73,9 +75,10 @@ function App() {
           <Route path="/property-ads" element={<PropertyAds />} />
           <Route path="/document-repository" element={<DocumentRepository />} />
           <Route path="/booking-management" element={<BookingManagement />} />
-        </Routes>
-        </Layout>
-      </FavoritesProvider>
+          </Routes>
+          </Layout>
+        </FavoritesProvider>
+      </LanguageProvider>
     </AuthProvider>
   )
 }

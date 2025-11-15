@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, Search, User, ChevronDown, Building, FileCheck, Gavel, GitCompare, Calculator, Brain, BarChart3, TrendingUp, Map, Camera, MapPin, LogIn, LogOut, FileText, Activity, Instagram, Linkedin, Calendar } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import LanguageToggle from './LanguageToggle'
+import SimpleTranslatedText from './SimpleTranslatedText'
 import Chatbot from './Chatbot'
 import logo from '../assets/logo.jpg'
 
@@ -84,6 +86,7 @@ const Layout = ({ children }) => {
   const navigation = [
     {
       name: 'Properties',
+      translationKey: 'properties',
       href: '/properties',
       dropdown: [
         { name: 'Browse Properties', href: '/properties', icon: Building },
@@ -92,6 +95,7 @@ const Layout = ({ children }) => {
     },
     {
       name: 'Services',
+      translationKey: 'services',
       href: '/verify',
       dropdown: [
         { name: 'Document Verification', href: '/verify', icon: FileCheck },
@@ -105,7 +109,8 @@ const Layout = ({ children }) => {
       ]
     },
     {
-      name: 'AI & Analytics',
+      name: 'Analytics',
+      translationKey: 'aiAnalytics',
       href: '/ai-recommendations',
       dropdown: [
         { name: 'AI Recommendations', href: '/ai-recommendations', icon: Brain },
@@ -118,14 +123,14 @@ const Layout = ({ children }) => {
     },
     {
       name: 'Resources',
+      translationKey: 'resources',
       href: '/government-guidelines',
       dropdown: [
         { name: 'Government Guidelines', href: '/government-guidelines', icon: FileText },
         { name: 'Market Reports', href: '/market-reports', icon: BarChart3 }
       ]
     },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' }
+    { name: 'About', translationKey: 'about', href: '/about' }
   ]
 
   const toggleDropdown = (index) => {
@@ -188,7 +193,6 @@ const Layout = ({ children }) => {
             <div className="flex items-center">
               <Link to="/" className="flex items-center group">
                 <img src={logo} alt="NAL" className="w-12 h-12" />
-                <span className="ml-3 text-2xl font-bold text-gray-900">NAL</span>
               </Link>
             </div>
 
@@ -210,35 +214,37 @@ const Layout = ({ children }) => {
                               : 'text-gray-700 hover:text-gray-900'
                           }`}
                         >
-                          <span>{item.name}</span>
+                          <SimpleTranslatedText>{item.name}</SimpleTranslatedText>
                           <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
                             activeDropdown === index ? 'rotate-180' : ''
                           }`} />
                         </button>
                         
-                        {activeDropdown === index && (
-                          <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                            {item.dropdown.map((subItem) => {
-                              const SubIcon = subItem.icon
-                              const isSubActive = location.pathname === subItem.href
-                              return (
-                                <Link
-                                  key={subItem.name}
-                                  to={subItem.href}
-                                  onClick={() => setActiveDropdown(null)}
-                                  className={`flex items-center space-x-3 px-4 py-3 text-sm transition-colors ${
-                                    isSubActive
-                                      ? 'text-primary-600'
-                                      : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-                                  }`}
-                                >
-                                  <SubIcon className="w-4 h-4" />
-                                  <span>{subItem.name}</span>
-                                </Link>
-                              )
-                            })}
-                          </div>
-                        )}
+                        <div className={`absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50 transition-all duration-200 ${
+                          activeDropdown === index 
+                            ? 'opacity-100 visible translate-y-0' 
+                            : 'opacity-0 invisible -translate-y-2 pointer-events-none'
+                        }`}>
+                          {item.dropdown.map((subItem) => {
+                            const SubIcon = subItem.icon
+                            const isSubActive = location.pathname === subItem.href
+                            return (
+                              <Link
+                                key={subItem.name}
+                                to={subItem.href}
+                                onClick={() => setActiveDropdown(null)}
+                                className={`flex items-center space-x-3 px-4 py-3 text-sm transition-colors ${
+                                  isSubActive
+                                    ? 'text-primary-600'
+                                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                                }`}
+                              >
+                                <SubIcon className="w-4 h-4" />
+                                <SimpleTranslatedText>{subItem.name}</SimpleTranslatedText>
+                              </Link>
+                            )
+                          })}
+                        </div>
                       </div>
                     ) : (
                       <Link
@@ -249,7 +255,7 @@ const Layout = ({ children }) => {
                             : 'text-gray-700 hover:text-gray-900'
                         }`}
                       >
-                        {item.name}
+                        <SimpleTranslatedText>{item.name}</SimpleTranslatedText>
                       </Link>
                     )}
                   </div>
@@ -323,6 +329,9 @@ const Layout = ({ children }) => {
                   </div>
                 )}
               </div>
+              
+              {/* Language Toggle */}
+              <LanguageToggle />
               
               {/* User Menu */}
               <div className="relative" ref={userMenuRef}>
@@ -414,7 +423,7 @@ const Layout = ({ children }) => {
                     className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                   >
                     <LogIn className="w-4 h-4" />
-                    <span className="hidden lg:block text-sm font-medium">Login</span>
+                    <span className="hidden lg:block text-sm font-medium"><SimpleTranslatedText>Login</SimpleTranslatedText></span>
                   </Link>
                 )}
               </div>
@@ -455,7 +464,7 @@ const Layout = ({ children }) => {
                               }`}
                             >
                               <SubIcon className="w-4 h-4" />
-                              <span>{subItem.name}</span>
+                              <SimpleTranslatedText>{subItem.name}</SimpleTranslatedText>
                             </Link>
                           )
                         })}
@@ -555,7 +564,9 @@ const Layout = ({ children }) => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {/* NAL Services */}
                   <div>
-                    <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">NAL Services</h3>
+                    <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">
+                      NAL Services
+                    </h3>
                     <ul className="space-y-3">
                       <li><Link to="/verify" className="text-gray-300 hover:text-white transition-colors text-sm">Document Verification</Link></li>
                       <li><Link to="/properties" className="text-gray-300 hover:text-white transition-colors text-sm">Property Listings</Link></li>
@@ -571,7 +582,9 @@ const Layout = ({ children }) => {
                   
                   {/* Alstonair Products */}
                   <div>
-                    <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Products</h3>
+                    <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">
+                      Products
+                    </h3>
                     <ul className="space-y-3">
                       <li><a href="https://alstonair.com/nal-india" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">NAL India</a></li>
                       <li><a href="https://fusteps.net/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">Fusteps</a></li>
@@ -585,7 +598,9 @@ const Layout = ({ children }) => {
                   
                   {/* Company */}
                   <div>
-                    <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Company</h3>
+                    <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">
+                      Company
+                    </h3>
                     <ul className="space-y-3">
                      <li><a href="https://alstonair.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-sm">Alstonair Technologies</a></li>
                       <li><Link to="/about" className="text-gray-300 hover:text-white transition-colors text-sm">About NAL</Link></li>
@@ -604,14 +619,18 @@ const Layout = ({ children }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <h4 className="text-white font-semibold mb-3">Alstonair Technologies</h4>
-                  <p className="text-gray-300 text-sm mb-4">Empowering businesses with intelligent software solutions that drive innovation, efficiency, and growth across multiple industries.</p>
+                  <p className="text-gray-300 text-sm mb-4">
+                    Empowering businesses with intelligent software solutions that drive innovation, efficiency, and growth across multiple industries.
+                  </p>
                   <div className="text-sm text-gray-400 space-y-1">
                     <p>📧 info@alstonair.com</p>
                     <p>📞 +91 80684 47416</p>
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-3">Address</h4>
+                  <h4 className="text-white font-semibold mb-3">
+                    Address
+                  </h4>
                   <div className="text-sm text-gray-300">
                     <p>#28 Third floor MCHS Layout</p>
                     <p>KV Jayaram Road, Jakkur</p>
@@ -625,7 +644,9 @@ const Layout = ({ children }) => {
           {/* Bottom Copyright */}
           <div className="border-t border-gray-700 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-gray-400 text-sm mb-4 md:mb-0">© 2025 Alstonair Technologies Private Limited. All rights reserved.</p>
+              <p className="text-gray-400 text-sm mb-4 md:mb-0">
+                © 2025 Alstonair Technologies Private Limited. All rights reserved.
+              </p>
               <div className="flex items-center space-x-6">
                 <a href="https://alstonair.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
                 <a href="https://alstonair.com/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>

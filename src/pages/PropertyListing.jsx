@@ -5,8 +5,12 @@ import { useFavorites } from '../context/FavoritesContext'
 import { useAuth } from '../context/AuthContext'
 import PaymentGateway from '../components/PaymentGateway'
 import LeafletMap from '../components/LeafletMap'
+import TranslatedText from '../components/TranslatedText'
+import ApiTranslatedText from '../components/ApiTranslatedText'
+import { useTranslation } from '../hooks/useTranslation'
 
 const PropertyListing = () => {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState('all')
   const [showFilters, setShowFilters] = useState(false)
   const [sortBy, setSortBy] = useState('newest')
@@ -538,7 +542,7 @@ const PropertyListing = () => {
             to={`/property/${property.id}`} 
             className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded text-sm font-medium text-center transition-colors shadow-sm"
           >
-            View Details
+            <ApiTranslatedText>View Details</ApiTranslatedText>
           </Link>
           {user?.role !== 'seller' && property.type === 'sale' && (
             <button
@@ -587,14 +591,14 @@ const PropertyListing = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                Properties in Bangalore
+                <ApiTranslatedText>Properties in Bangalore</ApiTranslatedText>
               </h1>
               <p className="text-gray-600">
-                {filteredProperties.length} results • Verified listings
+                {filteredProperties.length} <ApiTranslatedText>results</ApiTranslatedText> • <ApiTranslatedText>Verified listings</ApiTranslatedText>
               </p>
             </div>
             <Link to="/post-property" className="mt-4 sm:mt-0 bg-blue-500 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-              Post Property FREE
+              <ApiTranslatedText>Post Property FREE</ApiTranslatedText>
             </Link>
           </div> 
         </div>
@@ -612,7 +616,7 @@ const PropertyListing = () => {
                     : 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
               >
-                {tab.label} ({tab.count})
+                <ApiTranslatedText>{tab.label}</ApiTranslatedText> ({tab.count})
               </button>
             ))}
           </div>
@@ -627,45 +631,45 @@ const PropertyListing = () => {
                 value={filters.location}
                 onChange={(e) => handleFilterChange('location', e.target.value)}
               >
-                <option value="">All Locations</option>
-                <option value="koramangala">Koramangala</option>
-                <option value="indiranagar">Indiranagar</option>
-                <option value="whitefield">Whitefield</option>
-                <option value="hsr">HSR Layout</option>
+                <option value=""><ApiTranslatedText parent="option">All Locations</ApiTranslatedText></option>
+                <option value="koramangala"><ApiTranslatedText parent="option">Koramangala</ApiTranslatedText></option>
+                <option value="indiranagar"><ApiTranslatedText parent="option">Indiranagar</ApiTranslatedText></option>
+                <option value="whitefield"><ApiTranslatedText parent="option">Whitefield</ApiTranslatedText></option>
+                <option value="hsr"><ApiTranslatedText parent="option">HSR Layout</ApiTranslatedText></option>
               </select>
               <select 
                 className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={filters.bedrooms}
                 onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
               >
-                <option value="">Any BHK</option>
-                <option value="1">1 BHK</option>
-                <option value="2">2 BHK</option>
-                <option value="3">3 BHK</option>
-                <option value="4+">4+ BHK</option>
+                <option value=""><ApiTranslatedText parent="option">Any BHK</ApiTranslatedText></option>
+                <option value="1"><ApiTranslatedText parent="option">1 BHK</ApiTranslatedText></option>
+                <option value="2"><ApiTranslatedText parent="option">2 BHK</ApiTranslatedText></option>
+                <option value="3"><ApiTranslatedText parent="option">3 BHK</ApiTranslatedText></option>
+                <option value="4+"><ApiTranslatedText parent="option">4+ BHK</ApiTranslatedText></option>
               </select>
               <select 
                 className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={filters.priceRange}
                 onChange={(e) => handleFilterChange('priceRange', e.target.value)}
               >
-                <option value="">Any Budget</option>
-                <option value="under-50l">Under ₹50L</option>
-                <option value="50l-1cr">₹50L - ₹1Cr</option>
-                <option value="1cr-2cr">₹1Cr - ₹2Cr</option>
-                <option value="above-2cr">Above ₹2Cr</option>
+                <option value=""><ApiTranslatedText parent="option">Any Budget</ApiTranslatedText></option>
+                <option value="under-50l"><ApiTranslatedText parent="option">Under ₹50L</ApiTranslatedText></option>
+                <option value="50l-1cr"><ApiTranslatedText parent="option">₹50L - ₹1Cr</ApiTranslatedText></option>
+                <option value="1cr-2cr"><ApiTranslatedText parent="option">₹1Cr - ₹2Cr</ApiTranslatedText></option>
+                <option value="above-2cr"><ApiTranslatedText parent="option">Above ₹2Cr</ApiTranslatedText></option>
               </select>
               <select 
                 className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={filters.riblScore}
                 onChange={(e) => handleFilterChange('riblScore', e.target.value)}
               >
-                <option value="">Any RIBL Score</option>
-                <option value="A+">A+ (Excellent)</option>
-                <option value="A">A (Very Good)</option>
-                <option value="B">B (Good)</option>
-                <option value="C">C (Fair)</option>
-                <option value="D">D (Poor)</option>
+                <option value=""><ApiTranslatedText parent="option">Any RIBL Score</ApiTranslatedText></option>
+                <option value="A+"><ApiTranslatedText parent="option">A+ (Excellent)</ApiTranslatedText></option>
+                <option value="A"><ApiTranslatedText parent="option">A (Very Good)</ApiTranslatedText></option>
+                <option value="B"><ApiTranslatedText parent="option">B (Good)</ApiTranslatedText></option>
+                <option value="C"><ApiTranslatedText parent="option">C (Fair)</ApiTranslatedText></option>
+                <option value="D"><ApiTranslatedText parent="option">D (Poor)</ApiTranslatedText></option>
               </select>
             </div>
             <div className="flex items-center gap-3">
@@ -674,17 +678,17 @@ const PropertyListing = () => {
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
               >
-                <option value="newest">Newest First</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="ribl-score">Best RIBL Score</option>
+                <option value="newest"><ApiTranslatedText parent="option">Newest First</ApiTranslatedText></option>
+                <option value="price-low"><ApiTranslatedText parent="option">Price: Low to High</ApiTranslatedText></option>
+                <option value="price-high"><ApiTranslatedText parent="option">Price: High to Low</ApiTranslatedText></option>
+                <option value="ribl-score"><ApiTranslatedText parent="option">Best RIBL Score</ApiTranslatedText></option>
               </select>
               {(filters.location || filters.bedrooms || filters.priceRange || filters.riblScore) && (
                 <button
                   onClick={clearFilters}
                   className="px-3 py-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
                 >
-                  Clear Filters
+                  <ApiTranslatedText>Clear Filters</ApiTranslatedText>
                 </button>
               )}
             </div>
@@ -697,8 +701,8 @@ const PropertyListing = () => {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden sticky top-6">
               <div className="p-4 border-b border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900">Property Locations</h3>
-                <p className="text-sm text-gray-600">{filteredProperties.length} properties</p>
+                <h3 className="text-lg font-semibold text-gray-900"><ApiTranslatedText>Property Locations</ApiTranslatedText></h3>
+                <p className="text-sm text-gray-600">{filteredProperties.length} <ApiTranslatedText>properties</ApiTranslatedText></p>
               </div>
               <LeafletMap properties={filteredProperties} />
             </div>
@@ -719,14 +723,14 @@ const PropertyListing = () => {
           <div className="text-center py-12">
             <div className="text-gray-500 mb-4">
               <Square className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No properties found</h3>
-              <p className="text-gray-600">Try adjusting your filters to see more results</p>
+              <h3 className="text-lg font-medium text-gray-900 mb-2"><ApiTranslatedText>No properties found</ApiTranslatedText></h3>
+              <p className="text-gray-600"><ApiTranslatedText>Try adjusting your filters to see more results</ApiTranslatedText></p>
             </div>
             <button
               onClick={clearFilters}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
             >
-              Clear All Filters
+              <ApiTranslatedText>Clear All Filters</ApiTranslatedText>
             </button>
           </div>
         )}

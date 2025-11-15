@@ -18,6 +18,9 @@ import {
   Calculator
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { useLanguage } from '../context/LanguageContext'
+import TranslatedText from '../components/TranslatedText'
+import ApiTranslatedText from '../components/ApiTranslatedText'
 
 // Import NAL icons
 import nal1 from '../assets/icons/NAL/nal 1.png'
@@ -68,51 +71,67 @@ const Home = () => {
   const coreFeatures = [
     {
       image: nal1,
+      titleKey: 'features.instantDocumentVerification',
       title: 'Instant Document Verification',
+      descriptionKey: 'features.instantDocumentVerificationDesc',
       description: 'Verify property documents automatically and quickly'
     },
     {
       image: nal2,
+      titleKey: 'features.urgentSaleValue',
       title: 'Urgent Sale Value',
+      descriptionKey: 'features.urgentSaleValueDesc',
       description: 'Get real-time property value estimations'
     },
     {
       image: nal3,
+      titleKey: 'features.riblScorecard',
       title: 'RIBL Scorecard',
+      descriptionKey: 'features.riblScorecardDesc',
       description: 'Property quality and ownership scoring'
     },
     {
       image: nal4,
+      titleKey: 'features.buySellRentLease',
       title: 'Buy/Sell/Rent/Lease',
+      descriptionKey: 'features.buySellRentLeaseDesc',
       description: 'Complete property transaction platform'
     },
     {
       image: nal5,
+      titleKey: 'features.smartPropertySearch',
       title: 'Smart Property Search',
+      descriptionKey: 'features.smartPropertySearchDesc',
       description: 'Advanced search with intelligent filters'
     },
     {
       image: nal6,
+      titleKey: 'features.realtimeChatbot',
       title: 'Realtime Chatbot',
+      descriptionKey: 'features.realtimeChatbotDesc',
       description: 'Instant assistance and communication'
     },
     {
       image: nal7,
+      titleKey: 'features.propertyTrends',
       title: 'Property Trends',
+      descriptionKey: 'features.propertyTrendsDesc',
       description: 'Market insights and trend analysis'
     },
     {
       image: nal8,
+      titleKey: 'features.securePayments',
       title: 'Secure Payments',
+      descriptionKey: 'features.securePaymentsDesc',
       description: 'Safe and secure payment gateway'
     }
   ]
 
   const stats = [
-    { label: 'Properties Verified', value: '50K+' },
-    { label: 'Active Users', value: '25K+' },
-    { label: 'Successful Transactions', value: '15K+' },
-    { label: 'Cities Covered', value: '100+' }
+    { label: 'Properties Verified', translationKey: 'stats.propertiesVerified', value: '50K+' },
+    { label: 'Active Users', translationKey: 'stats.activeUsers', value: '25K+' },
+    { label: 'Successful Transactions', translationKey: 'stats.successfulTransactions', value: '15K+' },
+    { label: 'Cities Covered', translationKey: 'stats.citiesCovered', value: '100+' }
   ]
 
   return (
@@ -155,18 +174,18 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-center justify-center min-h-screen">
           <div className="text-center w-full">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-wide text-white">
-              India's Most Trusted
-              <span className="block text-yellow-400">Property Platform</span>
+              <ApiTranslatedText translationKey="hero.title">India's Most Trusted</ApiTranslatedText>
+              <span className="block text-yellow-400"><ApiTranslatedText translationKey="hero.subtitle">Property Platform</ApiTranslatedText></span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto leading-relaxed">
-              Instant document verification, real-time valuations, and secure property transactions all in one place
+              <ApiTranslatedText translationKey="hero.description">Instant document verification, real-time valuations, and secure property transactions all in one place</ApiTranslatedText>
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
               <Link to="/verify" className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
-                Verify Documents
+                <ApiTranslatedText translationKey="hero.verifyDocuments">Verify Documents</ApiTranslatedText>
               </Link>
               <Link to="/properties" className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
-                Browse Properties
+                <ApiTranslatedText translationKey="hero.browseProperties">Browse Properties</ApiTranslatedText>
               </Link>
             </div>
           </div>
@@ -183,7 +202,7 @@ const Home = () => {
                   {stat.value}
                 </div>
                 <div className="text-gray-600 font-medium text-lg">
-                  {stat.label}
+                  <ApiTranslatedText translationKey={stat.translationKey}>{stat.label}</ApiTranslatedText>
                 </div>
               </div>
             ))}
@@ -196,10 +215,10 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-              Core Features
+              <ApiTranslatedText translationKey="features.coreFeatures">Core Features</ApiTranslatedText>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Essential tools and features that make property transactions secure, fast, and reliable
+              <ApiTranslatedText translationKey="features.coreDescription">Essential tools and features that make property transactions secure, fast, and reliable</ApiTranslatedText>
             </p>
           </div>
 
@@ -215,10 +234,10 @@ const Home = () => {
                     />
                   </div>
                   <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 text-center">
-                    {feature.title}
+                    <ApiTranslatedText translationKey={feature.titleKey} fallbackText={feature.title}>{feature.title}</ApiTranslatedText>
                   </h3>
                   <p className="text-gray-600 text-sm sm:text-base text-center flex-grow">
-                    {feature.description}
+                    <ApiTranslatedText translationKey={feature.descriptionKey} fallbackText={feature.description}>{feature.description}</ApiTranslatedText>
                   </p>
                 </div>
               )
@@ -232,10 +251,10 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-              Quick Actions
+              <ApiTranslatedText translationKey="quickActions.title">Quick Actions</ApiTranslatedText>
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Get started with our most popular features
+              <ApiTranslatedText translationKey="quickActions.description">Get started with our most popular features</ApiTranslatedText>
             </p>
           </div>
 
@@ -258,14 +277,14 @@ const Home = () => {
                   />
                 </div> */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#1E3A8A] transition-colors duration-300">
-                  Verify Documents
+                  <ApiTranslatedText translationKey="quickActions.verifyDocuments">Verify Documents</ApiTranslatedText>
                 </h3>
                 <p className="text-gray-600 group-hover:text-gray-700 leading-relaxed mb-6">
-                  Upload and verify property documents instantly
+                  <ApiTranslatedText translationKey="quickActions.verifyDocumentsDesc">Upload and verify property documents instantly</ApiTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-[#1E3A8A] text-white px-6 py-3 rounded-xl font-semibold">
-                    Click to Verify →
+                    <ApiTranslatedText translationKey="quickActions.clickToVerify">Click to Verify →</ApiTranslatedText>
                   </span>
                 </div>
               </div>
@@ -289,14 +308,14 @@ const Home = () => {
                   />
                 </div> */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#1E3A8A] transition-colors duration-300">
-                  Search Properties
+                  <ApiTranslatedText translationKey="quickActions.searchProperties">Search Properties</ApiTranslatedText>
                 </h3>
                 <p className="text-gray-600 group-hover:text-gray-700 leading-relaxed mb-6">
-                  Find your perfect property with smart filters
+                  <ApiTranslatedText translationKey="quickActions.searchPropertiesDesc">Find your perfect property with smart filters</ApiTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-[#1E3A8A] text-white px-6 py-3 rounded-xl font-semibold">
-                    Click to Search →
+                    <ApiTranslatedText translationKey="quickActions.clickToSearch">Click to Search →</ApiTranslatedText>
                   </span>
                 </div>
               </div>
@@ -320,14 +339,14 @@ const Home = () => {
                   />
                 </div> */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#1E3A8A] transition-colors duration-300">
-                  List Property
+                  <ApiTranslatedText translationKey="quickActions.listProperty">List Property</ApiTranslatedText>
                 </h3>
                 <p className="text-gray-600 group-hover:text-gray-700 leading-relaxed mb-6">
-                  Post your property for sale, rent, or lease
+                  <ApiTranslatedText translationKey="quickActions.listPropertyDesc">Post your property for sale, rent, or lease</ApiTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-[#1E3A8A] text-white px-6 py-3 rounded-xl font-semibold">
-                    Click to List →
+                    <ApiTranslatedText translationKey="quickActions.clickToList">Click to List →</ApiTranslatedText>
                   </span>
                 </div>
               </div>
@@ -341,10 +360,10 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-              Advanced Features
+              <ApiTranslatedText translationKey="advancedFeatures.title">Advanced Features</ApiTranslatedText>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Take advantage of our premium tools for smarter property decisions
+              <ApiTranslatedText translationKey="advancedFeatures.description">Take advantage of our premium tools for smarter property decisions</ApiTranslatedText>
             </p>
           </div>
 
@@ -359,14 +378,14 @@ const Home = () => {
                   />
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
-                  Property Bidding
+                  <ApiTranslatedText translationKey="advancedFeatures.propertyBidding">Property Bidding</ApiTranslatedText>
                 </h3>
                 <p className="text-gray-600 text-sm sm:text-base mb-6 flex-grow">
-                  Participate in live property auctions and get the best deals
+                  <ApiTranslatedText translationKey="advancedFeatures.propertyBiddingDesc">Participate in live property auctions and get the best deals</ApiTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-xl font-semibold text-sm">
-                    Click to Explore →
+                    <ApiTranslatedText translationKey="advancedFeatures.clickToExplore">Click to Explore →</ApiTranslatedText>
                   </span>
                 </div>
               </div>
@@ -382,14 +401,14 @@ const Home = () => {
                   />
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
-                  Compare Properties
+                  <ApiTranslatedText translationKey="advancedFeatures.compareProperties">Compare Properties</ApiTranslatedText>
                 </h3>
                 <p className="text-gray-600 text-sm sm:text-base mb-6 flex-grow">
-                  Compare multiple properties side by side to make informed decisions
+                  <ApiTranslatedText translationKey="advancedFeatures.comparePropertiesDesc">Compare multiple properties side by side to make informed decisions</ApiTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-xl font-semibold text-sm">
-                    Click to Compare →
+                    <ApiTranslatedText translationKey="advancedFeatures.clickToCompare">Click to Compare →</ApiTranslatedText>
                   </span>
                 </div>
               </div>
@@ -405,14 +424,14 @@ const Home = () => {
                   />
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
-                  Loan Calculator
+                  <ApiTranslatedText translationKey="advancedFeatures.loanCalculator">Loan Calculator</ApiTranslatedText>
                 </h3>
                 <p className="text-gray-600 text-sm sm:text-base mb-6 flex-grow">
-                  Calculate EMI, eligibility, and plan your home loan effectively
+                  <ApiTranslatedText translationKey="advancedFeatures.loanCalculatorDesc">Calculate EMI, eligibility, and plan your home loan effectively</ApiTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-xl font-semibold text-sm">
-                    Click to Calculate →
+                    <ApiTranslatedText translationKey="advancedFeatures.clickToCalculate">Click to Calculate →</ApiTranslatedText>
                   </span>
                 </div>
               </div>
@@ -434,16 +453,20 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
             <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
-              {isAuthenticated ? 'Explore Premium Properties' : 'Ready to Get Started?'}
+              <ApiTranslatedText translationKey={isAuthenticated ? 'cta.explorePremiumProperties' : 'cta.readyToGetStarted'}>
+                {isAuthenticated ? 'Explore Premium Properties' : 'Ready to Get Started?'}
+              </ApiTranslatedText>
             </h2>
             <p className="text-xl md:text-2xl mb-6 text-blue-100 leading-relaxed">
-              {isAuthenticated ? 'Discover your perfect property in Bangalore' : 'Join thousands of users who trust NAL for their property needs'}
+              <ApiTranslatedText translationKey={isAuthenticated ? 'cta.discoverPerfectProperty' : 'cta.joinThousandsOfUsers'}>
+                {isAuthenticated ? 'Discover your perfect property in Bangalore' : 'Join thousands of users who trust NAL for their property needs'}
+              </ApiTranslatedText>
             </p>
             <p className="text-lg mb-10 text-blue-200">
-              Built on Alstonair's enterprise-grade technology platform
+              <ApiTranslatedText translationKey="cta.builtOnAlstonair">Built on Alstonair's enterprise-grade technology platform</ApiTranslatedText>
             </p>
             <Link to="/properties" className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
-              Explore Properties
+              <ApiTranslatedText translationKey="cta.exploreProperties">Explore Properties</ApiTranslatedText>
             </Link>
           </div>
         </div>  
