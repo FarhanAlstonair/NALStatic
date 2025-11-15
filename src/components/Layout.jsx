@@ -511,31 +511,31 @@ const Layout = ({ children }) => {
                 <div className="flex items-center space-x-3 mb-6">
                   <img src={logo} alt="NAL" className="w-12 h-12" />
                   <div>
-                    <span className="text-2xl font-bold text-white">NAL India</span>
-                    <p className="text-xs text-blue-400">by Alstonair Technologies</p>
+                    <span className="text-2xl font-bold text-white"><SimpleTranslatedText>NAL India</SimpleTranslatedText></span>
+                    <p className="text-xs text-blue-400"><SimpleTranslatedText>by Alstonair Technologies</SimpleTranslatedText></p>
                   </div>
                 </div>
                 <p className="text-gray-300 mb-6 text-base leading-relaxed max-w-md">
-                  India's most trusted property verification and real estate platform. Empowering property decisions with AI-powered document verification and comprehensive market insights.
+                  <SimpleTranslatedText>India's most trusted property verification and real estate platform. Empowering property decisions with AI-powered document verification and comprehensive market insights.</SimpleTranslatedText>
                 </p>
                 
                 {/* Key Features */}
                 <div className="grid grid-cols-2 gap-3 mb-6">
                   <div className="flex items-center text-sm text-gray-300">
                     <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                    AI-Powered Verification
+                    <SimpleTranslatedText>AI-Powered Verification</SimpleTranslatedText>
                   </div>
                   <div className="flex items-center text-sm text-gray-300">
                     <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                    RIBL Scorecard System
+                    <SimpleTranslatedText>RIBL Scorecard System</SimpleTranslatedText>
                   </div>
                   <div className="flex items-center text-sm text-gray-300">
                     <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                    Instant Document Check
+                    <SimpleTranslatedText>Instant Document Check</SimpleTranslatedText>
                   </div>
                   <div className="flex items-center text-sm text-gray-300">
                     <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                    Secure Transactions
+                    <SimpleTranslatedText>Secure Transactions</SimpleTranslatedText>
                   </div>
                 </div>
                 
@@ -565,47 +565,47 @@ const Layout = ({ children }) => {
                   {/* NAL Services */}
                   <div>
                     <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">
-                      NAL Services
+                      <SimpleTranslatedText>NAL Services</SimpleTranslatedText>
                     </h3>
                     <ul className="space-y-3">
-                      <li><Link to="/verify" className="text-gray-300 hover:text-white transition-colors text-sm">Document Verification</Link></li>
-                      <li><Link to="/properties" className="text-gray-300 hover:text-white transition-colors text-sm">Property Listings</Link></li>
-                      <li><Link to="/urgent-sale-value" className="text-gray-300 hover:text-white transition-colors text-sm">Urgent Sale Value</Link></li>
-                      <li><Link to="/ai-recommendations" className="text-gray-300 hover:text-white transition-colors text-sm">AI Recommendations</Link></li>
-                      <li><Link to="/price-prediction" className="text-gray-300 hover:text-white transition-colors text-sm">Price Prediction</Link></li>
-                      <li><Link to="/bidding" className="text-gray-300 hover:text-white transition-colors text-sm">Property Bidding</Link></li>
-                      <li><Link to="/property-ads" className="text-gray-300 hover:text-white transition-colors text-sm">Property Ads</Link></li>
-                      <li><Link to="/document-repository" className="text-gray-300 hover:text-white transition-colors text-sm">Document Repository</Link></li>
-                      <li><Link to="/booking-management" className="text-gray-300 hover:text-white transition-colors text-sm">Booking Management</Link></li>
+                      <li><Link to="/verify" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Document Verification</SimpleTranslatedText></Link></li>
+                      <li><Link to="/properties" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Property Listings</SimpleTranslatedText></Link></li>
+                      <li><Link to="/urgent-sale-value" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Urgent Sale Value</SimpleTranslatedText></Link></li>
+                      <li><Link to="/ai-recommendations" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>AI Recommendations</SimpleTranslatedText></Link></li>
+                      <li><Link to="/price-prediction" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Price Prediction</SimpleTranslatedText></Link></li>
+                      <li><Link to="/bidding" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Property Bidding</SimpleTranslatedText></Link></li>
+                      <li><Link to="/property-ads" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Property Ads</SimpleTranslatedText></Link></li>
+                      <li><Link to="/document-repository" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Document Repository</SimpleTranslatedText></Link></li>
+                      <li><Link to="/booking-management" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Booking Management</SimpleTranslatedText></Link></li>
                     </ul>
                   </div>
                   
                   {/* Alstonair Products */}
                   <div>
                     <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">
-                      Products
+                      <SimpleTranslatedText>Products</SimpleTranslatedText>
                     </h3>
                     <ul className="space-y-3">
-                      <li><a href="https://alstonair.com/nal-india" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">NAL India</a></li>
-                      <li><a href="https://fusteps.net/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">Fusteps</a></li>
-                      <li><a href="https://lokaet.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">Lokaet</a></li>
-                      <li><a href="https://dealahome.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">Bizlogies</a></li>
-                      <li><a href="https://cyberters.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">Cyberters</a></li>
-                      <li><a href="https://bigvels.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors">Bigvels</a></li>
-                      <li><a href="https://alstonair.com/all-products" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-sm">All Products →</a></li>
+                      <li><a href="https://alstonair.com/nal-india" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors"><SimpleTranslatedText>NAL India</SimpleTranslatedText></a></li>
+                      <li><a href="https://fusteps.net/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors"><SimpleTranslatedText>Fusteps</SimpleTranslatedText></a></li>
+                      <li><a href="https://lokaet.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors"><SimpleTranslatedText>Lokaet</SimpleTranslatedText></a></li>
+                      <li><a href="https://dealahome.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors"><SimpleTranslatedText>Bizlogies</SimpleTranslatedText></a></li>
+                      <li><a href="https://cyberters.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors"><SimpleTranslatedText>Cyberters</SimpleTranslatedText></a></li>
+                      <li><a href="https://bigvels.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:text-white transition-colors"><SimpleTranslatedText>Bigvels</SimpleTranslatedText></a></li>
+                      <li><a href="https://alstonair.com/all-products" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>All Products →</SimpleTranslatedText></a></li>
                     </ul>
                   </div>
                   
                   {/* Company */}
                   <div>
                     <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">
-                      Company
+                      <SimpleTranslatedText>Company</SimpleTranslatedText>
                     </h3>
                     <ul className="space-y-3">
-                     <li><a href="https://alstonair.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-sm">Alstonair Technologies</a></li>
-                      <li><Link to="/about" className="text-gray-300 hover:text-white transition-colors text-sm">About NAL</Link></li>
-                      <li><Link to="/contact" className="text-gray-300 hover:text-white transition-colors text-sm">Contact Us</Link></li>
-                      <li><a href="https://alstonair.com/job/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-sm">Careers</a></li>
+                     <li><a href="https://alstonair.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Alstonair Technologies</SimpleTranslatedText></a></li>
+                      <li><Link to="/about" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>About NAL</SimpleTranslatedText></Link></li>
+                      <li><Link to="/contact" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Contact Us</SimpleTranslatedText></Link></li>
+                      <li><a href="https://alstonair.com/job/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Careers</SimpleTranslatedText></a></li>
                     </ul>
                   </div>
                 </div>
@@ -618,9 +618,9 @@ const Layout = ({ children }) => {
             <div className="bg-slate-800 rounded-xl p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="text-white font-semibold mb-3">Alstonair Technologies</h4>
+                  <h4 className="text-white font-semibold mb-3"><SimpleTranslatedText>Alstonair Technologies</SimpleTranslatedText></h4>
                   <p className="text-gray-300 text-sm mb-4">
-                    Empowering businesses with intelligent software solutions that drive innovation, efficiency, and growth across multiple industries.
+                    <SimpleTranslatedText>Empowering businesses with intelligent software solutions that drive innovation, efficiency, and growth across multiple industries.</SimpleTranslatedText>
                   </p>
                   <div className="text-sm text-gray-400 space-y-1">
                     <p>📧 info@alstonair.com</p>
@@ -629,12 +629,12 @@ const Layout = ({ children }) => {
                 </div>
                 <div>
                   <h4 className="text-white font-semibold mb-3">
-                    Address
+                    <SimpleTranslatedText>Address</SimpleTranslatedText>
                   </h4>
                   <div className="text-sm text-gray-300">
-                    <p>#28 Third floor MCHS Layout</p>
-                    <p>KV Jayaram Road, Jakkur</p>
-                    <p>Bangalore 560064, India</p>
+                    <p><SimpleTranslatedText>#28 Third floor MCHS Layout</SimpleTranslatedText></p>
+                    <p><SimpleTranslatedText>KV Jayaram Road, Jakkur</SimpleTranslatedText></p>
+                    <p><SimpleTranslatedText>Bangalore 560064, India</SimpleTranslatedText></p>
                   </div>
                 </div>
               </div>
@@ -645,11 +645,11 @@ const Layout = ({ children }) => {
           <div className="border-t border-gray-700 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-sm mb-4 md:mb-0">
-                © 2025 Alstonair Technologies Private Limited. All rights reserved.
+                <SimpleTranslatedText>© 2025 Alstonair Technologies Private Limited. All rights reserved.</SimpleTranslatedText>
               </p>
               <div className="flex items-center space-x-6">
-                <a href="https://alstonair.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
-                <a href="https://alstonair.com/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+                <a href="https://alstonair.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Privacy Policy</SimpleTranslatedText></a>
+                <a href="https://alstonair.com/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm"><SimpleTranslatedText>Terms of Service</SimpleTranslatedText></a>
               </div>
             </div>
           </div>

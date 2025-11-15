@@ -13,7 +13,6 @@ const PropertyListing = () => {
   const [activeTab, setActiveTab] = useState('all')
   const [showFilters, setShowFilters] = useState(false)
   const [sortBy, setSortBy] = useState('newest')
-
   const [filters, setFilters] = useState({
     location: '',
     priceRange: '',
@@ -26,230 +25,77 @@ const PropertyListing = () => {
   const { user } = useAuth()
   const [showPaymentGateway, setShowPaymentGateway] = useState(false)
   const [selectedProperty, setSelectedProperty] = useState(null)
+  const [allProperties, setAllProperties] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-  const [allProperties] = useState([
-    {
-      id: 1,
-      title: '3BHK Luxury Apartment in Prime Location',
-      location: 'Koramangala 5th Block, Bangalore',
-      price: '₹1.8 Cr',
-      type: 'sale',
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 1200,
-      images: [
-        'https://imagecdn.99acres.com/media1/32690/10/653810107M-1759080334729.jpg',
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1560449752-d9d7c2c1e5c4?w=400&h=300&fit=crop'
-      ],
-      verified: true,
-      riblScore: 'A+',
-      urgentSale: true,
-      originalPrice: '₹2.2 Cr',
-      whatsapp: '+91 98765 43210',
-      postedBy: 'Owner',
-      postedDate: '2 days ago',
-      amenities: ['Parking', 'Gym', 'Swimming Pool']
-    },
-    {
-      id: 2,
-      title: '2BHK Modern Flat with Balcony',
-      location: 'Indiranagar Metro Station, Bangalore',
-      price: '₹35,000/month',
-      type: 'rent',
-      bedrooms: 2,
-      bathrooms: 2,
-      area: 950,
-      images: [
-        'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop'
-      ],
-      verified: true,
-      riblScore: 'A',
-      whatsapp: '+91 87654 32109',
-      postedBy: 'Agent',
-      postedDate: '1 week ago',
-      amenities: ['Parking', 'Security']
-    },
-    {
-      id: 3,
-      title: 'Commercial Office Space IT Park',
-      location: 'Whitefield IT Hub, Bangalore',
-      price: '₹85,000/month',
-      type: 'lease',
-      bedrooms: 0,
-      bathrooms: 2,
-      area: 800,
-      images: [
-        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop'
-      ],
-      verified: false,
-      riblScore: 'B',
-      whatsapp: '+91 76543 21098',
-      postedBy: 'Builder',
-      postedDate: '3 days ago',
-      amenities: ['Parking', 'Cafeteria']
-    },
-    {
-      id: 4,
-      title: '4BHK Independent Villa with Garden',
-      location: 'HSR Layout Sector 2, Bangalore',
-      price: '₹2.8 Cr',
-      type: 'sale',
-      bedrooms: 4,
-      bathrooms: 3,
-      area: 2200,
-      images: [
-        'https://th.bing.com/th/id/OIP.K-jzj1ZkjP7SmF2nxgSsCQHaFj?w=220&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3',
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop'
-      ],
-      verified: true,
-      riblScore: 'A+',
-      urgentSale: true,
-      originalPrice: '₹3.2 Cr',
-      whatsapp: '+91 65432 10987',
-      postedBy: 'Owner',
-      postedDate: '1 day ago',
-      amenities: ['Garden', 'Parking', 'Security']
-    },
-    {
-      id: 5,
-      title: '1BHK Studio Near Metro Station',
-      location: 'Koramangala 1st Block, Bangalore',
-      price: '₹22,000/month',
-      type: 'rent',
-      bedrooms: 1,
-      bathrooms: 1,
-      area: 450,
-      images: [
-        'https://th.bing.com/th/id/OIP.42IrADvcICS4Mx8US1PK1QHaEK?w=244&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
-      ],
-      verified: true,
-      riblScore: 'C',
-      whatsapp: '+91 54321 09876',
-      postedBy: 'Agent',
-      postedDate: '5 days ago',
-      amenities: ['Parking']
-    },
-    {
-      id: 6,
-      title: 'Prime Retail Shop Main Road',
-      location: 'Indiranagar 100 Feet Road, Bangalore',
-      price: '₹65,000/month',
-      type: 'lease',
-      bedrooms: 0,
-      bathrooms: 1,
-      area: 300,
-      images: [
-        'https://th.bing.com/th/id/OIP.wCsvKmCQq1qRQ9XD216AdAHaE7?w=273&h=182&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
-      ],
-      verified: false,
-      riblScore: 'D',
-      whatsapp: '+91 43210 98765',
-      postedBy: 'Owner',
-      postedDate: '1 week ago',
-      amenities: ['Parking'],
-      lat: 12.9784,
-      lng: 77.6408
-    },
-    {
-      id: 7,
-      title: '2BHK Furnished Apartment Near Tech Park',
-      location: 'Electronic City Phase 1, Bangalore',
-      price: '₹28,000/month',
-      type: 'rent',
-      bedrooms: 2,
-      bathrooms: 2,
-      area: 1100,
-      images: [
-        'https://th.bing.com/th/id/OIP.R6d-zw2qX0YZieesebUZWAHaEK?w=297&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
-      ],
-      verified: true,
-      riblScore: 'A',
-      whatsapp: '+91 98765 12345',
-      postedBy: 'Agent',
-      postedDate: '4 days ago',
-      amenities: ['Parking', 'Gym', 'Security']
-    },
-    {
-      id: 8,
-      title: '5BHK Luxury Villa with Swimming Pool',
-      location: 'Sarjapur Road, Bangalore',
-      price: '₹4.2 Cr',
-      type: 'sale',
-      bedrooms: 5,
-      bathrooms: 4,
-      area: 3500,
-      images: [
-        'https://th.bing.com/th/id/OIP.8LBV3GcJFYv7Ec8ZJgBi-wHaFR?w=248&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
-      ],
-      verified: true,
-      riblScore: 'A+',
-      whatsapp: '+91 87654 98765',
-      postedBy: 'Builder',
-      postedDate: '6 days ago',
-      amenities: ['Swimming Pool', 'Garden', 'Parking', 'Security']
-    },
-    {
-      id: 9,
-      title: 'Commercial Space for Restaurant',
-      location: 'Brigade Road, Bangalore',
-      price: '₹1,20,000/month',
-      type: 'lease',
-      bedrooms: 0,
-      bathrooms: 3,
-      area: 1500,
-      images: [
-        'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop'
-      ],
-      verified: false,
-      riblScore: 'B',
-      whatsapp: '+91 76543 87654',
-      postedBy: 'Owner',
-      postedDate: '2 weeks ago',
-      amenities: ['Parking', 'Kitchen Setup']
-    },
-    {
-      id: 10,
-      title: '3BHK Penthouse with Terrace Garden',
-      location: 'JP Nagar 7th Phase, Bangalore',
-      price: '₹45,000/month',
-      type: 'rent',
-      bedrooms: 3,
-      bathrooms: 3,
-      area: 1800,
-      images: [
-        'https://th.bing.com/th/id/OIP.itI0w9OVgz8Vkm4IDLno-AHaEK?w=316&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
-      ],
-      verified: true,
-      riblScore: 'A+',
-      urgentSale: true,
-      originalPrice: '₹55,000/month',
-      whatsapp: '+91 65432 76543',
-      postedBy: 'Owner',
-      postedDate: '3 days ago',
-      amenities: ['Terrace Garden', 'Parking', 'Gym']
-    },
-    {
-      id: 11,
-      title: '1BHK Compact Home Near Metro',
-      location: 'Marathahalli, Bangalore',
-      price: '₹18,000/month',
-      type: 'rent',
-      bedrooms: 1,
-      bathrooms: 1,
-      area: 550,
-      images: [
-        'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400&h=300&fit=crop'
-      ],
-      verified: true,
-      riblScore: 'B',
-      whatsapp: '+91 54321 65432',
-      postedBy: 'Agent',
-      postedDate: '1 week ago',
-      amenities: ['Parking', 'Security']
+  // Fetch properties from API
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        setLoading(true)
+        const response = await fetch('http://localhost:3001/api/properties')
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        
+        const data = await response.json()
+        setAllProperties(data.properties || [])
+      } catch (err) {
+        console.error('Error fetching properties:', err)
+        setError(err.message)
+        // Fallback to static data if API fails
+        setAllProperties([
+          {
+            id: 1,
+            title: '3BHK Luxury Apartment in Prime Location',
+            location: 'Koramangala 5th Block, Bangalore',
+            price: '₹1.8 Cr',
+            type: 'sale',
+            bedrooms: 3,
+            bathrooms: 2,
+            area: 1200,
+            images: [
+              'https://imagecdn.99acres.com/media1/32690/10/653810107M-1759080334729.jpg',
+              'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop'
+            ],
+            verified: true,
+            riblScore: 'A+',
+            urgentSale: true,
+            originalPrice: '₹2.2 Cr',
+            whatsapp: '+91 98765 43210',
+            postedBy: 'Owner',
+            postedDate: '2 days ago',
+            amenities: ['Parking', 'Gym', 'Swimming Pool']
+          },
+          {
+            id: 2,
+            title: '2BHK Modern Flat with Balcony',
+            location: 'Indiranagar Metro Station, Bangalore',
+            price: '₹35,000/month',
+            type: 'rent',
+            bedrooms: 2,
+            bathrooms: 2,
+            area: 950,
+            images: [
+              'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop'
+            ],
+            verified: true,
+            riblScore: 'A',
+            whatsapp: '+91 87654 32109',
+            postedBy: 'Agent',
+            postedDate: '1 week ago',
+            amenities: ['Parking', 'Security']
+          }
+        ])
+      } finally {
+        setLoading(false)
+      }
     }
-  ])
+
+    fetchProperties()
+  }, [])
 
   // Add coordinates to existing properties
   const propertiesWithCoords = allProperties.map((property, index) => ({
@@ -257,6 +103,39 @@ const PropertyListing = () => {
     lat: property.lat || [12.9352, 12.9784, 12.9698, 12.9116, 12.8440, 12.9784, 12.8456, 12.9279, 12.9648, 12.9089, 12.9560][index] || 12.9716,
     lng: property.lng || [77.6245, 77.6408, 77.7500, 77.6473, 77.6630, 77.6408, 77.6632, 77.6271, 77.5946, 77.6648, 77.6975][index] || 77.5946
   }))
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600"><ApiTranslatedText>Loading properties...</ApiTranslatedText></p>
+        </div>
+      </div>
+    )
+  }
+
+  // Error state
+  if (error && allProperties.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-500 mb-4">
+            <Square className="w-16 h-16 mx-auto mb-4" />
+          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2"><ApiTranslatedText>Failed to load properties</ApiTranslatedText></h3>
+          <p className="text-gray-600 mb-4"><ApiTranslatedText>Please check your connection and try again</ApiTranslatedText></p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+          >
+            <ApiTranslatedText>Retry</ApiTranslatedText>
+          </button>
+        </div>
+      </div>
+    )
+  }
 
 
 
@@ -415,10 +294,7 @@ const PropertyListing = () => {
     })
   }
 
-  // Simple map placeholder for now
-  useEffect(() => {
-    // Map will be implemented here
-  }, [filteredProperties])
+
 
   const handleBuyProperty = (property) => {
     if (!user) {
@@ -594,6 +470,7 @@ const PropertyListing = () => {
               </h1>
               <p className="text-gray-600">
                 {filteredProperties.length} <ApiTranslatedText>results</ApiTranslatedText> • <ApiTranslatedText>Verified listings</ApiTranslatedText>
+                {error && <span className="text-orange-600 ml-2">(<ApiTranslatedText>Using cached data</ApiTranslatedText>)</span>}
               </p>
             </div>
             <Link to="/post-property" className="mt-4 sm:mt-0 bg-blue-500 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
