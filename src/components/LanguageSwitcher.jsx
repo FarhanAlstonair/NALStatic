@@ -1,39 +1,33 @@
-import React from 'react';
-import { Globe } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
+import React from 'react'
+import { useLanguage } from '../context/LanguageContext'
 
 const LanguageSwitcher = () => {
-  const { currentLocale, switchLanguage } = useLanguage();
-
-  const languages = [
-    { code: 'en', name: 'English' },
-    { code: 'kn', name: 'ಕನ್ನಡ' },
-  ];
+  const { currentLanguage, switchLanguage } = useLanguage()
 
   return (
-    <div className="relative group">
-      <button className="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
-        <Globe className="w-4 h-4" />
-        <span className="text-sm font-medium">
-          {languages.find(lang => lang.code === currentLocale)?.name}
-        </span>
+    <div className="flex items-center space-x-2">
+      <button
+        onClick={() => switchLanguage('en')}
+        className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+          currentLanguage === 'en'
+            ? 'bg-blue-600 text-white'
+            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+        }`}
+      >
+        EN
       </button>
-      
-      <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-        {languages.map((lang) => (
-          <button
-            key={lang.code}
-            onClick={() => switchLanguage(lang.code)}
-            className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg ${
-              currentLocale === lang.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
-            }`}
-          >
-            {lang.name}
-          </button>
-        ))}
-      </div>
+      <button
+        onClick={() => switchLanguage('kn')}
+        className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+          currentLanguage === 'kn'
+            ? 'bg-blue-600 text-white'
+            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+        }`}
+      >
+        ಕನ್ನಡ
+      </button>
     </div>
-  );
-};
+  )
+}
 
-export default LanguageSwitcher;
+export default LanguageSwitcher

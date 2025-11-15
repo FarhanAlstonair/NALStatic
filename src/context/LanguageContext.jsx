@@ -2,29 +2,22 @@ import { createContext, useContext, useState } from 'react'
 
 const LanguageContext = createContext()
 
-console.log('🚀 Initializing translation service with API caching')
-
 export const LanguageProvider = ({ children }) => {
   const [currentLanguage, setCurrentLanguage] = useState('en')
   const [translations, setTranslations] = useState({})
   const [isTranslating, setIsTranslating] = useState(false)
 
   const translateText = async (text, targetLocale = 'kn') => {
-    console.log('🔄 Translation Request:', { text, targetLocale, currentLanguage })
-    
     if (currentLanguage === 'en' || !text) {
-      console.log('⏭️ Using English text:', text)
       return text
     }
     
     const cacheKey = `${text}_${targetLocale}`
     if (translations[cacheKey]) {
-      console.log('💾 Using cached translation:', translations[cacheKey])
       return translations[cacheKey]
     }
 
     try {
-      console.log('🌐 Calling backend API for:', text)
       setIsTranslating(true)
       
       const response = await fetch('http://localhost:3001/api/translate', {
@@ -44,10 +37,8 @@ export const LanguageProvider = ({ children }) => {
       }
       
       const result = await response.json()
-      
-      console.log('✅ Translation successful - CACHING:', { original: text, translated: result.translated })
-      
       const translatedText = result.translated
+      
       setTranslations(prev => ({
         ...prev,
         [cacheKey]: translatedText
@@ -55,11 +46,7 @@ export const LanguageProvider = ({ children }) => {
       
       return translatedText
     } catch (error) {
-      console.error('❌ Translation error:', {
-        text,
-        targetLocale,
-        error: error.message
-      })
+      console.error('Translation error:', error)
       return text
     } finally {
       setIsTranslating(false)
@@ -67,7 +54,6 @@ export const LanguageProvider = ({ children }) => {
   }
 
   const switchLanguage = (language) => {
-    console.log('🌍 Language switch:', { from: currentLanguage, to: language })
     setCurrentLanguage(language)
   }
 

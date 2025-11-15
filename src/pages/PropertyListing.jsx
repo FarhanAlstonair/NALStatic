@@ -5,7 +5,6 @@ import { useFavorites } from '../context/FavoritesContext'
 import { useAuth } from '../context/AuthContext'
 import PaymentGateway from '../components/PaymentGateway'
 import LeafletMap from '../components/LeafletMap'
-import TranslatedText from '../components/TranslatedText'
 import ApiTranslatedText from '../components/ApiTranslatedText'
 import { useTranslation } from '../hooks/useTranslation'
 

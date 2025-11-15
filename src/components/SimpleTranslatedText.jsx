@@ -1,26 +1,19 @@
-import { useState, useEffect } from 'react'
+import React from 'react'
 import { useLanguage } from '../context/LanguageContext'
 
-const SimpleTranslatedText = ({ children, className = '' }) => {
-  const [translatedText, setTranslatedText] = useState(children)
+const SimpleTranslatedText = ({ children, as: Component = 'span', ...props }) => {
   const { currentLanguage, translateText } = useLanguage()
+  const [translatedText, setTranslatedText] = React.useState(children)
 
-  useEffect(() => {
-    const translate = async () => {
-      console.log('📝 SimpleTranslatedText rendering:', { text: children, currentLanguage })
-      
-      if (currentLanguage === 'en') {
-        setTranslatedText(children)
-      } else {
-        const translated = await translateText(children, 'kn')
-        console.log('✅ Translation result:', { original: children, translated })
-        setTranslatedText(translated)
-      }
+  React.useEffect(() => {
+    if (currentLanguage === 'kn' && children) {
+      translateText(children, 'kn').then(setTranslatedText)
+    } else {
+      setTranslatedText(children)
     }
-    translate()
   }, [children, currentLanguage, translateText])
 
-  return <span className={className}>{translatedText}</span>
+  return <Component {...props}>{translatedText}</Component>
 }
 
 export default SimpleTranslatedText
