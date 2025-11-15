@@ -18,9 +18,7 @@ import {
   Calculator
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
-import { useLanguage } from '../context/LanguageContext'
-import TranslatedText from '../components/TranslatedText'
-import ApiTranslatedText from '../components/ApiTranslatedText'
+import SimpleTranslatedText from '../components/SimpleTranslatedText'
 
 // Import NAL icons
 import nal1 from '../assets/icons/NAL/nal 1.png'
@@ -174,18 +172,18 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-center justify-center min-h-screen">
           <div className="text-center w-full">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-wide text-white">
-              <ApiTranslatedText translationKey="hero.title">India's Most Trusted</ApiTranslatedText>
-              <span className="block text-yellow-400"><ApiTranslatedText translationKey="hero.subtitle">Property Platform</ApiTranslatedText></span>
+              <SimpleTranslatedText>India's Most Trusted</SimpleTranslatedText>
+              <span className="block text-yellow-400"><SimpleTranslatedText>Property Platform</SimpleTranslatedText></span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto leading-relaxed">
-              <ApiTranslatedText translationKey="hero.description">Instant document verification, real-time valuations, and secure property transactions all in one place</ApiTranslatedText>
+              <SimpleTranslatedText>Instant document verification, real-time valuations, and secure property transactions all in one place</SimpleTranslatedText>
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
               <Link to="/verify" className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
-                <ApiTranslatedText translationKey="hero.verifyDocuments">Verify Documents</ApiTranslatedText>
+                <SimpleTranslatedText>Verify Documents</SimpleTranslatedText>
               </Link>
               <Link to="/properties" className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
-                <ApiTranslatedText translationKey="hero.browseProperties">Browse Properties</ApiTranslatedText>
+                <SimpleTranslatedText>Browse Properties</SimpleTranslatedText>
               </Link>
             </div>
           </div>
@@ -202,7 +200,7 @@ const Home = () => {
                   {stat.value}
                 </div>
                 <div className="text-gray-600 font-medium text-lg">
-                  <ApiTranslatedText translationKey={stat.translationKey}>{stat.label}</ApiTranslatedText>
+                  <SimpleTranslatedText>{stat.label}</SimpleTranslatedText>
                 </div>
               </div>
             ))}
@@ -215,10 +213,10 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-              <ApiTranslatedText translationKey="features.coreFeatures">Core Features</ApiTranslatedText>
+              <SimpleTranslatedText>Core Features</SimpleTranslatedText>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              <ApiTranslatedText translationKey="features.coreDescription">Essential tools and features that make property transactions secure, fast, and reliable</ApiTranslatedText>
+              <SimpleTranslatedText>Essential tools and features that make property transactions secure, fast, and reliable</SimpleTranslatedText>
             </p>
           </div>
 
@@ -234,10 +232,10 @@ const Home = () => {
                     />
                   </div>
                   <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 text-center">
-                    <ApiTranslatedText translationKey={feature.titleKey} fallbackText={feature.title}>{feature.title}</ApiTranslatedText>
+                    <SimpleTranslatedText>{feature.title}</SimpleTranslatedText>
                   </h3>
                   <p className="text-gray-600 text-sm sm:text-base text-center flex-grow">
-                    <ApiTranslatedText translationKey={feature.descriptionKey} fallbackText={feature.description}>{feature.description}</ApiTranslatedText>
+                    <SimpleTranslatedText>{feature.description}</SimpleTranslatedText>
                   </p>
                 </div>
               )
@@ -251,10 +249,10 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-              <ApiTranslatedText translationKey="quickActions.title">Quick Actions</ApiTranslatedText>
+              <SimpleTranslatedText>Quick Actions</SimpleTranslatedText>
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed">
-              <ApiTranslatedText translationKey="quickActions.description">Get started with our most popular features</ApiTranslatedText>
+              <SimpleTranslatedText>Get started with our most popular features</SimpleTranslatedText>
             </p>
           </div>
 
@@ -277,14 +275,14 @@ const Home = () => {
                   />
                 </div> */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#1E3A8A] transition-colors duration-300">
-                  <ApiTranslatedText translationKey="quickActions.verifyDocuments">Verify Documents</ApiTranslatedText>
+                  <SimpleTranslatedText>Verify Documents</SimpleTranslatedText>
                 </h3>
                 <p className="text-gray-600 group-hover:text-gray-700 leading-relaxed mb-6">
-                  <ApiTranslatedText translationKey="quickActions.verifyDocumentsDesc">Upload and verify property documents instantly</ApiTranslatedText>
+                  <SimpleTranslatedText>Upload and verify property documents instantly</SimpleTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-[#1E3A8A] text-white px-6 py-3 rounded-xl font-semibold">
-                    <ApiTranslatedText translationKey="quickActions.clickToVerify">Click to Verify →</ApiTranslatedText>
+                    <SimpleTranslatedText>Click to Verify →</SimpleTranslatedText>
                   </span>
                 </div>
               </div>
@@ -308,14 +306,14 @@ const Home = () => {
                   />
                 </div> */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#1E3A8A] transition-colors duration-300">
-                  <ApiTranslatedText translationKey="quickActions.searchProperties">Search Properties</ApiTranslatedText>
+                  <SimpleTranslatedText>Search Properties</SimpleTranslatedText>
                 </h3>
                 <p className="text-gray-600 group-hover:text-gray-700 leading-relaxed mb-6">
-                  <ApiTranslatedText translationKey="quickActions.searchPropertiesDesc">Find your perfect property with smart filters</ApiTranslatedText>
+                  <SimpleTranslatedText>Find your perfect property with smart filters</SimpleTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-[#1E3A8A] text-white px-6 py-3 rounded-xl font-semibold">
-                    <ApiTranslatedText translationKey="quickActions.clickToSearch">Click to Search →</ApiTranslatedText>
+                    <SimpleTranslatedText>Click to Search →</SimpleTranslatedText>
                   </span>
                 </div>
               </div>
@@ -339,14 +337,14 @@ const Home = () => {
                   />
                 </div> */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#1E3A8A] transition-colors duration-300">
-                  <ApiTranslatedText translationKey="quickActions.listProperty">List Property</ApiTranslatedText>
+                  <SimpleTranslatedText>List Property</SimpleTranslatedText>
                 </h3>
                 <p className="text-gray-600 group-hover:text-gray-700 leading-relaxed mb-6">
-                  <ApiTranslatedText translationKey="quickActions.listPropertyDesc">Post your property for sale, rent, or lease</ApiTranslatedText>
+                  <SimpleTranslatedText>Post your property for sale, rent, or lease</SimpleTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-[#1E3A8A] text-white px-6 py-3 rounded-xl font-semibold">
-                    <ApiTranslatedText translationKey="quickActions.clickToList">Click to List →</ApiTranslatedText>
+                    <SimpleTranslatedText>Click to List →</SimpleTranslatedText>
                   </span>
                 </div>
               </div>
@@ -360,10 +358,10 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-              <ApiTranslatedText translationKey="advancedFeatures.title">Advanced Features</ApiTranslatedText>
+              <SimpleTranslatedText>Advanced Features</SimpleTranslatedText>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              <ApiTranslatedText translationKey="advancedFeatures.description">Take advantage of our premium tools for smarter property decisions</ApiTranslatedText>
+              <SimpleTranslatedText>Take advantage of our premium tools for smarter property decisions</SimpleTranslatedText>
             </p>
           </div>
 
@@ -378,14 +376,14 @@ const Home = () => {
                   />
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
-                  <ApiTranslatedText translationKey="advancedFeatures.propertyBidding">Property Bidding</ApiTranslatedText>
+                  <SimpleTranslatedText>Property Bidding</SimpleTranslatedText>
                 </h3>
                 <p className="text-gray-600 text-sm sm:text-base mb-6 flex-grow">
-                  <ApiTranslatedText translationKey="advancedFeatures.propertyBiddingDesc">Participate in live property auctions and get the best deals</ApiTranslatedText>
+                  <SimpleTranslatedText>Participate in live property auctions and get the best deals</SimpleTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-xl font-semibold text-sm">
-                    <ApiTranslatedText translationKey="advancedFeatures.clickToExplore">Click to Explore →</ApiTranslatedText>
+                    <SimpleTranslatedText>Click to Explore →</SimpleTranslatedText>
                   </span>
                 </div>
               </div>
@@ -401,14 +399,14 @@ const Home = () => {
                   />
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
-                  <ApiTranslatedText translationKey="advancedFeatures.compareProperties">Compare Properties</ApiTranslatedText>
+                  <SimpleTranslatedText>Compare Properties</SimpleTranslatedText>
                 </h3>
                 <p className="text-gray-600 text-sm sm:text-base mb-6 flex-grow">
-                  <ApiTranslatedText translationKey="advancedFeatures.comparePropertiesDesc">Compare multiple properties side by side to make informed decisions</ApiTranslatedText>
+                  <SimpleTranslatedText>Compare multiple properties side by side to make informed decisions</SimpleTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-xl font-semibold text-sm">
-                    <ApiTranslatedText translationKey="advancedFeatures.clickToCompare">Click to Compare →</ApiTranslatedText>
+                    <SimpleTranslatedText>Click to Compare →</SimpleTranslatedText>
                   </span>
                 </div>
               </div>
@@ -424,14 +422,14 @@ const Home = () => {
                   />
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
-                  <ApiTranslatedText translationKey="advancedFeatures.loanCalculator">Loan Calculator</ApiTranslatedText>
+                  <SimpleTranslatedText>Loan Calculator</SimpleTranslatedText>
                 </h3>
                 <p className="text-gray-600 text-sm sm:text-base mb-6 flex-grow">
-                  <ApiTranslatedText translationKey="advancedFeatures.loanCalculatorDesc">Calculate EMI, eligibility, and plan your home loan effectively</ApiTranslatedText>
+                  <SimpleTranslatedText>Calculate EMI, eligibility, and plan your home loan effectively</SimpleTranslatedText>
                 </p>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-xl font-semibold text-sm">
-                    <ApiTranslatedText translationKey="advancedFeatures.clickToCalculate">Click to Calculate →</ApiTranslatedText>
+                    <SimpleTranslatedText>Click to Calculate →</SimpleTranslatedText>
                   </span>
                 </div>
               </div>
@@ -453,20 +451,20 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
             <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
-              <ApiTranslatedText translationKey={isAuthenticated ? 'cta.explorePremiumProperties' : 'cta.readyToGetStarted'}>
+              <SimpleTranslatedText>
                 {isAuthenticated ? 'Explore Premium Properties' : 'Ready to Get Started?'}
-              </ApiTranslatedText>
+              </SimpleTranslatedText>
             </h2>
             <p className="text-xl md:text-2xl mb-6 text-blue-100 leading-relaxed">
-              <ApiTranslatedText translationKey={isAuthenticated ? 'cta.discoverPerfectProperty' : 'cta.joinThousandsOfUsers'}>
+              <SimpleTranslatedText>
                 {isAuthenticated ? 'Discover your perfect property in Bangalore' : 'Join thousands of users who trust NAL for their property needs'}
-              </ApiTranslatedText>
+              </SimpleTranslatedText>
             </p>
             <p className="text-lg mb-10 text-blue-200">
-              <ApiTranslatedText translationKey="cta.builtOnAlstonair">Built on Alstonair's enterprise-grade technology platform</ApiTranslatedText>
+              <SimpleTranslatedText>Built on Alstonair's enterprise-grade technology platform</SimpleTranslatedText>
             </p>
             <Link to="/properties" className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#1E3A8A] transform hover:scale-105 transition-all duration-300 ease-in-out shadow-sm">
-              <ApiTranslatedText translationKey="cta.exploreProperties">Explore Properties</ApiTranslatedText>
+              <SimpleTranslatedText>Explore Properties</SimpleTranslatedText>
             </Link>
           </div>
         </div>  
