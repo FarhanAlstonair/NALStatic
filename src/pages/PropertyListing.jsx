@@ -3,13 +3,69 @@ import { Link } from 'react-router-dom'
 import { MapPin, Bed, Bath, Square, Heart, Share2, MessageCircle, Camera, ShoppingCart } from 'lucide-react'
 import { useFavorites } from '../context/FavoritesContext'
 import { useAuth } from '../context/AuthContext'
+import { useLanguage } from '../context/LanguageContext'
 import PaymentGateway from '../components/PaymentGateway'
 import LeafletMap from '../components/LeafletMap'
-import ApiTranslatedText from '../components/ApiTranslatedText'
 import { useTranslation } from '../hooks/useTranslation'
 
 const PropertyListing = () => {
   const { t } = useTranslation()
+  const { currentLanguage } = useLanguage()
+  
+  const getTranslatedText = (text) => {
+    if (currentLanguage !== 'kn') return text
+    
+    const translations = {
+      'Loading properties...': 'ಆಸ್ತಿಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...',
+      'Failed to load properties': 'ಆಸ್ತಿಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ',
+      'Please check your connection and try again': 'ದಯವಿಟ್ಟು ನಿಮ್ಮ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ',
+      'Retry': 'ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ',
+      'Properties in Bangalore': 'ಬೆಂಗಳೂರಿನಲ್ಲಿ ಆಸ್ತಿಗಳು',
+      'results': 'ಫಲಿತಾಂಶಗಳು',
+      'Verified listings': 'ಪರಿಶೀಲಿಸಿದ ಪಟ್ಟಿಗಳು',
+      'Using cached data': 'ಸಂಗ್ರಹಿಸಿದ ಡೇಟಾವನ್ನು ಬಳಸಲಾಗುತ್ತಿದೆ',
+      'Post Property FREE': 'ಆಸ್ತಿಯನ್ನು ಉಚಿತವಾಗಿ ಪೋಸ್ಟ್ ಮಾಡಿ',
+      'All Properties': 'ಎಲ್ಲಾ ಆಸ್ತಿಗಳು',
+      'For Sale': 'ಮಾರಾಟಕ್ಕೆ',
+      'For Rent': 'ಬಾಡಿಗೆಗೆ',
+      'For Lease': 'ಗುತ್ತಿಗೆಗೆ',
+      'Urgent Sale': 'ತುರ್ತು ಮಾರಾಟ',
+      'View Details': 'ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ',
+      'Property Locations': 'ಆಸ್ತಿ ಸ್ಥಳಗಳು',
+      'properties': 'ಆಸ್ತಿಗಳು',
+      'No properties found': 'ಯಾವುದೇ ಆಸ್ತಿಗಳು ಕಂಡುಬಂದಿಲ್ಲ',
+      'Try adjusting your filters to see more results': 'ಹೆಚ್ಚಿನ ಫಲಿತಾಂಶಗಳನ್ನು ನೋಡಲು ನಿಮ್ಮ ಫಿಲ್ಟರ್‌ಗಳನ್ನು ಸರಿಹೊಂದಿಸಲು ಪ್ರಯತ್ನಿಸಿ',
+      'Clear All Filters': 'ಎಲ್ಲಾ ಫಿಲ್ಟರ್‌ಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ',
+      'Clear Filters': 'ಫಿಲ್ಟರ್‌ಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ',
+      'All Locations': 'ಎಲ್ಲಾ ಸ್ಥಳಗಳು',
+      'Koramangala': 'ಕೊರಮಂಗಲ',
+      'Indiranagar': 'ಇಂದಿರಾನಗರ',
+      'Whitefield': 'ವೈಟ್‌ಫೀಲ್ಡ್',
+      'HSR Layout': 'HSR ಲೇಔಟ್',
+      'Any BHK': 'ಯಾವುದೇ BHK',
+      '1 BHK': '1 BHK',
+      '2 BHK': '2 BHK',
+      '3 BHK': '3 BHK',
+      '4+ BHK': '4+ BHK',
+      'Any Budget': 'ಯಾವುದೇ ಬಜೆಟ್',
+      'Under ₹50L': '₹50L ಕ್ಕಿಂತ ಕಡಿಮೆ',
+      '₹50L - ₹1Cr': '₹50L - ₹1Cr',
+      '₹1Cr - ₹2Cr': '₹1Cr - ₹2Cr',
+      'Above ₹2Cr': '₹2Cr ಕ್ಕಿಂತ ಹೆಚ್ಚು',
+      'Any RIBL Score': 'ಯಾವುದೇ RIBL ಸ್ಕೋರ್',
+      'A+ (Excellent)': 'A+ (ಅತ್ಯುತ್ತಮ)',
+      'A (Very Good)': 'A (ಬಹಳ ಒಳ್ಳೆಯದು)',
+      'B (Good)': 'B (ಒಳ್ಳೆಯದು)',
+      'C (Fair)': 'C (ಸಾಮಾನ್ಯ)',
+      'D (Poor)': 'D (ಕಳಪೆ)',
+      'Newest First': 'ಹೊಸದು ಮೊದಲು',
+      'Price: Low to High': 'ಬೆಲೆ: ಕಡಿಮೆಯಿಂದ ಹೆಚ್ಚಿಗೆ',
+      'Price: High to Low': 'ಬೆಲೆ: ಹೆಚ್ಚಿನಿಂದ ಕಡಿಮೆಗೆ',
+      'Best RIBL Score': 'ಅತ್ಯುತ್ತಮ RIBL ಸ್ಕೋರ್'
+    }
+    
+    return translations[text] || text
+  }
   const [activeTab, setActiveTab] = useState('all')
   const [showFilters, setShowFilters] = useState(false)
   const [sortBy, setSortBy] = useState('newest')
@@ -110,7 +166,7 @@ const PropertyListing = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600"><ApiTranslatedText>Loading properties...</ApiTranslatedText></p>
+          <p className="text-gray-600">{getTranslatedText('Loading properties...')}</p>
         </div>
       </div>
     )
@@ -124,13 +180,13 @@ const PropertyListing = () => {
           <div className="text-red-500 mb-4">
             <Square className="w-16 h-16 mx-auto mb-4" />
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2"><ApiTranslatedText>Failed to load properties</ApiTranslatedText></h3>
-          <p className="text-gray-600 mb-4"><ApiTranslatedText>Please check your connection and try again</ApiTranslatedText></p>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">{getTranslatedText('Failed to load properties')}</h3>
+          <p className="text-gray-600 mb-4">{getTranslatedText('Please check your connection and try again')}</p>
           <button
             onClick={() => window.location.reload()}
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
           >
-            <ApiTranslatedText>Retry</ApiTranslatedText>
+            {getTranslatedText('Retry')}
           </button>
         </div>
       </div>
@@ -417,7 +473,7 @@ const PropertyListing = () => {
             to={`/property/${property.id}`} 
             className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded text-sm font-medium text-center transition-colors shadow-sm"
           >
-            <ApiTranslatedText>View Details</ApiTranslatedText>
+            {getTranslatedText('View Details')}
           </Link>
           {user?.role !== 'seller' && property.type === 'sale' && (
             <button
@@ -466,15 +522,15 @@ const PropertyListing = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                <ApiTranslatedText>Properties in Bangalore</ApiTranslatedText>
+                {getTranslatedText('Properties in Bangalore')}
               </h1>
               <p className="text-gray-600">
-                {filteredProperties.length} <ApiTranslatedText>results</ApiTranslatedText> • <ApiTranslatedText>Verified listings</ApiTranslatedText>
-                {error && <span className="text-orange-600 ml-2">(<ApiTranslatedText>Using cached data</ApiTranslatedText>)</span>}
+                {filteredProperties.length} {getTranslatedText('results')} • {getTranslatedText('Verified listings')}
+                {error && <span className="text-orange-600 ml-2">({getTranslatedText('Using cached data')})</span>}
               </p>
             </div>
             <Link to="/post-property" className="mt-4 sm:mt-0 bg-blue-500 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-              <ApiTranslatedText>Post Property FREE</ApiTranslatedText>
+              {getTranslatedText('Post Property FREE')}
             </Link>
           </div> 
         </div>
@@ -492,7 +548,7 @@ const PropertyListing = () => {
                     : 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
               >
-                <ApiTranslatedText>{tab.label}</ApiTranslatedText> ({tab.count})
+                {getTranslatedText(tab.label)} ({tab.count})
               </button>
             ))}
           </div>
@@ -507,45 +563,45 @@ const PropertyListing = () => {
                 value={filters.location}
                 onChange={(e) => handleFilterChange('location', e.target.value)}
               >
-                <option value=""><ApiTranslatedText parent="option">All Locations</ApiTranslatedText></option>
-                <option value="koramangala"><ApiTranslatedText parent="option">Koramangala</ApiTranslatedText></option>
-                <option value="indiranagar"><ApiTranslatedText parent="option">Indiranagar</ApiTranslatedText></option>
-                <option value="whitefield"><ApiTranslatedText parent="option">Whitefield</ApiTranslatedText></option>
-                <option value="hsr"><ApiTranslatedText parent="option">HSR Layout</ApiTranslatedText></option>
+                <option value="">{getTranslatedText('All Locations')}</option>
+                <option value="koramangala">{getTranslatedText('Koramangala')}</option>
+                <option value="indiranagar">{getTranslatedText('Indiranagar')}</option>
+                <option value="whitefield">{getTranslatedText('Whitefield')}</option>
+                <option value="hsr">{getTranslatedText('HSR Layout')}</option>
               </select>
               <select 
                 className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={filters.bedrooms}
                 onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
               >
-                <option value=""><ApiTranslatedText parent="option">Any BHK</ApiTranslatedText></option>
-                <option value="1"><ApiTranslatedText parent="option">1 BHK</ApiTranslatedText></option>
-                <option value="2"><ApiTranslatedText parent="option">2 BHK</ApiTranslatedText></option>
-                <option value="3"><ApiTranslatedText parent="option">3 BHK</ApiTranslatedText></option>
-                <option value="4+"><ApiTranslatedText parent="option">4+ BHK</ApiTranslatedText></option>
+                <option value="">{getTranslatedText('Any BHK')}</option>
+                <option value="1">{getTranslatedText('1 BHK')}</option>
+                <option value="2">{getTranslatedText('2 BHK')}</option>
+                <option value="3">{getTranslatedText('3 BHK')}</option>
+                <option value="4+">{getTranslatedText('4+ BHK')}</option>
               </select>
               <select 
                 className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={filters.priceRange}
                 onChange={(e) => handleFilterChange('priceRange', e.target.value)}
               >
-                <option value=""><ApiTranslatedText parent="option">Any Budget</ApiTranslatedText></option>
-                <option value="under-50l"><ApiTranslatedText parent="option">Under ₹50L</ApiTranslatedText></option>
-                <option value="50l-1cr"><ApiTranslatedText parent="option">₹50L - ₹1Cr</ApiTranslatedText></option>
-                <option value="1cr-2cr"><ApiTranslatedText parent="option">₹1Cr - ₹2Cr</ApiTranslatedText></option>
-                <option value="above-2cr"><ApiTranslatedText parent="option">Above ₹2Cr</ApiTranslatedText></option>
+                <option value="">{getTranslatedText('Any Budget')}</option>
+                <option value="under-50l">{getTranslatedText('Under ₹50L')}</option>
+                <option value="50l-1cr">{getTranslatedText('₹50L - ₹1Cr')}</option>
+                <option value="1cr-2cr">{getTranslatedText('₹1Cr - ₹2Cr')}</option>
+                <option value="above-2cr">{getTranslatedText('Above ₹2Cr')}</option>
               </select>
               <select 
                 className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={filters.riblScore}
                 onChange={(e) => handleFilterChange('riblScore', e.target.value)}
               >
-                <option value=""><ApiTranslatedText parent="option">Any RIBL Score</ApiTranslatedText></option>
-                <option value="A+"><ApiTranslatedText parent="option">A+ (Excellent)</ApiTranslatedText></option>
-                <option value="A"><ApiTranslatedText parent="option">A (Very Good)</ApiTranslatedText></option>
-                <option value="B"><ApiTranslatedText parent="option">B (Good)</ApiTranslatedText></option>
-                <option value="C"><ApiTranslatedText parent="option">C (Fair)</ApiTranslatedText></option>
-                <option value="D"><ApiTranslatedText parent="option">D (Poor)</ApiTranslatedText></option>
+                <option value="">{getTranslatedText('Any RIBL Score')}</option>
+                <option value="A+">{getTranslatedText('A+ (Excellent)')}</option>
+                <option value="A">{getTranslatedText('A (Very Good)')}</option>
+                <option value="B">{getTranslatedText('B (Good)')}</option>
+                <option value="C">{getTranslatedText('C (Fair)')}</option>
+                <option value="D">{getTranslatedText('D (Poor)')}</option>
               </select>
             </div>
             <div className="flex items-center gap-3">
@@ -554,17 +610,17 @@ const PropertyListing = () => {
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
               >
-                <option value="newest"><ApiTranslatedText parent="option">Newest First</ApiTranslatedText></option>
-                <option value="price-low"><ApiTranslatedText parent="option">Price: Low to High</ApiTranslatedText></option>
-                <option value="price-high"><ApiTranslatedText parent="option">Price: High to Low</ApiTranslatedText></option>
-                <option value="ribl-score"><ApiTranslatedText parent="option">Best RIBL Score</ApiTranslatedText></option>
+                <option value="newest">{getTranslatedText('Newest First')}</option>
+                <option value="price-low">{getTranslatedText('Price: Low to High')}</option>
+                <option value="price-high">{getTranslatedText('Price: High to Low')}</option>
+                <option value="ribl-score">{getTranslatedText('Best RIBL Score')}</option>
               </select>
               {(filters.location || filters.bedrooms || filters.priceRange || filters.riblScore) && (
                 <button
                   onClick={clearFilters}
                   className="px-3 py-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
                 >
-                  <ApiTranslatedText>Clear Filters</ApiTranslatedText>
+                  {getTranslatedText('Clear Filters')}
                 </button>
               )}
             </div>
@@ -577,8 +633,8 @@ const PropertyListing = () => {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden sticky top-6">
               <div className="p-4 border-b border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900"><ApiTranslatedText>Property Locations</ApiTranslatedText></h3>
-                <p className="text-sm text-gray-600">{filteredProperties.length} <ApiTranslatedText>properties</ApiTranslatedText></p>
+                <h3 className="text-lg font-semibold text-gray-900">{getTranslatedText('Property Locations')}</h3>
+                <p className="text-sm text-gray-600">{filteredProperties.length} {getTranslatedText('properties')}</p>
               </div>
               <LeafletMap properties={filteredProperties} />
             </div>
@@ -599,14 +655,14 @@ const PropertyListing = () => {
           <div className="text-center py-12">
             <div className="text-gray-500 mb-4">
               <Square className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2"><ApiTranslatedText>No properties found</ApiTranslatedText></h3>
-              <p className="text-gray-600"><ApiTranslatedText>Try adjusting your filters to see more results</ApiTranslatedText></p>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">{getTranslatedText('No properties found')}</h3>
+              <p className="text-gray-600">{getTranslatedText('Try adjusting your filters to see more results')}</p>
             </div>
             <button
               onClick={clearFilters}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
             >
-              <ApiTranslatedText>Clear All Filters</ApiTranslatedText>
+              {getTranslatedText('Clear All Filters')}
             </button>
           </div>
         )}

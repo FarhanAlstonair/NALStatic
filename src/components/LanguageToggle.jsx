@@ -13,10 +13,10 @@ const LanguageToggle = () => {
 
   const currentLang = languages.find(lang => lang.code === currentLanguage) || languages[0]
 
-  const handleLanguageChange = (langCode) => {
+  const handleLanguageChange = async (langCode) => {
     console.log('🔄 LanguageToggle: Changing language to:', langCode)
-    switchLanguage(langCode)
     setIsOpen(false)
+    await switchLanguage(langCode)
   }
 
   return (

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, Search, User, ChevronDown, Building, FileCheck, Gavel, GitCompare, Calculator, Brain, BarChart3, TrendingUp, Map, Camera, MapPin, LogIn, LogOut, FileText, Activity, Instagram, Linkedin, Calendar } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { useLanguage } from '../context/LanguageContext'
 import LanguageToggle from './LanguageToggle'
 import SimpleTranslatedText from './SimpleTranslatedText'
 import Chatbot from './Chatbot'
@@ -14,12 +15,14 @@ const Layout = ({ children }) => {
   const [showSearchResults, setShowSearchResults] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [searchPlaceholder, setSearchPlaceholder] = useState('Search properties, locations...')
   const location = useLocation()
   const navigate = useNavigate()
   const dropdownRef = useRef(null)
   const searchRef = useRef(null)
   const userMenuRef = useRef(null)
   const { user, logout, isAuthenticated } = useAuth()
+  const { currentLanguage, translateText } = useLanguage()
 
   // Determine user role based on email or stored role
   const getUserRole = () => {
@@ -64,6 +67,15 @@ const Layout = ({ children }) => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [location.pathname])
+
+  // Update search placeholder when language changes
+  useEffect(() => {
+    if (currentLanguage === 'kn') {
+      setSearchPlaceholder('ಆಸ್ತಿಗಳು, ಸ್ಥಳಗಳನ್ನು ಹುಡುಕಿ...')
+    } else {
+      setSearchPlaceholder('Search properties, locations...')
+    }
+  }, [currentLanguage])
 
   useEffect(() => {
     const _0x7f8a = (e) => {
@@ -137,21 +149,29 @@ const Layout = ({ children }) => {
     setActiveDropdown(activeDropdown === index ? null : index)
   }
 
-  const properties = [
-    { id: 1, title: '3BHK Luxury Apartment', location: 'Koramangala, Bangalore', price: '₹1.8 Cr', type: 'sale' },
-    { id: 2, title: '2BHK Modern Flat', location: 'Indiranagar, Bangalore', price: '₹35,000/month', type: 'rent' },
-    { id: 3, title: 'Commercial Office Space', location: 'Whitefield, Bangalore', price: '₹85,000/month', type: 'lease' },
-    { id: 4, title: '4BHK Villa', location: 'HSR Layout, Bangalore', price: '₹2.8 Cr', type: 'sale' },
-    { id: 5, title: '1BHK Studio Apartment', location: 'Electronic City, Bangalore', price: '₹22,000/month', type: 'rent' },
-    { id: 6, title: 'Retail Shop Space', location: 'Jayanagar, Bangalore', price: '₹65,000/month', type: 'lease' },
-    { id: 7, title: '3BHK Penthouse', location: 'Marathahalli, Bangalore', price: '₹2.2 Cr', type: 'sale' },
-    { id: 8, title: '2BHK Garden Apartment', location: 'Banashankari, Bangalore', price: '₹28,000/month', type: 'rent' },
-    { id: 9, title: '4BHK Independent House', location: 'Rajajinagar, Bangalore', price: '₹3.5 Cr', type: 'sale' },
-    { id: 10, title: 'Office Space', location: 'MG Road, Bangalore', price: '₹120,000/month', type: 'lease' }
-  ]
+  const getTranslatedProperties = () => {
+    const baseProperties = [
+      { id: 1, title: '3BHK Luxury Apartment', location: 'Koramangala, Bangalore', price: '₹1.8 Cr', type: 'sale' },
+      { id: 2, title: '2BHK Modern Flat', location: 'Indiranagar, Bangalore', price: '₹35,000/month', type: 'rent' },
+      { id: 3, title: 'Commercial Office Space', location: 'Whitefield, Bangalore', price: '₹85,000/month', type: 'lease' },
+      { id: 4, title: '4BHK Villa', location: 'HSR Layout, Bangalore', price: '₹2.8 Cr', type: 'sale' },
+      { id: 5, title: '1BHK Studio Apartment', location: 'Electronic City, Bangalore', price: '₹22,000/month', type: 'rent' }
+    ]
+    
+    if (currentLanguage === 'kn') {
+      return [
+        { id: 1, title: '3BHK ಐಷಾರಾಮಿ ಅಪಾರ್ಟ್‌ಮೆಂಟ್', location: 'ಕೊರಮಂಗಲ, ಬೆಂಗಳೂರು', price: '₹1.8 ಕೋಟಿ', type: 'ಮಾರಾಟ' },
+        { id: 2, title: '2BHK ಆಧುನಿಕ ಫ್ಲಾಟ್', location: 'ಇಂದಿರಾನಗರ, ಬೆಂಗಳೂರು', price: '₹35,000/ತಿಂಗಳು', type: 'ಬಾಡಿಗೆ' },
+        { id: 3, title: 'ವಾಣಿಜ್ಯ ಕಚೇರಿ ಸ್ಥಳ', location: 'ವೈಟ್‌ಫೀಲ್ಡ್, ಬೆಂಗಳೂರು', price: '₹85,000/ತಿಂಗಳು', type: 'ಗುತ್ತಿಗೆ' },
+        { id: 4, title: '4BHK ವಿಲ್ಲಾ', location: 'HSR ಲೇಔಟ್, ಬೆಂಗಳೂರು', price: '₹2.8 ಕೋಟಿ', type: 'ಮಾರಾಟ' },
+        { id: 5, title: '1BHK ಸ್ಟುಡಿಯೋ ಅಪಾರ್ಟ್‌ಮೆಂಟ್', location: 'ಎಲೆಕ್ಟ್ರಾನಿಕ್ ಸಿಟಿ, ಬೆಂಗಳೂರು', price: '₹22,000/ತಿಂಗಳು', type: 'ಬಾಡಿಗೆ' }
+      ]
+    }
+    return baseProperties
+  }
 
   const filteredProperties = searchQuery.length > 0 
-    ? properties.filter(property => 
+    ? getTranslatedProperties().filter(property => 
         property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         property.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
         property.type.toLowerCase().includes(searchQuery.toLowerCase())
@@ -273,7 +293,7 @@ const Layout = ({ children }) => {
                     type="text"
                     value={searchQuery}
                     onChange={handleSearchChange}
-                    placeholder="Search properties, locations..."
+                    placeholder={searchPlaceholder}
                     className="w-80 pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                   />
                 </form>
@@ -308,7 +328,7 @@ const Layout = ({ children }) => {
                         onClick={() => handleSearchSubmit({ preventDefault: () => {} })}
                         className="text-sm text-primary-600 hover:text-primary-700 font-medium"
                       >
-                        View all results for "{searchQuery}" →
+                        {currentLanguage === 'kn' ? `"${searchQuery}" ಗಾಗಿ ಎಲ್ಲಾ ಫಲಿತಾಂಶಗಳನ್ನು ವೀಕ್ಷಿಸಿ →` : `View all results for "${searchQuery}" →`}
                       </button>
                     </div>
                   </div>
@@ -318,12 +338,14 @@ const Layout = ({ children }) => {
                 {showSearchResults && searchQuery.length > 0 && filteredProperties.length === 0 && (
                   <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-4 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                     <div className="px-4 text-center">
-                      <p className="text-sm text-gray-600 mb-2">No properties found for "{searchQuery}"</p>
+                      <p className="text-sm text-gray-600 mb-2">
+                        {currentLanguage === 'kn' ? `"${searchQuery}" ಗಾಗಿ ಯಾವುದೇ ಆಸ್ತಿಗಳು ಕಂಡುಬಂದಿಲ್ಲ` : `No properties found for "${searchQuery}"`}
+                      </p>
                       <button
                         onClick={() => handleSearchSubmit({ preventDefault: () => {} })}
                         className="text-sm text-primary-600 hover:text-primary-700 font-medium"
                       >
-                        Search all properties →
+                        {currentLanguage === 'kn' ? 'ಎಲ್ಲಾ ಆಸ್ತಿಗಳನ್ನು ಹುಡುಕಿ →' : 'Search all properties →'}
                       </button>
                     </div>
                   </div>

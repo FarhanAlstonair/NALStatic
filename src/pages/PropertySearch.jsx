@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { Search, MapPin, Filter, SlidersHorizontal, Map, List, Star } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
 
 const PropertySearch = () => {
   const [searchParams] = useSearchParams()
@@ -9,6 +10,7 @@ const PropertySearch = () => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
   const [map, setMap] = useState(null)
   const [searchResults, setSearchResults] = useState([])
+  const { currentLanguage, convertSearchText } = useLanguage()
 
   const propertyLocations = [
     { lat: 12.9352, lng: 77.6245, title: 'Koramangala Property', price: '₹1.8Cr' },
